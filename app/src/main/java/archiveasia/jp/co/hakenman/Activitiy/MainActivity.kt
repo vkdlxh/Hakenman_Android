@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ListView
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.WorkAdapter
+import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
 import archiveasia.jp.co.hakenman.Model.Work
 import com.google.gson.Gson
 
@@ -21,55 +21,83 @@ class MainActivity : AppCompatActivity() {
         val testJson = """
             [
             {
-            "year": "2018",
+            "workDate": "201808",
+            "workTimeSum": 150.25,
+            "workDaySum": 20,
             "detailWorkList": [
                 {
-                "monthDay": "monthDay1",
-                "beginTime": "beginTime1",
-                "endTime": "endTime1",
-                "breakTime": "breakTime1",
+                "workYear": 2018,
+                "workMonth": 08,
+                "workDay": 25,
+                "workWeek": "月",
+                "workFlag": true,
+                "beginTime": "09:00",
+                "endTime": "18:00",
+                "breakTime": "1",
                 "note": "note1"
                 },
                 {
-                "monthDay": "monthDay2",
-                "beginTime": "beginTime2",
-                "endTime": "endTime2",
-                "breakTime": "breakTime2",
-                "note": "note2"
+                "workYear": 2018,
+                "workMonth": 08,
+                "workDay": 25,
+                "workWeek": "月",
+                "workFlag": true,
+                "beginTime": "09:00",
+                "endTime": "18:00",
+                "breakTime": "1",
+                "note": "note1"
                 },
                 {
-                "monthDay": "monthDay3",
-                "beginTime": "beginTime3",
-                "endTime": "endTime3",
-                "breakTime": "breakTime3",
-                "note": "note3"
-                }
+                "workYear": 2018,
+                "workMonth": 08,
+                "workDay": 25,
+                "workWeek": "月",
+                "workFlag": true,
+                "beginTime": "09:00",
+                "endTime": "18:00",
+                "breakTime": "1",
+                "note": "note1"
+                },
             ]
             },
             {
-            "year": "2017",
+            "workDate": "201808",
+            "workTimeSum": 150.25,
+            "workDaySum": 20,
             "detailWorkList": [
                 {
-                "monthDay": "monthDay1",
-                "beginTime": "beginTime1",
-                "endTime": "endTime1",
-                "breakTime": "breakTime1",
+                "workYear": 2018,
+                "workMonth": 08,
+                "workDay": 25,
+                "workWeek": "月",
+                "workFlag": true,
+                "beginTime": "09:00",
+                "endTime": "18:00",
+                "breakTime": "1",
                 "note": "note1"
                 },
                 {
-                "monthDay": "monthDay2",
-                "beginTime": "beginTime2",
-                "endTime": "endTime2",
-                "breakTime": "breakTime2",
-                "note": "note2"
+                "workYear": 2018,
+                "workMonth": 08,
+                "workDay": 25,
+                "workWeek": "月",
+                "workFlag": true,
+                "beginTime": "09:00",
+                "endTime": "18:00",
+                "breakTime": "1",
+                "note": "note1"
                 },
                 {
-                "monthDay": "monthDay3",
-                "beginTime": "beginTime3",
-                "endTime": "endTime3",
-                "breakTime": "breakTime3",
-                "note": "note3"
-                }
+                "workYear": 2018,
+                "workMonth": 08,
+                "workDay": 25,
+                "workWeek": "月",
+                "workFlag": true,
+                "beginTime": "09:00",
+                "endTime": "18:00",
+                "breakTime": "1",
+                "note": "note1"
+                },
             ]
             }
             ]

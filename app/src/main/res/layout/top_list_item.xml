@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/year_textView" />
 
     <TextView
-        android:id="@+id/week_textView"
+        android:id="@+id/header_week_textView"
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:layout_marginEnd="8dp"
@@ -56,15 +56,15 @@
         app:layout_constraintTop_toBottomOf="@+id/year_textView" />
 
     <TextView
-        android:id="@+id/day_textView"
+        android:id="@+id/header_day_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="28"
         app:layout_constraintBottom_toBottomOf="@+id/date_view"
-        app:layout_constraintEnd_toEndOf="@+id/week_textView"
-        app:layout_constraintTop_toBottomOf="@+id/week_textView" />
+        app:layout_constraintEnd_toEndOf="@+id/header_week_textView"
+        app:layout_constraintTop_toBottomOf="@+id/header_week_textView" />
 
     <View
         android:id="@+id/weekWork_view"

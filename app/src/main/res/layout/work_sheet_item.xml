@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activitiy.MonthWorkActivity">
+    android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/header_constraintLayout"
         android:layout_width="384dp"
         android:layout_height="23dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,74 +15,74 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/header_day_textView"
+            android:id="@+id/day_textView"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="center"
             android:paddingHorizontal="5dp"
             android:text="日"
-            app:layout_constraintBottom_toBottomOf="@+id/header_endWork_textView"
+            app:layout_constraintBottom_toBottomOf="@+id/endWork_textView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/header_week_textView"
+            android:id="@+id/week_textView"
             android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:gravity="center"
             android:paddingHorizontal="5dp"
             android:text="曜日"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/header_day_textView"
+            app:layout_constraintStart_toEndOf="@+id/day_textView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/header_workFlag_textView"
+            android:id="@+id/workFlag_textView"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="center"
             android:paddingHorizontal="5dp"
             android:text="営"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/header_week_textView"
+            app:layout_constraintStart_toEndOf="@+id/week_textView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/header_startWork_textView"
+            android:id="@+id/startWork_textView"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="center"
             android:paddingHorizontal="5dp"
             android:text="出勤時間"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/header_workFlag_textView"
+            app:layout_constraintStart_toEndOf="@+id/workFlag_textView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/header_endWork_textView"
+            android:id="@+id/endWork_textView"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="center"
             android:paddingHorizontal="5dp"
             android:text="退勤時間"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/header_startWork_textView"
+            app:layout_constraintStart_toEndOf="@+id/startWork_textView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/header_workTime_textView"
+            android:id="@+id/workTime_textView"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="center"
             android:paddingHorizontal="5dp"
             android:text="勤務時間"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/header_endWork_textView"
+            app:layout_constraintStart_toEndOf="@+id/endWork_textView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/header_note_textView"
+            android:id="@+id/note_textView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
@@ -91,17 +90,8 @@
             android:text="参考"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/header_workTime_textView"
+            app:layout_constraintStart_toEndOf="@+id/workTime_textView"
             app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
-
-    <ListView
-        android:id="@+id/worksheet_listView"
-        android:layout_width="384dp"
-        android:layout_height="480dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_constraintLayout" />
-
 </android.support.constraint.ConstraintLayout>
