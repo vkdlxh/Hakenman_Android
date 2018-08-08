@@ -1,97 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="23dp">
+    <TextView
+        android:id="@+id/day_textView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="5dp"
+        android:text="日"
+        android:layout_weight="2" />
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="384dp"
-        android:layout_height="23dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <TextView
+        android:id="@+id/week_textView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="5dp"
+        android:text="曜日"
+        android:layout_weight="2" />
 
-        <TextView
-            android:id="@+id/day_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingHorizontal="5dp"
-            android:text="日"
-            app:layout_constraintBottom_toBottomOf="@+id/endWork_textView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/workFlag_textView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="5dp"
+        android:text="営"
+        android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/week_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="23dp"
-            android:gravity="center"
-            android:paddingHorizontal="5dp"
-            android:text="曜日"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/day_textView"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/startWork_textView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="5dp"
+        android:text="出勤時間"
+        android:layout_weight="3" />
 
-        <TextView
-            android:id="@+id/workFlag_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingHorizontal="5dp"
-            android:text="営"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/week_textView"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/endWork_textView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="5dp"
+        android:text="退勤時間"
+        android:layout_weight="3" />
 
-        <TextView
-            android:id="@+id/startWork_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingHorizontal="5dp"
-            android:text="出勤時間"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/workFlag_textView"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/workTime_textView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="5dp"
+        android:text="勤務時間"
+        android:layout_weight="3" />
 
-        <TextView
-            android:id="@+id/endWork_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingHorizontal="5dp"
-            android:text="退勤時間"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/startWork_textView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <TextView
-            android:id="@+id/workTime_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingHorizontal="5dp"
-            android:text="勤務時間"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/endWork_textView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/note_textView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingHorizontal="5dp"
-            android:text="参考"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/workTime_textView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/note_textView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingHorizontal="5dp"
+        android:text="参考"
+        android:layout_weight="4" />
+</LinearLayout>

@@ -5,6 +5,8 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ListView
+import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
+import archiveasia.jp.co.hakenman.Adapter.WorksheetAdapter
 import archiveasia.jp.co.hakenman.Model.Work
 import archiveasia.jp.co.hakenman.R
 
@@ -21,7 +23,8 @@ class MonthWorkActivity : AppCompatActivity() {
         worksheetListView = findViewById(R.id.worksheet_listView)
 
         val item = intent.getParcelableExtra<Work>(INTENT_WORK_YEAR)
-        println(item)
+        val adapter = WorksheetAdapter(this, item.detailWorkList)
+        worksheetListView.adapter = adapter
     }
 
     companion object {

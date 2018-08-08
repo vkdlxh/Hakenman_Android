@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 "endTime": "18:00",
                 "breakTime": "1",
                 "note": "note1"
-                },
+                }
             ]
             },
             {
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                 "endTime": "18:00",
                 "breakTime": "1",
                 "note": "note1"
-                },
+                }
             ]
             }
             ]
