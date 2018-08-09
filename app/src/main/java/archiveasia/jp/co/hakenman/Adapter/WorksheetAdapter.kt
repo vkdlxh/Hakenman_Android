@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.R
+import java.text.SimpleDateFormat
 
 class WorksheetAdapter(private val context: Context,
                        private val detailWorkList: ArrayList<DetailWork>): BaseAdapter() {
@@ -33,18 +34,18 @@ class WorksheetAdapter(private val context: Context,
             "×"
         }
         val startWorkTextView = rowView.findViewById(R.id.startWork_textView) as TextView
-        startWorkTextView.text = detailWork.beginTime   // TODO: Date化するかも
+        startWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.beginTime)
         val endWorkTextView = rowView.findViewById(R.id.endWork_textView) as TextView
-        endWorkTextView.text = detailWork.endTime   // TODO: Date化するかも
+        endWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.endTime)
         val workTimeTextView = rowView.findViewById(R.id.workTime_textView) as TextView
-        // TODO: ( endTime(string -> Date) - startTime(string -> Date) ) - breakTime(Int)
-//        workTimeTextView.text =
+        val workTime = (detailWork.endTime.time - detailWork.beginTime.time) / (60 * 60 * 1000)
+        val finalWorkTime = workTime.toDouble() - detailWork.breakTime
+        workTimeTextView.text = finalWorkTime.toString()
         val noteTextView = rowView.findViewById(R.id.note_textView) as TextView
         noteTextView.text = detailWork.note
 
         return rowView
     }
-
 
     override fun getItem(position: Int): Any {
         return detailWorkList[position]

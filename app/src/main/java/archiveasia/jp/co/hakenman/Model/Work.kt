@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 data class Work (
-        val workDate: String,                       // 勤務日時
+        val workDate: Date,                         // 勤務日時
         val workTimeSum: Double,                    // 勤務時間合計
         val workDaySum: Int,                        // 勤務日合計
         val detailWorkList: ArrayList<DetailWork>   // 詳細勤務情報
@@ -29,7 +29,7 @@ data class Work (
     override fun describeContents(): Int = 0
 
     constructor(parcel: Parcel): this(
-            parcel.readString(),
+            Date(parcel.readLong()),
             parcel.readDouble(),
             parcel.readInt(),
             arrayListOf<DetailWork>().apply {
@@ -38,10 +38,19 @@ data class Work (
     )
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest?.writeString(workDate)
+        dest?.writeLong(workDate.time)
         dest?.writeDouble(workTimeSum)
         dest?.writeInt(workDaySum)
         dest?.writeList(detailWorkList)
+    }
+
+    fun Parcel.writeDate(date: Date?) {
+        writeLong(date?.time ?: -1)
+    }
+
+    fun Parcel.readDate(): Date? {
+        val long = readLong()
+        return if (long != -1L) Date(long) else null
     }
 
 }
@@ -53,8 +62,8 @@ data class DetailWork (
         val workDay: Int,       // 日
         val workWeek: String,   // 週
         val workFlag: Boolean,  // 勤務フラグ
-        val beginTime: String,  // 出社時間
-        val endTime: String,    // 退社時間
-        val breakTime: String,  // 休憩時間
+        val beginTime: Date,    // 出社時間
+        val endTime: Date,      // 退社時間
+        val breakTime: Double,  // 休憩時間
         val note: String        // 参考
 ): Parcelable

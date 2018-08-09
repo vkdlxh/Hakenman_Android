@@ -21,7 +21,7 @@ class WorkAdapter(private val context: Context,
         val work = getItem(position) as Work
 
         val yearTextView = rowView.findViewById(R.id.year_textView) as TextView
-        yearTextView.text = work.workDate.subSequence(0, 4) // 年だけ
+//        yearTextView.text = work.workDate.subSequence(0, 4) // 年だけ
         val weekTextViewrowView = rowView.findViewById(R.id.header_week_textView) as TextView
         val dayTextViewrowView = rowView.findViewById(R.id.header_day_textView) as TextView
 

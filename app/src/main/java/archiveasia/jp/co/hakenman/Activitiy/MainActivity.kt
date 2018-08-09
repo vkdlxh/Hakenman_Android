@@ -7,6 +7,7 @@ import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
 import archiveasia.jp.co.hakenman.Model.Work
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val testJson = """
             [
             {
-            "workDate": "201808",
+            "workDate": "2018/05/24 19:31:02",
             "workTimeSum": 150.25,
             "workDaySum": 20,
             "detailWorkList": [
@@ -31,9 +32,9 @@ class MainActivity : AppCompatActivity() {
                 "workDay": 25,
                 "workWeek": "月",
                 "workFlag": true,
-                "beginTime": "09:00",
-                "endTime": "18:00",
-                "breakTime": "1",
+                "beginTime": "2018/05/24 09:00:02",
+                "endTime": "2018/05/24 18:31:02",
+                "breakTime": 1,
                 "note": "note1"
                 },
                 {
@@ -42,9 +43,9 @@ class MainActivity : AppCompatActivity() {
                 "workDay": 25,
                 "workWeek": "月",
                 "workFlag": true,
-                "beginTime": "09:00",
-                "endTime": "18:00",
-                "breakTime": "1",
+                "beginTime": "2018/05/24 09:00:02",
+                "endTime": "2018/05/24 18:31:02",
+                "breakTime": 1,
                 "note": "note1"
                 },
                 {
@@ -53,15 +54,15 @@ class MainActivity : AppCompatActivity() {
                 "workDay": 25,
                 "workWeek": "月",
                 "workFlag": true,
-                "beginTime": "09:00",
-                "endTime": "18:00",
-                "breakTime": "1",
+                "beginTime": "2018/05/24 09:00:02",
+                "endTime": "2018/05/24 18:31:02",
+                "breakTime": 1,
                 "note": "note1"
                 }
             ]
             },
             {
-            "workDate": "201808",
+            "workDate": "2018/05/24 19:31:02",
             "workTimeSum": 150.25,
             "workDaySum": 20,
             "detailWorkList": [
@@ -71,9 +72,9 @@ class MainActivity : AppCompatActivity() {
                 "workDay": 25,
                 "workWeek": "月",
                 "workFlag": true,
-                "beginTime": "09:00",
-                "endTime": "18:00",
-                "breakTime": "1",
+                "beginTime": "2018/05/24 09:00:02",
+                "endTime": "2018/05/24 18:31:02",
+                "breakTime": 1,
                 "note": "note1"
                 },
                 {
@@ -82,9 +83,9 @@ class MainActivity : AppCompatActivity() {
                 "workDay": 25,
                 "workWeek": "月",
                 "workFlag": true,
-                "beginTime": "09:00",
-                "endTime": "18:00",
-                "breakTime": "1",
+                "beginTime": "2018/05/24 09:00:02",
+                "endTime": "2018/05/24 18:31:02",
+                "breakTime": 1,
                 "note": "note1"
                 },
                 {
@@ -93,16 +94,18 @@ class MainActivity : AppCompatActivity() {
                 "workDay": 25,
                 "workWeek": "月",
                 "workFlag": true,
-                "beginTime": "09:00",
-                "endTime": "18:00",
-                "breakTime": "1",
+                "beginTime": "2018/05/24 09:00:02",
+                "endTime": "2018/05/24 18:31:02",
+                "breakTime": 1,
                 "note": "note1"
                 }
             ]
             }
             ]
             """
-        val workList = Gson().fromJson(testJson, Array<Work>::class.java)
+        val gson = GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create()
+        val workList = gson.fromJson(testJson, Array<Work>::class.java)
+//        val workList = Gson().fromJson(testJson, Array<Work>::class.java)
         val adapter = WorkAdapter(this, workList)
         listView.adapter = adapter
         
