@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitiy.MonthWorkActivity">
+    tools:context=".Activity.MonthWorkActivity">
 
     <LinearLayout
         android:id="@+id/header_LinearLayout"

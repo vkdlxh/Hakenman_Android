@@ -1,10 +1,14 @@
-package archiveasia.jp.co.hakenman.Activitiy
+package archiveasia.jp.co.hakenman.Activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
+import android.text.InputType
+import android.widget.EditText
+import android.widget.Toast
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
+import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import archiveasia.jp.co.hakenman.Model.Work
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
@@ -113,8 +117,51 @@ class MainActivity : AppCompatActivity() {
 
         // FloatingActionButton リスナー設定
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            showCreateCategoryDialog()
         }
+    }
+
+    private fun showCreateCategoryDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+        var editTextAge: EditText? = null
+
+        with (alertDialog) {
+            setTitle("勤務表生成")
+
+            editTextAge = EditText(context)
+            editTextAge!!.hint="201808(yyyyDD)"
+            editTextAge!!.inputType = InputType.TYPE_CLASS_NUMBER
+
+            setPositiveButton("確認") {
+                dialog, whichButton ->
+                val editTextValue = editTextAge!!.text
+                // TODO: 공란, 형식 체크
+                if (editTextValue.isNullOrBlank()) {
+                    Toast.makeText(this@MainActivity, "空欄なく入力してください。", Toast.LENGTH_SHORT).show()
+                    showCreateCategoryDialog()
+                } else if (editTextValue.trim().length != 6) {
+                    Toast.makeText(this@MainActivity, "正しい値を入力してください。", Toast.LENGTH_SHORT).show()
+                    showCreateCategoryDialog()
+                } else {
+                    // TODO: 근무표 추가
+                    // 1. create work
+                    var yearMonth = editTextAge!!.text.toString()
+                    WorksheetManager().createWorksheet(yearMonth)
+                    // 3. 워크데이(일한 날만 필터해서) 넣기
+                    dialog.dismiss()
+                }
+
+
+            }
+
+            setNegativeButton("キャンセル") {
+                dialog, whichButton ->
+                dialog.dismiss()
+            }
+        }
+
+        val dialog = alertDialog.create()
+        dialog.setView(editTextAge)
+        dialog.show()
     }
 }

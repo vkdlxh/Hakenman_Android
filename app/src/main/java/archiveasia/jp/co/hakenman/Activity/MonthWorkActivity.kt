@@ -1,4 +1,4 @@
-package archiveasia.jp.co.hakenman.Activitiy
+package archiveasia.jp.co.hakenman.Activity
 
 import android.content.Context
 import android.content.Intent

@@ -11,7 +11,7 @@ import archiveasia.jp.co.hakenman.R
 import java.text.SimpleDateFormat
 
 class WorksheetAdapter(private val context: Context,
-                       private val detailWorkList: ArrayList<DetailWork>): BaseAdapter() {
+                       private val detailWorkList: MutableList<DetailWork>): BaseAdapter() {
 
     private val inflater: LayoutInflater
             = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -38,8 +38,8 @@ class WorksheetAdapter(private val context: Context,
         val endWorkTextView = rowView.findViewById(R.id.endWork_textView) as TextView
         endWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.endTime)
         val workTimeTextView = rowView.findViewById(R.id.workTime_textView) as TextView
-        val workTime = (detailWork.endTime.time - detailWork.beginTime.time) / (60 * 60 * 1000)
-        val finalWorkTime = workTime.toDouble() - detailWork.breakTime
+        val workTime = (detailWork.endTime!!.time - detailWork.beginTime!!.time) / (60 * 60 * 1000)
+        val finalWorkTime = workTime.toDouble() - detailWork.breakTime!!
         workTimeTextView.text = finalWorkTime.toString()
         val noteTextView = rowView.findViewById(R.id.note_textView) as TextView
         noteTextView.text = detailWork.note
