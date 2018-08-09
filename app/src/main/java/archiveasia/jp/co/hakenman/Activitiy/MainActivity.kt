@@ -2,24 +2,16 @@ package archiveasia.jp.co.hakenman.Activitiy
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ListView
+import android.support.design.widget.Snackbar
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
 import archiveasia.jp.co.hakenman.Model.Work
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var listView: ListView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        listView = findViewById<ListView>(R.id.work_listView)
-
-        val testJson = """
+    val testJson = """
             [
             {
             "workDate": "2018/05/24 19:31:02",
@@ -103,15 +95,26 @@ class MainActivity : AppCompatActivity() {
             }
             ]
             """
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // テストデータをリストビューに設定
         val gson = GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create()
         val workList = gson.fromJson(testJson, Array<Work>::class.java)
-//        val workList = Gson().fromJson(testJson, Array<Work>::class.java)
         val adapter = WorkAdapter(this, workList)
-        listView.adapter = adapter
-        
-        listView.setOnItemClickListener { parent, view, position, id ->
+
+        work_listView.adapter = adapter
+        work_listView.setOnItemClickListener { parent, view, position, id ->
             val intent = MonthWorkActivity.newIntent(this, workList[position])
             startActivity(intent)
+        }
+
+        // FloatingActionButton リスナー設定
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
         }
     }
 }
