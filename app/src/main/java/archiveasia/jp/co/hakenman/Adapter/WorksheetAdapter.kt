@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.R
+import kotlinx.android.synthetic.main.work_sheet_item.view.*
 import java.text.SimpleDateFormat
 
 class WorksheetAdapter(private val context: Context,
@@ -23,25 +24,37 @@ class WorksheetAdapter(private val context: Context,
 
         // TODO: 일별 월일 값에서오름차순 정리
 
-        val dayTextView = rowView.findViewById(R.id.day_textView) as TextView
+        val dayTextView = rowView.day_textView
         dayTextView.text = detailWork.workDay.toString()
-        val weekTextView = rowView.findViewById(R.id.week_textView) as TextView
+        val weekTextView = rowView.week_textView
         weekTextView.text = detailWork.workWeek // TODO: 週変換
-        val workFlagTextView = rowView.findViewById(R.id.workFlag_textView) as TextView
+        val workFlagTextView = rowView.workFlag_textView
         workFlagTextView.text =  if (detailWork.workFlag == true) {
             "○"
         } else {
             "×"
         }
-        val startWorkTextView = rowView.findViewById(R.id.startWork_textView) as TextView
-        startWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.beginTime)
-        val endWorkTextView = rowView.findViewById(R.id.endWork_textView) as TextView
-        endWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.endTime)
-        val workTimeTextView = rowView.findViewById(R.id.workTime_textView) as TextView
-        val workTime = (detailWork.endTime!!.time - detailWork.beginTime!!.time) / (60 * 60 * 1000)
-        val finalWorkTime = workTime.toDouble() - detailWork.breakTime!!
-        workTimeTextView.text = finalWorkTime.toString()
-        val noteTextView = rowView.findViewById(R.id.note_textView) as TextView
+
+        val startWorkTextView = rowView.startWork_textView
+        if (detailWork.beginTime != null) {
+            startWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.beginTime)
+        }
+
+        val endWorkTextView = rowView.endWork_textView
+        if (detailWork.endTime != null) {
+            endWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.endTime)
+        }
+
+        val workTimeTextView = rowView.workTime_textView
+        if (detailWork.beginTime != null && detailWork.endTime != null && detailWork.breakTime != null) {
+            var beginTime = detailWork.beginTime.time
+            var endTime = detailWork.endTime.time
+            val workTime = (endTime - beginTime) / (60 * 60 * 1000)
+            val finalWorkTime = workTime.toDouble() - detailWork.breakTime
+            workTimeTextView.text = finalWorkTime.toString()
+        }
+
+        val noteTextView = rowView.note_textView
         noteTextView.text = detailWork.note
 
         return rowView

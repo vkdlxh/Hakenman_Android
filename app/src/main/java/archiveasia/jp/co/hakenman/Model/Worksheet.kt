@@ -5,17 +5,17 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-data class Work (
-        val workDate: Date,                         // 勤務日時
-        val workTimeSum: Double,                    // 勤務時間合計
-        val workDaySum: Int,                        // 勤務日合計
-        val detailWorkList: MutableList<DetailWork> // 詳細勤務情報
+data class Worksheet (
+        var workDate: Date,                         // 勤務日時
+        var workTimeSum: Double,                    // 勤務時間合計
+        var workDaySum: Int,                        // 勤務日合計
+        var detailWorkList: MutableList<DetailWork> // 詳細勤務情報
 ): Parcelable {
 
     // 以下の処理もっと勉強する
     companion object {
         @JvmField @Suppress("unused")
-        val CREATOR = createParcel { Work(it) }
+        val CREATOR = createParcel { Worksheet(it) }
 
         inline fun <reified T : Parcelable> createParcel(
                 crossinline createFromParcel: (Parcel) -> T?): Parcelable.Creator<T> =
@@ -52,7 +52,7 @@ data class DetailWork (
         val workMonth: Int,             // 月
         val workDay: Int,               // 日
         val workWeek: String,           // 週
-        val workFlag: Boolean,  // 勤務フラグ
+        val workFlag: Boolean,          // 勤務フラグ
         val beginTime: Date? = null,    // 出社時間
         val endTime: Date? = null,      // 退社時間
         val breakTime: Double? = null,  // 休憩時間

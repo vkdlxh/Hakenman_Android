@@ -9,8 +9,6 @@ import android.widget.Toast
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
-import archiveasia.jp.co.hakenman.Model.Work
-import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -103,25 +101,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // テストデータをリストビューに設定
-        val gson = GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create()
-        val workList = gson.fromJson(testJson, Array<Work>::class.java)
-        val adapter = WorkAdapter(this, workList)
-
-        work_listView.adapter = adapter
-        work_listView.setOnItemClickListener { parent, view, position, id ->
-            val intent = MonthWorkActivity.newIntent(this, workList[position])
-            startActivity(intent)
-        }
+        adaptListView()
 
         // FloatingActionButton リスナー設定
         fab.setOnClickListener { view ->
-            showCreateCategoryDialog()
+            showCreateWorksheetDialog()
         }
     }
 
-    private fun showCreateCategoryDialog() {
+    private fun showCreateWorksheetDialog() {
         val alertDialog = AlertDialog.Builder(this)
         var editTextAge: EditText? = null
 
@@ -135,19 +123,31 @@ class MainActivity : AppCompatActivity() {
             setPositiveButton("確認") {
                 dialog, whichButton ->
                 val editTextValue = editTextAge!!.text
-                // TODO: 공란, 형식 체크
+                // TODO: Valiateする他の方法考えてみる
                 if (editTextValue.isNullOrBlank()) {
                     Toast.makeText(this@MainActivity, "空欄なく入力してください。", Toast.LENGTH_SHORT).show()
-                    showCreateCategoryDialog()
+                    showCreateWorksheetDialog()
                 } else if (editTextValue.trim().length != 6) {
                     Toast.makeText(this@MainActivity, "正しい値を入力してください。", Toast.LENGTH_SHORT).show()
-                    showCreateCategoryDialog()
+                    showCreateWorksheetDialog()
                 } else {
-                    // TODO: 근무표 추가
-                    // 1. create work
                     var yearMonth = editTextAge!!.text.toString()
-                    WorksheetManager().createWorksheet(yearMonth)
-                    // 3. 워크데이(일한 날만 필터해서) 넣기
+                    var worksheet = WorksheetManager.createWorksheet(yearMonth)
+
+                    if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
+                        // 이미 존재하는 워크시트인지 확인하고
+                        // 존재하면 덮어쓸것인지 알람 메세지 표시
+                        // 확인 -> 덮어씀 취소 -> 아무것도 안함
+                    } else {
+                        // 존재하지 않으면 제이슨 파일에 추가
+                        WorksheetManager.addWorksheetToJsonFile(worksheet)
+                        WorksheetManager.loadLocalWorksheet()
+                        val worksheetList = WorksheetManager.getWorksheetList()
+                        adaptListView()
+                        // 다시 리스트뷰 리로드
+                        work_listView.invalidateViews()
+                    }
+
                     dialog.dismiss()
                 }
 
@@ -163,5 +163,21 @@ class MainActivity : AppCompatActivity() {
         val dialog = alertDialog.create()
         dialog.setView(editTextAge)
         dialog.show()
+    }
+
+    private fun adaptListView() {
+        WorksheetManager.loadLocalWorksheet()
+
+        var worksheetList = WorksheetManager.getWorksheetList()
+
+        if (worksheetList.isNotEmpty()) {
+            val adapter = WorkAdapter(this, worksheetList)
+
+            work_listView.adapter = adapter
+            work_listView.setOnItemClickListener { parent, view, position, id ->
+                val intent = MonthWorkActivity.newIntent(this, worksheetList[position])
+                startActivity(intent)
+            }
+        }
     }
 }

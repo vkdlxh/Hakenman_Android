@@ -3,9 +3,19 @@ package archiveasia.jp.co.hakenman.Extension
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Date.getWeek(): String {
-    var week = SimpleDateFormat("E").format(this)
-    return week
+fun Date.year(): String {
+    return SimpleDateFormat("yyyy").format(this)
+}
+
+fun Date.month(): String {
+    return SimpleDateFormat("MM").format(this)
+}
+
+fun Date.yearMonth(): String {
+    return SimpleDateFormat("yyyyMM").format(this)
+}
+fun Date.week(): String {
+    return SimpleDateFormat("E").format(this)
 }
 
 fun Date.isHoliday(): Boolean {

@@ -4,6 +4,5 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 fun String.createDate(): Date {
-    val date = (SimpleDateFormat("yyyyMM").parse(this))
-    return date
+    return SimpleDateFormat("yyyyMM").parse(this)
 }
