@@ -14,91 +14,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val testJson = """
-            [
-            {
-            "workDate": "2018/05/24 19:31:02",
-            "workTimeSum": 150.25,
-            "workDaySum": 20,
-            "detailWorkList": [
-                {
-                "workYear": 2018,
-                "workMonth": 08,
-                "workDay": 25,
-                "workWeek": "月",
-                "workFlag": true,
-                "beginTime": "2018/05/24 09:00:02",
-                "endTime": "2018/05/24 18:31:02",
-                "breakTime": 1,
-                "note": "note1"
-                },
-                {
-                "workYear": 2018,
-                "workMonth": 08,
-                "workDay": 25,
-                "workWeek": "月",
-                "workFlag": true,
-                "beginTime": "2018/05/24 09:00:02",
-                "endTime": "2018/05/24 18:31:02",
-                "breakTime": 1,
-                "note": "note1"
-                },
-                {
-                "workYear": 2018,
-                "workMonth": 08,
-                "workDay": 25,
-                "workWeek": "月",
-                "workFlag": true,
-                "beginTime": "2018/05/24 09:00:02",
-                "endTime": "2018/05/24 18:31:02",
-                "breakTime": 1,
-                "note": "note1"
-                }
-            ]
-            },
-            {
-            "workDate": "2018/05/24 19:31:02",
-            "workTimeSum": 150.25,
-            "workDaySum": 20,
-            "detailWorkList": [
-                {
-                "workYear": 2018,
-                "workMonth": 08,
-                "workDay": 25,
-                "workWeek": "月",
-                "workFlag": true,
-                "beginTime": "2018/05/24 09:00:02",
-                "endTime": "2018/05/24 18:31:02",
-                "breakTime": 1,
-                "note": "note1"
-                },
-                {
-                "workYear": 2018,
-                "workMonth": 08,
-                "workDay": 25,
-                "workWeek": "月",
-                "workFlag": true,
-                "beginTime": "2018/05/24 09:00:02",
-                "endTime": "2018/05/24 18:31:02",
-                "breakTime": 1,
-                "note": "note1"
-                },
-                {
-                "workYear": 2018,
-                "workMonth": 08,
-                "workDay": 25,
-                "workWeek": "月",
-                "workFlag": true,
-                "beginTime": "2018/05/24 09:00:02",
-                "endTime": "2018/05/24 18:31:02",
-                "breakTime": 1,
-                "note": "note1"
-                }
-            ]
-            }
-            ]
-            """
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -108,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             showCreateWorksheetDialog()
         }
+        title = getString(R.string.main_activity_title)
     }
 
     private fun showAlertDialog(completion: () -> Unit) {
@@ -180,12 +96,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addNewWorksheet(worksheet: Worksheet) {
-        // 존재하지 않으면 제이슨 파일에 추가
         WorksheetManager.addWorksheetToJsonFile(worksheet)
         WorksheetManager.loadLocalWorksheet()
-        val worksheetList = WorksheetManager.getWorksheetList()
         adaptListView()
-        // 다시 리스트뷰 리로드
         work_listView.invalidateViews()
     }
 
