@@ -58,7 +58,8 @@
         android:layout_weight="3" />
 
     <TextView
-        android:id="@+id/note_textView"
+        android:id
+            ="@+id/note_textView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center"

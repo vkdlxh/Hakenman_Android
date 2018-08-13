@@ -1,8 +1,6 @@
 package archiveasia.jp.co.hakenman.Manager
 
-import android.app.Application
 import android.content.Context
-import archiveasia.jp.co.hakenman.Activity.MainActivity
 import archiveasia.jp.co.hakenman.Extension.*
 import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.Model.Worksheet
@@ -10,30 +8,26 @@ import archiveasia.jp.co.hakenman.MyApplication
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.io.File
-import java.io.FileOutputStream
 import java.io.FileReader
+import java.io.PrintWriter
 import java.util.*
 
 
 object WorksheetManager {
 
-    private const val JSON_FILE_NAME = "worksheet.json"
+    private const val JSON_FILE_NAME = "/worksheet.json"
+
     private var worksheetList = mutableListOf<Worksheet>()
 
     fun loadLocalWorksheet() {
-        if (File(JSON_FILE_NAME).canRead()) {
-//            var jsonString = File(JSON_FILE_NAME).readText(Charsets.UTF_8)
-            val gson = GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create()
-//            var worksheetList = gson.fromJson(FileReader(JSON_FILE_NAME), object : TypeToken<MutableList<Worksheet>>() {}.type)
-            var worksheetList: MutableList<Worksheet> = gson.fromJson(FileReader(JSON_FILE_NAME), object : TypeToken<MutableList<Worksheet>>() {}.type)
+        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+        if (File(filepath).exists()) {
+            val gson = GsonBuilder().setDateFormat("MMM dd, yyyy hh:mm:ss a").create()
+            var worksheetList: MutableList<Worksheet> = gson.fromJson(FileReader(File(filepath)), object : TypeToken<MutableList<Worksheet>>() {}.type)
             this.worksheetList = worksheetList
         } else {
             println("No File")
         }
-    }
-
-    fun saveLocalWorksheet() {
-
     }
 
     fun addWorksheetToJsonFile(worksheet: Worksheet) {
@@ -41,15 +35,15 @@ object WorksheetManager {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val jsonString = gson.toJson(worksheetList)
 
-        var context = MyApplication.applicationContext()
+        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
 
-        context.openFileOutput(JSON_FILE_NAME, Context.MODE_PRIVATE).use {
-            it.write(jsonString.toByteArray())
-        }
+        val writer = PrintWriter(filepath)
+        writer.append(jsonString)
+        writer.close()
     }
 
-    fun getWorksheetList(): MutableList<Worksheet> {
-        return worksheetList
+    fun getWorksheetList(): List<Worksheet> {
+        return worksheetList.sortedByDescending { it.workDate.yearMonth() }
     }
 
     fun isAlreadyExistWorksheet(yearMonth: String): Boolean {
@@ -62,12 +56,6 @@ object WorksheetManager {
             }
         }
         return boolean
-    }
-
-
-    fun convertToJson(work: Worksheet): String {
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        return gson.toJson(work)
     }
 
     fun createWorksheet(yyyymm: String): Worksheet {

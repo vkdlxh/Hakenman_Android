@@ -9,6 +9,7 @@ import android.widget.Toast
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
+import archiveasia.jp.co.hakenman.Model.Worksheet
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -109,6 +110,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showAlertDialog(completion: () -> Unit) {
+        val alertDialog = AlertDialog.Builder(this)
+        with (alertDialog) {
+            setTitle("すでに存在している勤務表です。\n上書きしますか？")
+
+            setPositiveButton("確認") {
+                dialog, whichButton ->
+                completion
+            }
+
+            setNegativeButton("キャンセル") {
+                dialog, whichButton ->
+                dialog.dismiss()
+            }
+        }
+        val dialog = alertDialog.create()
+        dialog.show()
+    }
+
     private fun showCreateWorksheetDialog() {
         val alertDialog = AlertDialog.Builder(this)
         var editTextAge: EditText? = null
@@ -135,17 +155,11 @@ class MainActivity : AppCompatActivity() {
                     var worksheet = WorksheetManager.createWorksheet(yearMonth)
 
                     if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
-                        // 이미 존재하는 워크시트인지 확인하고
-                        // 존재하면 덮어쓸것인지 알람 메세지 표시
-                        // 확인 -> 덮어씀 취소 -> 아무것도 안함
+                        showAlertDialog {
+                            addNewWorksheet(worksheet)
+                        }
                     } else {
-                        // 존재하지 않으면 제이슨 파일에 추가
-                        WorksheetManager.addWorksheetToJsonFile(worksheet)
-                        WorksheetManager.loadLocalWorksheet()
-                        val worksheetList = WorksheetManager.getWorksheetList()
-                        adaptListView()
-                        // 다시 리스트뷰 리로드
-                        work_listView.invalidateViews()
+                        addNewWorksheet(worksheet)
                     }
 
                     dialog.dismiss()
@@ -163,6 +177,16 @@ class MainActivity : AppCompatActivity() {
         val dialog = alertDialog.create()
         dialog.setView(editTextAge)
         dialog.show()
+    }
+
+    private fun addNewWorksheet(worksheet: Worksheet) {
+        // 존재하지 않으면 제이슨 파일에 추가
+        WorksheetManager.addWorksheetToJsonFile(worksheet)
+        WorksheetManager.loadLocalWorksheet()
+        val worksheetList = WorksheetManager.getWorksheetList()
+        adaptListView()
+        // 다시 리스트뷰 리로드
+        work_listView.invalidateViews()
     }
 
     private fun adaptListView() {
