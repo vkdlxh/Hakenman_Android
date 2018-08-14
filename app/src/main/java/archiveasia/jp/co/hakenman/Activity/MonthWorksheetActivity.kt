@@ -7,7 +7,6 @@ import android.os.Bundle
 import archiveasia.jp.co.hakenman.Adapter.WorksheetAdapter
 import archiveasia.jp.co.hakenman.Extension.month
 import archiveasia.jp.co.hakenman.Extension.year
-import archiveasia.jp.co.hakenman.Extension.yearMonth
 import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.activity_month_work.*
@@ -25,6 +24,10 @@ class MonthWorkActivity : AppCompatActivity() {
         worksheet = intent.getParcelableExtra(INTENT_WORK_YEAR)
         val adapter = WorksheetAdapter(this, worksheet.detailWorkList)
         worksheet_listView.adapter = adapter
+        worksheet_listView.setOnItemClickListener { parent, view, position, id ->
+            val intent = DayWorksheetActivity.newIntent(this, worksheet.detailWorkList[position])
+            startActivity(intent)
+        }
 
         title = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
     }

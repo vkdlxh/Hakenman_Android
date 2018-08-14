@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
                     dialog.dismiss()
                 }
 
-
             }
 
             setNegativeButton("キャンセル") {

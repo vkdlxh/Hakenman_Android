@@ -3,20 +3,15 @@ package archiveasia.jp.co.hakenman.Extension
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Date.year(): String {
-    return SimpleDateFormat("yyyy").format(this)
-}
+fun Date.year(): String = SimpleDateFormat("yyyy").format(this)
 
-fun Date.month(): String {
-    return SimpleDateFormat("MM").format(this)
-}
+fun Date.month(): String = SimpleDateFormat("MM").format(this)
 
-fun Date.yearMonth(): String {
-    return SimpleDateFormat("yyyyMM").format(this)
-}
-fun Date.week(): String {
-    return SimpleDateFormat("E").format(this)
-}
+fun Date.yearMonth(): String = SimpleDateFormat("yyyyMM").format(this)
+
+fun Date.week(): String = SimpleDateFormat("E").format(this)
+
+fun Date.hourMinute(): String = SimpleDateFormat("hh:mm").format(this)
 
 fun Date.isHoliday(): Boolean {
     var calendar = Calendar.getInstance()

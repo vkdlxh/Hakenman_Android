@@ -1,6 +1,5 @@
 package archiveasia.jp.co.hakenman.Manager
 
-import android.content.Context
 import archiveasia.jp.co.hakenman.Extension.*
 import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.Model.Worksheet
@@ -11,7 +10,6 @@ import java.io.File
 import java.io.FileReader
 import java.io.PrintWriter
 import java.util.*
-
 
 object WorksheetManager {
 
