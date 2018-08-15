@@ -52,9 +52,9 @@ data class DetailWork (
         val workMonth: Int,             // 月
         val workDay: Int,               // 日
         val workWeek: String,           // 週
-        val workFlag: Boolean,          // 勤務フラグ
-        val beginTime: Date? = null,    // 出社時間
-        val endTime: Date? = null,      // 退社時間
-        val breakTime: Double? = null,  // 休憩時間
-        val note: String? = null        // 参考
+        var workFlag: Boolean,          // 勤務フラグ
+        var beginTime: Date? = null,    // 出社時間
+        var endTime: Date? = null,      // 退社時間
+        var breakTime: Double? = null,  // 休憩時間
+        var note: String? = null        // 参考
 ): Parcelable

@@ -18,7 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.MonthWorkActivity" />
-        <activity android:name=".Activity.DayWorksheetActivity"></activity>
+        <activity android:name=".Activity.DayWorksheetActivity" />
+        <activity
+            android:name=".Activity.SettingsActivity22"
+            android:label="@string/title_activity_settings22"></activity>
     </application>
 
 </manifest>
