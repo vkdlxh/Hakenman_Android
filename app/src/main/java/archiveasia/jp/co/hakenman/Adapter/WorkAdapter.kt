@@ -9,7 +9,7 @@ import archiveasia.jp.co.hakenman.Extension.month
 import archiveasia.jp.co.hakenman.Extension.year
 import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
-import kotlinx.android.synthetic.main.top_list_item.view.*
+import kotlinx.android.synthetic.main.worksheet_list_item.view.*
 
 class WorkAdapter(private val context: Context,
                   private val workList: List<Worksheet>): BaseAdapter() {
@@ -19,17 +19,13 @@ class WorkAdapter(private val context: Context,
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val rowView = inflater.inflate(R.layout.top_list_item, parent, false)
+        val rowView = inflater.inflate(R.layout.worksheet_list_item, parent, false)
         val work = getItem(position) as Worksheet
 
         val yearTextView = rowView.year_textView
         yearTextView.text = work.workDate.year()
         val monthTextView = rowView.month_textView
         monthTextView.text = work.workDate.month()
-        val weekTextViewrowView = rowView.header_week_textView
-
-        val dayTextViewrowView = rowView.header_day_textView
-
         val workHourTextViewrowView = rowView.workHour_textView
         workHourTextViewrowView.text = work.workTimeSum.toString()
         val workDayTextViewrowView = rowView.workDay_textView

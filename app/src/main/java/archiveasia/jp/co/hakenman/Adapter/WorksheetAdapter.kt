@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.R
-import kotlinx.android.synthetic.main.work_sheet_item.view.*
+import kotlinx.android.synthetic.main.month_worksheet_item.view.*
 import java.text.SimpleDateFormat
 
 class WorksheetAdapter(private val context: Context,
@@ -18,7 +18,7 @@ class WorksheetAdapter(private val context: Context,
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val rowView = inflater.inflate(R.layout.work_sheet_item, parent, false)
+        val rowView = inflater.inflate(R.layout.month_worksheet_item, parent, false)
         val detailWork = getItem(position) as DetailWork
 
         // TODO: 일별 월일 값에서오름차순 정리

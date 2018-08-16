@@ -20,11 +20,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/DayWorksheetActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/DayWorksheetActivity.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/MonthWorksheetActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/MonthWorksheetActivity.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/WorksheetListActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/WorksheetListActivity.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Extension/StringExtension.kt" afterPath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Extension/StringExtension.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Manager/WorksheetManager.kt" afterPath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Manager/WorksheetManager.kt" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorkAdapter.kt" afterPath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorkAdapter.kt" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorksheetAdapter.kt" afterPath="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorksheetAdapter.kt" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/top_list_item.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/work_sheet_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/month_worksheet_item.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,39 +46,52 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MonthWorksheetActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/MonthWorksheetActivity.kt">
+      <file leaf-file-name="WorkAdapter.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorkAdapter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="36" column="33" lean-forward="false" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
-              <folding>
-                <element signature="e#45#541#0" expanded="true" />
-                <element signature="e#1108#1153#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="270">
+              <caret line="27" column="50" lean-forward="false" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_month_work.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_month_work.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="79" column="43" lean-forward="false" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="43" />
+      <file leaf-file-name="month_worksheet_item.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/month_worksheet_item.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="411">
+              <caret line="61" column="12" lean-forward="false" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="android-designer2">
+          <provider selected="true" editor-type-id="android-designer2">
             <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WorksheetAdapter.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorksheetAdapter.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+      <file leaf-file-name="activity_main.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="51" />
               <folding />
             </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_day_worksheet.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_day_worksheet.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="2105">
+              <caret line="189" column="31" lean-forward="false" selection-start-line="189" selection-start-column="31" selection-end-line="189" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
           </provider>
         </entry>
       </file>
@@ -93,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WorksheetListActivity.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WorksheetListActivity.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/WorksheetListActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="80" column="22" lean-forward="false" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+            <state relative-caret-position="567">
+              <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
               <folding>
                 <element signature="e#45#501#0" expanded="true" />
               </folding>
@@ -105,11 +117,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_day_worksheet.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_day_worksheet.xml">
+      <file leaf-file-name="worksheet_list_item.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/worksheet_list_item.xml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="timepicker_dialog.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/timepicker_dialog.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="181" column="33" lean-forward="false" selection-start-line="181" selection-start-column="33" selection-end-line="181" selection-end-column="46" />
+            <state relative-caret-position="135">
+              <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -123,118 +148,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="140">
               <caret line="160" column="0" lean-forward="false" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Date.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-28/android.jar!/java/util/Date.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="137" column="16" lean-forward="false" selection-start-line="137" selection-start-column="16" selection-end-line="137" selection-end-column="16" />
-              <folding>
-                <marker date="1533088577467" expanded="false" signature="0:104" ph="/.../" />
-                <marker date="1533088577467" expanded="false" signature="133:180" ph="..." />
-                <marker date="1533088577467" expanded="false" signature="272:283" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="319:325" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="353:364" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="400:406" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="412:430" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="493:504" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="540:546" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="552:570" ph="/**...*/" />
-                <marker date="1533088577467" expanded="true" signature="652:704" ph="{...}" />
-                <marker date="1533088577467" expanded="true" signature="710:728" ph="/**...*/" />
-                <marker date="1533088577467" expanded="true" signature="819:871" ph="{...}" />
-                <marker date="1533088577467" expanded="true" signature="877:895" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="937:948" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="984:990" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="1017:1028" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="1064:1070" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="1076:1094" ph="/**...*/" />
-                <marker date="1533088577467" expanded="true" signature="1196:1248" ph="{...}" />
-                <marker date="1533088577467" expanded="true" signature="1254:1272" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="1327:1338" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="1374:1380" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="1386:1404" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="1445:1456" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="1492:1498" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="1504:1522" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="1572:1583" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="1619:1625" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="1631:1649" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="1691:1702" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="1738:1744" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="1750:1768" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="1820:1831" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="1867:1873" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="1879:1897" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="1938:1949" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="1985:1991" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="1997:2015" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="2065:2076" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="2112:2118" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="2124:2142" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="2182:2193" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="2229:2235" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="2241:2259" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="2301:2312" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="2348:2354" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="2360:2378" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="2430:2441" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="2477:2483" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="2489:2507" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="2551:2562" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="2598:2604" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="2610:2628" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="2684:2695" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="2731:2737" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="2743:2761" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="2805:2816" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="2852:2858" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="2864:2882" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="2938:2949" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="2985:2991" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="3018:3029" ph=" { " />
-                <marker date="1533088577467" expanded="true" signature="3065:3071" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="3107:3118" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="3154:3160" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="3198:3209" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="3245:3251" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="3288:3299" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="3335:3341" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="3380:3391" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="3427:3433" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="3477:3488" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="3524:3530" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="3557:3568" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="3604:3610" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="3640:3651" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="3687:3693" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="3699:3717" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="3768:3779" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="3815:3821" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="3827:3845" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="3893:3904" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="3940:3946" ph=" }" />
-                <marker date="1533088577467" expanded="true" signature="3952:3970" ph="/**...*/" />
-                <marker date="1533088577467" expanded="false" signature="4021:4032" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="4068:4074" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="4120:4131" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="4167:4173" ph=" }" />
-                <marker date="1533088577467" expanded="false" signature="4205:4216" ph=" { " />
-                <marker date="1533088577467" expanded="false" signature="4252:4258" ph=" }" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DateExtension.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Extension/DateExtension.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -2389,7 +2302,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/MyApplication.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/work_sheet_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorkAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/MainActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/MonthWorkActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/TimePickerFragment.kt" />
@@ -2408,6 +2320,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/DayWorksheetActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Manager/WorksheetManager.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/WorksheetListActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/top_list_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorkAdapter.kt" />
       </list>
     </option>
   </component>
@@ -2720,7 +2634,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="21" y="28" width="1400" height="767" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32886904" sideWeight="0.49116346" order="6" side_tool="false" content_ui="tabs" />
@@ -2737,14 +2650,14 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2496318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2496318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33333334" sideWeight="0.4970545" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36607143" sideWeight="0.4970545" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36607143" sideWeight="0.4970545" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26339287" sideWeight="0.48821798" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26339287" sideWeight="0.48821798" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2853,28 +2766,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/work_sheet_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="61" column="12" lean-forward="false" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/top_list_item.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-28/android.jar!/android/content/ContextWrapper.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
@@ -2971,14 +2862,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
           <caret line="278" column="55" lean-forward="false" selection-start-line="278" selection-start-column="55" selection-end-line="278" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorkAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4695,17 +4578,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-28/android.jar!/android/view/MenuItem.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -4818,17 +4690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/timepicker_dialog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-rc01.aar/e54bcc7fd1bcabeda3abd96c0a17263c/jars/classes.jar!/android/support/v7/widget/AppCompatTextView.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
@@ -4886,17 +4747,6 @@
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_day_worksheet.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="181" column="33" lean-forward="false" selection-start-line="181" selection-start-column="33" selection-end-line="181" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-28/android.jar!/java/util/Date.class">
@@ -5023,8 +4873,8 @@
         <state relative-caret-position="169">
           <caret line="36" column="33" lean-forward="false" selection-start-line="36" selection-start-column="33" selection-end-line="36" selection-end-column="33" />
           <folding>
-            <element signature="e#45#541#0" expanded="true" />
-            <element signature="e#1108#1153#0" expanded="true" />
+            <element signature="e#45#541#0" expanded="false" />
+            <element signature="e#1108#1153#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -5063,12 +4913,75 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Activity/WorksheetListActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="80" column="22" lean-forward="false" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+        <state relative-caret-position="567">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
           <folding>
             <element signature="e#45#501#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/timepicker_dialog.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/archiveasia/jp/co/hakenman/Adapter/WorkAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="27" column="50" lean-forward="false" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_day_worksheet.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="2105">
+          <caret line="189" column="31" lean-forward="false" selection-start-line="189" selection-start-column="31" selection-end-line="189" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/worksheet_list_item.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/month_worksheet_item.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="61" column="12" lean-forward="false" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
   </component>

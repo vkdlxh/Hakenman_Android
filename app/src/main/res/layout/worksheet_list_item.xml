@@ -19,52 +19,33 @@
 
     <TextView
         android:id="@+id/year_textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="2018"
-        app:layout_constraintEnd_toEndOf="@+id/date_view"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/date_view"
         app:layout_constraintStart_toStartOf="@+id/date_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/date_view" />
 
     <TextView
         android:id="@+id/month_textView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="08"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/date_view"
-        app:layout_constraintStart_toStartOf="@+id/date_view"
-        app:layout_constraintTop_toBottomOf="@+id/year_textView" />
-
-    <TextView
-        android:id="@+id/header_week_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="17dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="日"
         app:layout_constraintEnd_toEndOf="@+id/date_view"
-        app:layout_constraintTop_toBottomOf="@+id/year_textView" />
-
-    <TextView
-        android:id="@+id/header_day_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:text="28"
-        app:layout_constraintBottom_toBottomOf="@+id/date_view"
-        app:layout_constraintEnd_toEndOf="@+id/header_week_textView"
-        app:layout_constraintTop_toBottomOf="@+id/header_week_textView" />
+        app:layout_constraintTop_toTopOf="@+id/date_view" />
 
     <View
         android:id="@+id/weekWork_view"
@@ -74,10 +55,11 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/date_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/date_view"
-        app:layout_constraintTop_toTopOf="@+id/year_textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -97,10 +79,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="Hour"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="@+id/weekWork_view"
+        app:layout_constraintStart_toEndOf="@+id/workHour_textView"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
@@ -118,20 +103,38 @@
         android:id="@+id/workHour_textView"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/weekWork_view"
         app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/workDay_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/textView7"
-        app:layout_constraintEnd_toStartOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/weekWork_view"
         app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:text="/"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/date_view"
+        app:layout_constraintEnd_toStartOf="@+id/month_textView"
+        app:layout_constraintStart_toEndOf="@+id/year_textView"
+        app:layout_constraintTop_toTopOf="@+id/date_view" />
 </android.support.constraint.ConstraintLayout>
