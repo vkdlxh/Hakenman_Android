@@ -1,5 +1,6 @@
 package archiveasia.jp.co.hakenman.Activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -13,23 +14,30 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import archiveasia.jp.co.hakenman.Extension.hourMinute
+import archiveasia.jp.co.hakenman.Extension.hourMinuteToDate
 import archiveasia.jp.co.hakenman.Model.DetailWork
+import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.activity_day_worksheet.*
-import kotlinx.android.synthetic.main.timepicker_dialog.*
 import kotlinx.android.synthetic.main.timepicker_dialog.view.*
 
-const val INTENT_WORK_DAY = "day"
+const val INTENT_DETAILWORK_INDEX = "index"
+const val INTENT_DETAILWORK_VALUE = "day"
+const val INTENT_WORKSHEET_RETURN_VALUE = "worksheet_return_value"
 
 class DayWorksheetActivity : AppCompatActivity() {
 
+    private var index: Int = -1
+    private lateinit var worksheet: Worksheet
     private lateinit var detailWork: DetailWork
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day_worksheet)
 
-        detailWork = intent.getParcelableExtra(INTENT_WORK_DAY)
+        index = intent.getIntExtra(INTENT_DETAILWORK_INDEX, index)
+        worksheet = intent.getParcelableExtra(INTENT_DETAILWORK_VALUE)
+        detailWork = worksheet.detailWorkList[index]
         setDetailWork()
 
         // フォムを見えなくする
@@ -51,6 +59,8 @@ class DayWorksheetActivity : AppCompatActivity() {
             R.id.action_add -> {
                 // TODO: save worksheet, and close activity
                 println("tap add button")
+                saveWorksheet()
+                finish()
                 return true
             }
         }
@@ -65,6 +75,35 @@ class DayWorksheetActivity : AppCompatActivity() {
             worksheet_form_view.visibility = View.INVISIBLE
             detailWork.workFlag = false
         }
+    }
+
+    private fun saveWorksheet() {
+        val beginTime = with (day_start_time_textView.text) {
+            if (isNotEmpty()) toString().hourMinuteToDate() else null
+        }
+        val endTime = with (day_end_time_textView.text) {
+            if (isNotEmpty()) toString().hourMinuteToDate() else null
+        }
+        val breakTime = with (day_break_time_textView.text) {
+            if (isNotEmpty()) toString().toDouble() else null
+        }
+        val note = note_editText.text.toString()
+
+        if (detailWork.workFlag) {
+            detailWork.beginTime = beginTime
+            detailWork.endTime = endTime
+            detailWork.breakTime = breakTime
+            detailWork.workFlag = detailWork.workFlag
+            detailWork.note = note
+
+            // TODO: 저장한 근무표를 근무표 리스트에 넣고 제이슨 파일에 덮어쓴다.
+            worksheet.detailWorkList.set(index, detailWork)
+            var resultIntent = Intent()
+            resultIntent.putExtra(INTENT_WORKSHEET_RETURN_VALUE, worksheet)
+            setResult(RESULT_OK, resultIntent)
+            finish()
+        }
+
     }
 
     private fun setDetailWork() {
@@ -82,13 +121,11 @@ class DayWorksheetActivity : AppCompatActivity() {
         note_editText.setText(if (detailWork.note != null) detailWork.note else "")
 
         start_group.addOnClickListener {
-            // TODO:
             showAddDialog("開始時間登録", day_start_time_textView)
             println("click group")
         }
 
         end_group.addOnClickListener {
-            // TODO:
             showAddDialog("終了時間登録", day_end_time_textView)
             println("click end group")
         }
@@ -130,7 +167,7 @@ class DayWorksheetActivity : AppCompatActivity() {
         } else {
             view.time_picker.currentMinute
         }
-        return "$hour : $minute"
+        return "$hour:$minute"
     }
 
     fun Group.addOnClickListener(listener: (view: View) -> Unit) {
@@ -141,9 +178,10 @@ class DayWorksheetActivity : AppCompatActivity() {
 
     companion object {
 
-        fun newIntent(context: Context, detailWork: DetailWork): Intent {
+        fun newIntent(context: Context, index: Int, worksheet: Worksheet): Intent {
             val intent = Intent(context, DayWorksheetActivity::class.java)
-            intent.putExtra(INTENT_WORK_DAY, detailWork)
+            intent.putExtra(INTENT_DETAILWORK_VALUE, worksheet)
+            intent.putExtra(INTENT_DETAILWORK_INDEX, index)
             return intent
         }
     }

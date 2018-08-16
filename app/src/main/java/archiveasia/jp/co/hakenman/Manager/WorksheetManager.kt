@@ -40,20 +40,52 @@ object WorksheetManager {
         writer.close()
     }
 
+    fun updateWorksheet(newValue: Worksheet) {
+        var oldValue = this.worksheetList.find {
+            it.workDate.yearMonth() == newValue.workDate.yearMonth()
+        }
+
+        this.worksheetList.remove(oldValue)
+        this.worksheetList.add(newValue)
+
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val jsonString = gson.toJson(worksheetList)
+
+        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+
+        val writer = PrintWriter(filepath)
+        writer.append(jsonString)
+        writer.close()
+    }
+
+    fun updateWorksheetWithIndex(index: Int, worksheet: Worksheet) {
+        worksheetList[index] = worksheet
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val jsonString = gson.toJson(worksheetList)
+
+        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+
+        val writer = PrintWriter(filepath)
+        writer.append(jsonString)
+        writer.close()
+    }
+
     fun getWorksheetList(): List<Worksheet> {
         return worksheetList.sortedByDescending { it.workDate.yearMonth() }
     }
 
     fun isAlreadyExistWorksheet(yearMonth: String): Boolean {
+        return worksheetList.filter { it.workDate.yearMonth() == yearMonth}.isNotEmpty()
+
         // TODO: 他の方法があるか探す(filter, map, reduce)
-        var boolean = false
-        for (work in worksheetList) {
-            if (work.workDate.yearMonth() == yearMonth) {
-                boolean = true
-                break
-            }
-        }
-        return boolean
+//        var boolean = false
+//        for (work in worksheetList) {
+//            if (work.workDate.yearMonth() == yearMonth) {
+//                boolean = true
+//                break
+//            }
+//        }
+//        return boolean
     }
 
     fun createWorksheet(yyyymm: String): Worksheet {

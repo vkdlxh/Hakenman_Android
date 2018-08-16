@@ -26,6 +26,11 @@ class MainActivity : AppCompatActivity() {
         title = getString(R.string.main_activity_title)
     }
 
+    override fun onResume() {
+        super.onResume()
+        reloadListView()
+    }
+
     private fun showAlertDialog(completion: () -> Unit) {
         val alertDialog = AlertDialog.Builder(this)
         with (alertDialog) {
@@ -33,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
             setPositiveButton("確認") {
                 dialog, whichButton ->
-                completion
+                completion()
             }
 
             setNegativeButton("キャンセル") {
@@ -72,12 +77,13 @@ class MainActivity : AppCompatActivity() {
 
                     if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
                         showAlertDialog {
-                            addNewWorksheet(worksheet)
+                            WorksheetManager.updateWorksheet(worksheet)
+                            reloadListView()
                         }
                     } else {
-                        addNewWorksheet(worksheet)
+                        WorksheetManager.addWorksheetToJsonFile(worksheet)
+                        reloadListView()
                     }
-
                     dialog.dismiss()
                 }
 
@@ -94,9 +100,7 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun addNewWorksheet(worksheet: Worksheet) {
-        WorksheetManager.addWorksheetToJsonFile(worksheet)
-        WorksheetManager.loadLocalWorksheet()
+    private fun reloadListView() {
         adaptListView()
         work_listView.invalidateViews()
     }
@@ -111,7 +115,7 @@ class MainActivity : AppCompatActivity() {
 
             work_listView.adapter = adapter
             work_listView.setOnItemClickListener { parent, view, position, id ->
-                val intent = MonthWorkActivity.newIntent(this, worksheetList[position])
+                val intent = MonthWorkActivity.newIntent(this, position, worksheetList[position])
                 startActivity(intent)
             }
         }
