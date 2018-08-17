@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Hakenman</string>
+
+    <!-- WorksheetList Activity -->
     <string name="main_activity_title">勤務表一覧</string>
+
+    <!-- MonthWorksheet Activity -->
     <string name="month_work_activity_title">%s年%s月勤務表</string>
+
+    <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s年%s月%s日勤務表</string>
-    <string name="title_activity_day_worksheet">Settings</string>
 
     <!-- Strings related to Settings -->
 

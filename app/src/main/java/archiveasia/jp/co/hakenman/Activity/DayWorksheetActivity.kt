@@ -1,8 +1,10 @@
 package archiveasia.jp.co.hakenman.Activity
 
 import android.app.Activity
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -12,9 +14,14 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.NumberPicker
 import android.widget.TextView
+import android.widget.TimePicker
 import archiveasia.jp.co.hakenman.Extension.hourMinute
 import archiveasia.jp.co.hakenman.Extension.hourMinuteToDate
+import archiveasia.jp.co.hakenman.Extension.month
+import archiveasia.jp.co.hakenman.Extension.year
+import archiveasia.jp.co.hakenman.Manager.PrefsManager
 import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
@@ -47,6 +54,9 @@ class DayWorksheetActivity : AppCompatActivity() {
         isWork_switch.setOnCheckedChangeListener { _, isChecked ->
             isEditableWorksheet(isChecked)
         }
+
+        title = getString(R.string.day_work_activity_title)
+                .format(detailWork.workYear, detailWork.workMonth, detailWork.workDay)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -57,8 +67,6 @@ class DayWorksheetActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             R.id.action_add -> {
-                // TODO: save worksheet, and close activity
-                println("tap add button")
                 saveWorksheet()
                 finish()
                 return true
@@ -95,15 +103,19 @@ class DayWorksheetActivity : AppCompatActivity() {
             detailWork.breakTime = breakTime
             detailWork.workFlag = detailWork.workFlag
             detailWork.note = note
-
-            // TODO: 저장한 근무표를 근무표 리스트에 넣고 제이슨 파일에 덮어쓴다.
-            worksheet.detailWorkList.set(index, detailWork)
-            var resultIntent = Intent()
-            resultIntent.putExtra(INTENT_WORKSHEET_RETURN_VALUE, worksheet)
-            setResult(RESULT_OK, resultIntent)
-            finish()
+        } else {
+            detailWork.beginTime = null
+            detailWork.endTime = null
+            detailWork.breakTime = null
+            detailWork.workFlag = detailWork.workFlag
+            detailWork.note = null
         }
-
+        // TODO: 저장한 근무표를 근무표 리스트에 넣고 제이슨 파일에 덮어쓴다.
+        worksheet.detailWorkList.set(index, detailWork)
+        var resultIntent = Intent()
+        resultIntent.putExtra(INTENT_WORKSHEET_RETURN_VALUE, worksheet)
+        setResult(RESULT_OK, resultIntent)
+        finish()
     }
 
     private fun setDetailWork() {
@@ -131,10 +143,32 @@ class DayWorksheetActivity : AppCompatActivity() {
         }
     }
 
+    private fun setTimePickerInterval(timePicker: TimePicker) {
+        var minuteID = Resources.getSystem().getIdentifier("minute", "id", "android")
+        var minutePicker = timePicker.findViewById<NumberPicker>(minuteID)
+
+        val interval = PrefsManager(this).interval // TODO: 유저 디폴트에 설정된 값 가져오는 걸로 수정.
+        var numValue = 60 / interval
+        var displayedValue = arrayListOf<String>()
+
+        for (i in 0..numValue) {
+            val value = i * interval
+            displayedValue.add(value.toString())
+        }
+
+        minutePicker.minValue = 0
+        minutePicker.maxValue = numValue - 1
+        minutePicker.displayedValues = displayedValue.toTypedArray()
+    }
+
     private fun showAddDialog(title: String, textView: TextView) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.timepicker_dialog, null)
         dialogView.time_picker.setIs24HourView(true)
+        setTimePickerInterval(dialogView.time_picker)
         val addDialog = AlertDialog.Builder(this)
+
+        // TODO: 인터벌 정보(유저 디폴트?) 가져와서 설
+        // TODO: 휴계시간일 때 픽커 뷰 는 0시 0분부터 시작하도록.
 
         with (addDialog) {
             setView(dialogView)
