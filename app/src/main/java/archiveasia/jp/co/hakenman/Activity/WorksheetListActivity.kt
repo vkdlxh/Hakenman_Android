@@ -4,12 +4,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.text.InputType
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
-import archiveasia.jp.co.hakenman.Model.Worksheet
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +30,20 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         reloadListView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.setting_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            R.id.setting -> {
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun showAlertDialog(completion: () -> Unit) {

@@ -5,4 +5,4 @@ import java.util.*
 
 fun String.createDate(): Date = SimpleDateFormat("yyyyMM").parse(this)
 
-fun String.hourMinuteToDate(): Date = SimpleDateFormat("hh:mm").parse(this)
+fun String.hourMinuteToDate(): Date = SimpleDateFormat("HH:mm").parse(this)

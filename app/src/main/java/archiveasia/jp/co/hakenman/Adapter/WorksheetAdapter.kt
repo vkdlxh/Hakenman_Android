@@ -45,12 +45,8 @@ class WorksheetAdapter(private val context: Context,
         }
 
         val workTimeTextView = rowView.workTime_textView
-        if (detailWork.beginTime != null && detailWork.endTime != null && detailWork.breakTime != null) {
-            var beginTime = detailWork.beginTime!!.time
-            var endTime = detailWork.endTime!!.time
-            val workTime = (endTime - beginTime) / (60 * 60 * 1000)
-            val finalWorkTime = workTime.toDouble() - detailWork.breakTime!!
-            workTimeTextView.text = finalWorkTime.toString()
+        if (detailWork.duration != null) {
+            workTimeTextView.text = detailWork.duration.toString()
         }
 
         val noteTextView = rowView.note_textView

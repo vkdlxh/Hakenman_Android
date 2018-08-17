@@ -1,7 +1,5 @@
 package archiveasia.jp.co.hakenman.Activity
 
-import android.app.Activity
-import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -19,14 +17,14 @@ import android.widget.TextView
 import android.widget.TimePicker
 import archiveasia.jp.co.hakenman.Extension.hourMinute
 import archiveasia.jp.co.hakenman.Extension.hourMinuteToDate
-import archiveasia.jp.co.hakenman.Extension.month
-import archiveasia.jp.co.hakenman.Extension.year
 import archiveasia.jp.co.hakenman.Manager.PrefsManager
+import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.activity_day_worksheet.*
 import kotlinx.android.synthetic.main.timepicker_dialog.view.*
+import java.util.*
 
 const val INTENT_DETAILWORK_INDEX = "index"
 const val INTENT_DETAILWORK_VALUE = "day"
@@ -47,7 +45,6 @@ class DayWorksheetActivity : AppCompatActivity() {
         detailWork = worksheet.detailWorkList[index]
         setDetailWork()
 
-        // フォムを見えなくする
         worksheet_form_view.visibility = if (detailWork.workFlag) View.VISIBLE else View.INVISIBLE
         isWork_switch.isChecked = detailWork.workFlag
 
@@ -60,7 +57,7 @@ class DayWorksheetActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.activity_actions, menu)
+        menuInflater.inflate(R.menu.add_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -93,23 +90,17 @@ class DayWorksheetActivity : AppCompatActivity() {
             if (isNotEmpty()) toString().hourMinuteToDate() else null
         }
         val breakTime = with (day_break_time_textView.text) {
-            if (isNotEmpty()) toString().toDouble() else null
+            if (isNotEmpty()) toString().hourMinuteToDate() else null
         }
         val note = note_editText.text.toString()
 
-        if (detailWork.workFlag) {
-            detailWork.beginTime = beginTime
-            detailWork.endTime = endTime
-            detailWork.breakTime = breakTime
-            detailWork.workFlag = detailWork.workFlag
-            detailWork.note = note
-        } else {
-            detailWork.beginTime = null
-            detailWork.endTime = null
-            detailWork.breakTime = null
-            detailWork.workFlag = detailWork.workFlag
-            detailWork.note = null
-        }
+        detailWork.beginTime = if (detailWork.workFlag) beginTime else null
+        detailWork.endTime = if (detailWork.workFlag) endTime else null
+        detailWork.breakTime = if (detailWork.workFlag) breakTime else null
+        detailWork.duration = WorksheetManager.calculateDuration(detailWork)
+        detailWork.workFlag = detailWork.workFlag
+        detailWork.note = if (detailWork.workFlag) note else null
+
         // TODO: 저장한 근무표를 근무표 리스트에 넣고 제이슨 파일에 덮어쓴다.
         worksheet.detailWorkList.set(index, detailWork)
         var resultIntent = Intent()
@@ -121,25 +112,20 @@ class DayWorksheetActivity : AppCompatActivity() {
     private fun setDetailWork() {
         day_start_time_textView.text = if (detailWork.beginTime != null) detailWork.beginTime!!.hourMinute() else ""
         day_end_time_textView.text = if (detailWork.endTime != null) detailWork.endTime!!.hourMinute() else ""
-        day_break_time_textView.text = if (detailWork.breakTime != null) detailWork.breakTime.toString() else ""
-        day_total_time_textView.text = if (detailWork.beginTime != null && detailWork.endTime != null && detailWork.breakTime != null) {
-            var beginTime = detailWork.beginTime!!.time
-            var endTime = detailWork.endTime!!.time
-            val workTime = (endTime - beginTime) / (60 * 60 * 1000)
-            (workTime.toDouble() - detailWork.breakTime!!).toString()
-        } else {
-            ""
-        }
+        day_break_time_textView.text = if (detailWork.breakTime != null) detailWork.breakTime!!.hourMinute() else ""
+        day_total_time_textView.text = if (detailWork.duration != null) detailWork.duration.toString() else ""
         note_editText.setText(if (detailWork.note != null) detailWork.note else "")
 
-        start_group.addOnClickListener {
-            showAddDialog("開始時間登録", day_start_time_textView)
-            println("click group")
+        beginTime_view.setOnClickListener {
+            showAddDialog("開始時間登録", day_start_time_textView, false)
         }
 
-        end_group.addOnClickListener {
-            showAddDialog("終了時間登録", day_end_time_textView)
-            println("click end group")
+        endTime_view.setOnClickListener {
+            showAddDialog("終了時間登録", day_end_time_textView, false)
+        }
+
+        breakTime_view.setOnClickListener {
+            showAddDialog("休憩時間登録", day_break_time_textView, true)
         }
     }
 
@@ -147,13 +133,13 @@ class DayWorksheetActivity : AppCompatActivity() {
         var minuteID = Resources.getSystem().getIdentifier("minute", "id", "android")
         var minutePicker = timePicker.findViewById<NumberPicker>(minuteID)
 
-        val interval = PrefsManager(this).interval // TODO: 유저 디폴트에 설정된 값 가져오는 걸로 수정.
+        val interval = PrefsManager(this).interval
         var numValue = 60 / interval
         var displayedValue = arrayListOf<String>()
 
         for (i in 0..numValue) {
             val value = i * interval
-            displayedValue.add(value.toString())
+            displayedValue.add(i, value.toString())
         }
 
         minutePicker.minValue = 0
@@ -161,14 +147,21 @@ class DayWorksheetActivity : AppCompatActivity() {
         minutePicker.displayedValues = displayedValue.toTypedArray()
     }
 
-    private fun showAddDialog(title: String, textView: TextView) {
+    private fun showAddDialog(title: String, textView: TextView, isBreakTimePickerView: Boolean) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.timepicker_dialog, null)
         dialogView.time_picker.setIs24HourView(true)
+
+        if (isBreakTimePickerView) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                dialogView.time_picker.time_picker.hour = 0
+                dialogView.time_picker.time_picker.minute = 0
+            } else {
+                dialogView.time_picker.time_picker.currentHour = 0
+                dialogView.time_picker.time_picker.currentMinute = 0
+            }
+        }
         setTimePickerInterval(dialogView.time_picker)
         val addDialog = AlertDialog.Builder(this)
-
-        // TODO: 인터벌 정보(유저 디폴트?) 가져와서 설
-        // TODO: 휴계시간일 때 픽커 뷰 는 0시 0분부터 시작하도록.
 
         with (addDialog) {
             setView(dialogView)
@@ -176,7 +169,7 @@ class DayWorksheetActivity : AppCompatActivity() {
 
             setPositiveButton("登録") {
                 dialog, whichButton ->
-                textView.text = getPickerTime(dialogView)
+                textView.text = getPickerTime(dialogView).hourMinute()
                 dialog.dismiss()
             }
 
@@ -190,24 +183,21 @@ class DayWorksheetActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPickerTime(view: View): String {
+    private fun getPickerTime(view: View): Date {
         val hour = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             view.time_picker.hour
         } else {
             view.time_picker.currentHour
         }
         val minute = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            view.time_picker.minute
+            view.time_picker.minute * PrefsManager(this).interval
         } else {
-            view.time_picker.currentMinute
+            view.time_picker.currentMinute * PrefsManager(this).interval
         }
-        return "$hour:$minute"
-    }
-
-    fun Group.addOnClickListener(listener: (view: View) -> Unit) {
-        referencedIds.forEach { id ->
-            rootView.findViewById<View>(id).setOnClickListener(listener)
-        }
+        var cal = Calendar.getInstance()
+        cal.set(Calendar.HOUR_OF_DAY, hour)
+        cal.set(Calendar.MINUTE, minute)
+        return cal.time
     }
 
     companion object {

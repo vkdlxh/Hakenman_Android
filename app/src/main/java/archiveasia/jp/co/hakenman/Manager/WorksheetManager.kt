@@ -76,16 +76,18 @@ object WorksheetManager {
 
     fun isAlreadyExistWorksheet(yearMonth: String): Boolean {
         return worksheetList.filter { it.workDate.yearMonth() == yearMonth}.isNotEmpty()
+    }
 
-        // TODO: 他の方法があるか探す(filter, map, reduce)
-//        var boolean = false
-//        for (work in worksheetList) {
-//            if (work.workDate.yearMonth() == yearMonth) {
-//                boolean = true
-//                break
-//            }
-//        }
-//        return boolean
+    fun calculateDuration(detailWork: DetailWork): Double? {
+        if (detailWork.beginTime != null && detailWork.endTime != null && detailWork.breakTime != null) {
+            var beginTime = detailWork.beginTime!!.time
+            var endTime = detailWork.endTime!!.time
+            var breakTime = detailWork.breakTime!!.hourMinuteToDouble()
+            val workTime = (endTime - beginTime) / (60 * 60 * 1000)
+            return workTime.toDouble() - breakTime
+        } else {
+            return null
+        }
     }
 
     fun createWorksheet(yyyymm: String): Worksheet {

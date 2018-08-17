@@ -11,7 +11,7 @@ fun Date.yearMonth(): String = SimpleDateFormat("yyyyMM").format(this)
 
 fun Date.week(): String = SimpleDateFormat("E").format(this)
 
-fun Date.hourMinute(): String = SimpleDateFormat("hh:mm").format(this)
+fun Date.hourMinute(): String = SimpleDateFormat("HH:mm").format(this)
 
 fun Date.isHoliday(): Boolean {
     var calendar = Calendar.getInstance()
@@ -27,4 +27,13 @@ fun Date.isHoliday(): Boolean {
         }
     }
 
+}
+
+fun Date.hourMinuteToDouble(): Double {
+    var calendar = Calendar.getInstance()
+    calendar.time = this
+    var hour = calendar.get(Calendar.HOUR_OF_DAY)
+    var minute = calendar.get(Calendar.MINUTE)
+
+    return hour.toDouble() + (minute.toDouble() / 60)
 }
