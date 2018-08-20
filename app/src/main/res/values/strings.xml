@@ -10,8 +10,21 @@
     <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s年%s月%s日勤務表</string>
 
+    <!-- Day　Worksheet Layout -->
+    <string name="workday_setting_header">勤務設定</string>
+    <string name="workday_switch_title">作業日</string>
     <string name="worktime_setting_header">勤務時間設定</string>
+    <string name="worktime_begin_title">開始時間</string>
+    <string name="worktime_end_title">終了時間</string>
+    <string name="worktime_break_title">休憩時間</string>
+    <string name="worktime_total_title">勤務時間</string>
     <string name="note_setting_header">参考</string>
+
+    <!-- Setting Layout -->
+    <string name="worksheet_setting_header">勤怠管理設定</string>
+    <string name="app_info_header">アプリ情報</string>
+    <string name="interval_time_title">勤務時間設定</string>
+    <string name="version">App Version</string>
 
     <!-- Strings related to Settings -->
 
