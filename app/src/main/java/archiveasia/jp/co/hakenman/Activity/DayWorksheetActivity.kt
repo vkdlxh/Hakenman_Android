@@ -24,6 +24,7 @@ import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.activity_day_worksheet.*
+import kotlinx.android.synthetic.main.timepicker_dialog.*
 import kotlinx.android.synthetic.main.timepicker_dialog.view.*
 import java.util.*
 
@@ -107,8 +108,18 @@ class DayWorksheetActivity : AppCompatActivity() {
         detailWork.workFlag = detailWork.workFlag
         detailWork.note = if (detailWork.workFlag) note else null
 
-        // TODO: 저장한 근무표를 근무표 리스트에 넣고 제이슨 파일에 덮어쓴다.
-        worksheet.detailWorkList.set(index, detailWork)
+        worksheet.detailWorkList[index] = detailWork
+
+        // 勤務日合計
+        worksheet.workDaySum = worksheet.detailWorkList
+                .filter { it.workFlag == true }
+                .count()
+
+        // 勤務時間合計
+        worksheet.workTimeSum = worksheet.detailWorkList
+                .filter { it.workFlag == true && it.duration != null }
+                .sumByDouble { it.duration!! }
+
         var resultIntent = Intent()
         resultIntent.putExtra(INTENT_WORKSHEET_RETURN_VALUE, worksheet)
         setResult(RESULT_OK, resultIntent)
@@ -167,19 +178,19 @@ class DayWorksheetActivity : AppCompatActivity() {
             hour = calendar.get(Calendar.HOUR_OF_DAY)
             minute = calendar.get(Calendar.MINUTE)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                dialogView.time_picker.time_picker.hour = hour
-                dialogView.time_picker.time_picker.minute = minute
+                dialogView.time_picker.hour = hour
+                dialogView.time_picker.minute = minute
             } else {
-                dialogView.time_picker.time_picker.currentHour = hour
-                dialogView.time_picker.time_picker.currentMinute = minute
+                dialogView.time_picker.currentHour = hour
+                dialogView.time_picker.currentMinute = minute
             }
         } else if (isBreakTimePickerView) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                dialogView.time_picker.time_picker.hour = hour
-                dialogView.time_picker.time_picker.minute = minute
+                dialogView.time_picker.hour = hour
+                dialogView.time_picker.minute = minute
             } else {
-                dialogView.time_picker.time_picker.currentHour = hour
-                dialogView.time_picker.time_picker.currentMinute = minute
+                dialogView.time_picker.currentHour = hour
+                dialogView.time_picker.currentMinute = minute
             }
         }
 
