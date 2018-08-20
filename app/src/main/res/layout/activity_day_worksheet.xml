@@ -50,6 +50,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/day_constraintLayout">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/worktime_setting_header"
+            android:textSize="10sp" />
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="45dp">
@@ -191,7 +200,17 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="60dp">
+
+            <TextView
+                android:id="@+id/note_setting_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/note_setting_header"
+                android:textSize="10sp" />
 
             <EditText
                 android:id="@+id/note_editText"
@@ -201,13 +220,13 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/note_setting_header" />
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

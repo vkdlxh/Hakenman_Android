@@ -10,6 +10,9 @@
     <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s年%s月%s日勤務表</string>
 
+    <string name="worktime_setting_header">勤務時間設定</string>
+    <string name="note_setting_header">参考</string>
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
