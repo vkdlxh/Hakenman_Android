@@ -46,12 +46,12 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showAlertDialog(completion: () -> Unit) {
+    private fun showAlertDialog(title: String, btn: String, completion: () -> Unit) {
         val alertDialog = AlertDialog.Builder(this)
         with (alertDialog) {
-            setTitle("すでに存在している勤務表です。\n上書きしますか？")
+            setTitle(title)
 
-            setPositiveButton("確認") {
+            setPositiveButton(btn) {
                 dialog, whichButton ->
                 completion()
             }
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                     var worksheet = WorksheetManager.createWorksheet(yearMonth)
 
                     if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
-                        showAlertDialog {
+                        showAlertDialog("すでに存在している勤務表です。\n上書きしますか？", "確認") {
                             WorksheetManager.updateWorksheet(worksheet)
                             reloadListView()
                         }
@@ -125,14 +125,20 @@ class MainActivity : AppCompatActivity() {
 
         var worksheetList = WorksheetManager.getWorksheetList()
 
-        if (worksheetList.isNotEmpty()) {
-            val adapter = WorkAdapter(this, worksheetList)
+        val adapter = WorkAdapter(this, worksheetList)
 
-            work_listView.adapter = adapter
-            work_listView.setOnItemClickListener { parent, view, position, id ->
-                val intent = MonthWorkActivity.newIntent(this, position, worksheetList[position])
-                startActivity(intent)
+        work_listView.adapter = adapter
+        work_listView.setOnItemClickListener { parent, view, position, id ->
+            val intent = MonthWorkActivity.newIntent(this, position, worksheetList[position])
+            startActivity(intent)
+        }
+
+        work_listView.setOnItemLongClickListener { parent, view, position, id ->
+            showAlertDialog("勤務表を削除しますか？", "削除") {
+                adapter.remove(position)
+                reloadListView()
             }
+            true
         }
     }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView
 import android.widget.TimePicker
 import archiveasia.jp.co.hakenman.Extension.hourMinute
 import archiveasia.jp.co.hakenman.Extension.hourMinuteToDate
+import archiveasia.jp.co.hakenman.Extension.hourMinuteToDouble
 import archiveasia.jp.co.hakenman.Manager.PrefsManager
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import archiveasia.jp.co.hakenman.Model.DetailWork
@@ -170,6 +171,26 @@ class DayWorksheetActivity : AppCompatActivity() {
             setPositiveButton("登録") {
                 dialog, whichButton ->
                 textView.text = getPickerTime(dialogView).hourMinute()
+
+                val beginTime = with (day_start_time_textView.text) {
+                    if (isNotEmpty()) toString().hourMinuteToDate() else null
+                }
+                val endTime = with (day_end_time_textView.text) {
+                    if (isNotEmpty()) toString().hourMinuteToDate() else null
+                }
+                val breakTime = with (day_break_time_textView.text) {
+                    if (isNotEmpty()) toString().hourMinuteToDate() else null
+                }
+
+                if (beginTime != null && endTime != null && breakTime != null) {
+                    var beginTime = beginTime!!.time
+                    var endTime = endTime!!.time
+                    var breakTime = breakTime!!.hourMinuteToDouble()
+                    val workTime = (endTime - beginTime) / (60 * 60 * 1000)
+                    val result = workTime.toDouble() - breakTime
+                    day_total_time_textView.text = result.toString()
+                }
+
                 dialog.dismiss()
             }
 

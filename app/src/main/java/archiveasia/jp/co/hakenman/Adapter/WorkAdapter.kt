@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import archiveasia.jp.co.hakenman.Extension.month
 import archiveasia.jp.co.hakenman.Extension.year
+import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.worksheet_list_item.view.*
@@ -44,5 +45,15 @@ class WorkAdapter(private val context: Context,
 
     override fun getCount(): Int {
         return workList.size
+    }
+
+    fun remove(index: Int) {
+        var removeValue = workList[index]
+        var mutableList = workList.toMutableList()
+        mutableList.remove(removeValue)
+        mutableList.toList()
+        WorksheetManager.updateAllWorksheet(mutableList)
+
+        notifyDataSetChanged()
     }
 }

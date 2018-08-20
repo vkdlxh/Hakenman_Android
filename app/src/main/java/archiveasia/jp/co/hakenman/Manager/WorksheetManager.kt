@@ -70,6 +70,17 @@ object WorksheetManager {
         writer.close()
     }
 
+    fun updateAllWorksheet(worksheetList: List<Worksheet>) {
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val jsonString = gson.toJson(worksheetList)
+
+        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+
+        val writer = PrintWriter(filepath)
+        writer.append(jsonString)
+        writer.close()
+    }
+
     fun getWorksheetList(): List<Worksheet> {
         return worksheetList.sortedByDescending { it.workDate.yearMonth() }
     }
