@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import archiveasia.jp.co.hakenman.Adapter.WorksheetAdapter
 import archiveasia.jp.co.hakenman.Extension.month
 import archiveasia.jp.co.hakenman.Extension.year
@@ -23,11 +24,21 @@ class MonthWorkActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_month_work)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         index = intent.getIntExtra(INTENT_WORKSHEET_INDEX, index)
         worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)
         adaptListView()
         title = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return if (item?.itemId == android.R.id.home) {
+            finish()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

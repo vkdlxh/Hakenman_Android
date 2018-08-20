@@ -40,6 +40,7 @@ class DayWorksheetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day_worksheet)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         index = intent.getIntExtra(INTENT_DETAILWORK_INDEX, index)
         worksheet = intent.getParcelableExtra(INTENT_DETAILWORK_VALUE)
@@ -66,6 +67,10 @@ class DayWorksheetActivity : AppCompatActivity() {
         when (item!!.itemId) {
             R.id.action_add -> {
                 saveWorksheet()
+                finish()
+                return true
+            }
+            android.R.id.home -> {
                 finish()
                 return true
             }
@@ -152,15 +157,32 @@ class DayWorksheetActivity : AppCompatActivity() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.timepicker_dialog, null)
         dialogView.time_picker.setIs24HourView(true)
 
-        if (isBreakTimePickerView) {
+        var hour = 0
+        var minute = 0
+
+        if (textView.text.isNotEmpty()) {
+            var value = textView.text.toString().hourMinuteToDate()
+            var calendar = Calendar.getInstance()
+            calendar.time = value
+            hour = calendar.get(Calendar.HOUR_OF_DAY)
+            minute = calendar.get(Calendar.MINUTE)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                dialogView.time_picker.time_picker.hour = 0
-                dialogView.time_picker.time_picker.minute = 0
+                dialogView.time_picker.time_picker.hour = hour
+                dialogView.time_picker.time_picker.minute = minute
             } else {
-                dialogView.time_picker.time_picker.currentHour = 0
-                dialogView.time_picker.time_picker.currentMinute = 0
+                dialogView.time_picker.time_picker.currentHour = hour
+                dialogView.time_picker.time_picker.currentMinute = minute
+            }
+        } else if (isBreakTimePickerView) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                dialogView.time_picker.time_picker.hour = hour
+                dialogView.time_picker.time_picker.minute = minute
+            } else {
+                dialogView.time_picker.time_picker.currentHour = hour
+                dialogView.time_picker.time_picker.currentMinute = minute
             }
         }
+
         setTimePickerInterval(dialogView.time_picker)
         val addDialog = AlertDialog.Builder(this)
 
@@ -169,7 +191,7 @@ class DayWorksheetActivity : AppCompatActivity() {
             setTitle(title + "登録")
 
             setPositiveButton("登録") {
-                dialog, whichButton ->
+                dialog, _ ->
                 textView.text = getPickerTime(dialogView).hourMinute()
 
                 val beginTime = with (day_start_time_textView.text) {
@@ -183,11 +205,11 @@ class DayWorksheetActivity : AppCompatActivity() {
                 }
 
                 if (beginTime != null && endTime != null && breakTime != null) {
-                    var beginTime = beginTime!!.time
-                    var endTime = endTime!!.time
-                    var breakTime = breakTime!!.hourMinuteToDouble()
-                    val workTime = (endTime - beginTime) / (60 * 60 * 1000)
-                    val result = workTime.toDouble() - breakTime
+                    var beginTimeLong = beginTime.time
+                    var endTimeLong = endTime.time
+                    var breakTimeDouble = breakTime.hourMinuteToDouble()
+                    val workTime = (endTimeLong - beginTimeLong) / (60 * 60 * 1000)
+                    val result = workTime.toDouble() - breakTimeDouble
                     day_total_time_textView.text = result.toString()
                 }
 
@@ -195,7 +217,7 @@ class DayWorksheetActivity : AppCompatActivity() {
             }
 
             setNegativeButton("キャンセル") {
-                dialog, whichButton ->
+                dialog, _ ->
                 dialog.dismiss()
             }
 
