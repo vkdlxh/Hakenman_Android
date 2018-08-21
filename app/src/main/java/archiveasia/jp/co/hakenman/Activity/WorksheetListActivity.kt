@@ -14,7 +14,7 @@ import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class WorksheetListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,10 +84,10 @@ class MainActivity : AppCompatActivity() {
                 val editTextValue = editTextAge!!.text
                 // TODO: Valiateする他の方法考えてみる
                 if (editTextValue.isNullOrBlank()) {
-                    Toast.makeText(this@MainActivity, "空欄なく入力してください。", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@WorksheetListActivity, "空欄なく入力してください。", Toast.LENGTH_SHORT).show()
                     showCreateWorksheetDialog()
                 } else if (editTextValue.trim().length != 6) {
-                    Toast.makeText(this@MainActivity, "正しい値を入力してください。", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@WorksheetListActivity, "正しい値を入力してください。", Toast.LENGTH_SHORT).show()
                     showCreateWorksheetDialog()
                 } else {
                     var yearMonth = editTextAge!!.text.toString()

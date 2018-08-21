@@ -10,19 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.WorksheetListActivity"/>
         <activity android:name=".Activity.MonthWorkActivity" />
         <activity android:name=".Activity.DayWorksheetActivity" />
-        <activity
-            android:name=".Activity.SettingsActivity22"
-            android:label="@string/title_activity_settings22" />
-        <activity android:name=".Activity.SettingActivity"></activity>
+        <activity android:name=".Activity.SettingActivity" />
+
     </application>
 
 </manifest>
