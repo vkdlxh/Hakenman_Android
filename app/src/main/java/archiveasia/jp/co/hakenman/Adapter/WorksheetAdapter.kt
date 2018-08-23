@@ -21,18 +21,12 @@ class WorksheetAdapter(private val context: Context,
         val rowView = inflater.inflate(R.layout.month_worksheet_item, parent, false)
         val detailWork = getItem(position) as DetailWork
 
-        // TODO: 일별 월일 값에서오름차순 정리
-
         val dayTextView = rowView.day_textView
         dayTextView.text = detailWork.workDay.toString()
         val weekTextView = rowView.week_textView
-        weekTextView.text = detailWork.workWeek // TODO: 週変換
+        weekTextView.text = detailWork.workWeek
         val workFlagTextView = rowView.workFlag_textView
-        workFlagTextView.text =  if (detailWork.workFlag == true) {
-            "○"
-        } else {
-            "×"
-        }
+        workFlagTextView.text =  if (detailWork.workFlag == true) "○" else "×"
 
         val startWorkTextView = rowView.startWork_textView
         if (detailWork.beginTime != null) {

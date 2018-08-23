@@ -11,12 +11,24 @@ import java.io.FileReader
 import java.io.PrintWriter
 import java.util.*
 
+/**
+ * 勤務表関連マネージャークラス
+ *
+ * 勤務表作成、修正などを担当するマネージャー
+ *
+ * @author Jeon SangJun
+ */
 object WorksheetManager {
 
     private const val JSON_FILE_NAME = "/worksheet.json"
 
     private var worksheetList = mutableListOf<Worksheet>()
 
+    /**
+     * JSONファイルをロードしてMutableList<Worksheet>に変更する
+     *
+     * @return MutableList<Worksheet>
+     */
     fun loadLocalWorksheet() {
         var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
         if (File(filepath).exists()) {
@@ -28,6 +40,12 @@ object WorksheetManager {
         }
     }
 
+    /**
+     * 勤務表（Worksheet）を勤務表リストに追加した後、JSONファイルとして保持
+     *
+     * @param worksheet 追加する勤務表
+     * @return JSONファイルで保持
+     */
     fun addWorksheetToJsonFile(worksheet: Worksheet) {
         worksheetList.add(worksheet)
         val gson = GsonBuilder().setPrettyPrinting().create()
@@ -40,6 +58,12 @@ object WorksheetManager {
         writer.close()
     }
 
+    /**
+     * 既存の勤務表を上書きした後、JSONファイルとして保持
+     *
+     * @param worksheet 修正する勤務表
+     * @return JSONファイルで保持
+     */
     fun updateWorksheet(newValue: Worksheet) {
         var oldValue = this.worksheetList.find {
             it.workDate.yearMonth() == newValue.workDate.yearMonth()
@@ -58,6 +82,13 @@ object WorksheetManager {
         writer.close()
     }
 
+    /**
+     * 勤務表リストからIndexで新しい勤務表を上書きした後、JSONファイルとして保持
+     *
+     * @param index 勤務表位置
+     * @param worksheet 修正する勤務表
+     * @return JSONファイルで保持
+     */
     fun updateWorksheetWithIndex(index: Int, worksheet: Worksheet) {
         worksheetList[index] = worksheet
         val gson = GsonBuilder().setPrettyPrinting().create()
@@ -70,6 +101,12 @@ object WorksheetManager {
         writer.close()
     }
 
+    /**
+     * 勤務表リスト全体を修正し、JSONファイルとして保持
+     *
+     * @param worksheetList 修正する勤務表リスト
+     * @return JSONファイルで保持
+     */
     fun updateAllWorksheet(worksheetList: List<Worksheet>) {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val jsonString = gson.toJson(worksheetList)
@@ -81,14 +118,31 @@ object WorksheetManager {
         writer.close()
     }
 
+    /**
+     * 勤務表リストをとる
+     *
+     * @return 勤務表リスト
+     */
     fun getWorksheetList(): List<Worksheet> {
         return worksheetList.sortedByDescending { it.workDate.yearMonth() }
     }
 
+    /**
+     * 存在する勤務表かを確認
+     *
+     * @param yearMonth 追加する年月の値（yearmonth）
+     * @return 存在すればtrue、でなければfalse
+     */
     fun isAlreadyExistWorksheet(yearMonth: String): Boolean {
         return worksheetList.filter { it.workDate.yearMonth() == yearMonth}.isNotEmpty()
     }
 
+    /**
+     * 勤務時間を求める
+     *
+     * @param detailWork 1日勤務情報（DetailWork）
+     * @return 開始、終了、休憩の３つの値が全部あれば、勤務時間を求める
+     */
     fun calculateDuration(detailWork: DetailWork): Double? {
         if (detailWork.beginTime != null && detailWork.endTime != null && detailWork.breakTime != null) {
             var beginTime = detailWork.beginTime!!.time
@@ -101,6 +155,12 @@ object WorksheetManager {
         }
     }
 
+    /**
+     * 新しい勤務表を作成する
+     *
+     * @param yyyymm 追加する年月の値
+     * @return 新しい勤務表をリターン
+     */
     fun createWorksheet(yyyymm: String): Worksheet {
         val year = yyyymm.substring(0, 4).toInt()
         val month = yyyymm.substring(4, 6).toInt()
@@ -127,6 +187,14 @@ object WorksheetManager {
         return worksheet
     }
 
+    /**
+     * 年、月、日のIntを持ってDateを作る
+     *
+     * @param year 年
+     * @param month 月
+     * @param day 日
+     * @return Date値をリターンする
+     */
     private fun createDate(year: Int, month: Int, day: Int): Date {
         val cal = Calendar.getInstance()
         cal.set(Calendar.YEAR, year)

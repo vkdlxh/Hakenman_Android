@@ -9,68 +9,68 @@
     <LinearLayout
         android:id="@+id/header_LinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="23dp">
+        android:layout_height="@dimen/month_worksheet_height">
 
         <TextView
             android:id="@+id/header_day_textView"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="日"
             android:layout_weight="2" />
 
         <TextView
             android:id="@+id/header_week_textView"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="曜日"
             android:layout_weight="2" />
 
         <TextView
             android:id="@+id/header_workFlag_textView"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="営"
             android:layout_weight="1" />
 
         <TextView
             android:id="@+id/header_startWork_textView"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="出勤時間"
             android:layout_weight="3" />
 
         <TextView
             android:id="@+id/header_endWork_textView"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="退勤時間"
             android:layout_weight="3" />
 
         <TextView
             android:id="@+id/header_workTime_textView"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="勤務時間"
             android:layout_weight="3" />
 
         <TextView
             android:id="@+id/header_note_textView"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="参考"
             android:layout_weight="4" />
 
@@ -79,7 +79,7 @@
     <ListView
         android:id="@+id/worksheet_listView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/zero_width"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_LinearLayout" />

@@ -2,61 +2,64 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="23dp">
+    android:layout_height="@dimen/month_worksheet_height">
 
     <TextView
         android:id="@+id/day_textView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:gravity="center"
-        android:paddingHorizontal="5dp" />
+        android:paddingHorizontal="@dimen/month_worksheet_padding" />
 
     <TextView
         android:id="@+id/week_textView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:gravity="center"
-        android:paddingHorizontal="5dp" />
+        android:paddingHorizontal="@dimen/month_worksheet_padding" />
 
     <TextView
         android:id="@+id/workFlag_textView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:paddingHorizontal="5dp" />
+        android:paddingHorizontal="@dimen/month_worksheet_padding" />
 
     <TextView
         android:id="@+id/startWork_textView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:gravity="center"
-        android:paddingHorizontal="5dp" />
+        android:paddingHorizontal="@dimen/month_worksheet_padding" />
 
     <TextView
         android:id="@+id/endWork_textView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:gravity="center"
-        android:paddingHorizontal="5dp" />
+        android:paddingHorizontal="@dimen/month_worksheet_padding" />
 
     <TextView
         android:id="@+id/workTime_textView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
         android:layout_weight="3"
         android:gravity="center"
-        android:paddingHorizontal="5dp" />
+        android:paddingHorizontal="@dimen/month_worksheet_padding" />
 
     <TextView
         android:id="@+id/note_textView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
         android:layout_weight="4"
         android:gravity="center"
-        android:paddingHorizontal="5dp" />
+        android:maxLines="1"
+        android:maxLength="10"
+        android:ellipsize="end"
+        android:paddingHorizontal="@dimen/month_worksheet_padding" />
 </LinearLayout>
