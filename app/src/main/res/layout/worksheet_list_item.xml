@@ -123,4 +123,5 @@
         app:layout_constraintEnd_toStartOf="@+id/month_textView"
         app:layout_constraintStart_toEndOf="@+id/year_textView"
         app:layout_constraintTop_toTopOf="@+id/date_view" />
+
 </android.support.constraint.ConstraintLayout>

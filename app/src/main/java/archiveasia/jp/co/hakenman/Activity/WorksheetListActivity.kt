@@ -5,15 +5,19 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.text.InputType
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.worksheet_list_item.*
 
 class WorksheetListActivity : AppCompatActivity() {
 
@@ -55,7 +59,14 @@ class WorksheetListActivity : AppCompatActivity() {
     private fun showAlertDialog(title: String, btn: String, completion: () -> Unit) {
         val alertDialog = AlertDialog.Builder(this)
         with (alertDialog) {
-            setTitle(title)
+//            setTitle(title)
+
+            val titleView = TextView(context)
+            titleView.text = title
+            titleView.gravity = Gravity.CENTER_HORIZONTAL
+            titleView.textSize = 20F
+            titleView.setTextColor(resources.getColor(R.color.colorBlack))
+            setView(titleView)
 
             setPositiveButton(btn) {
                 dialog, whichButton ->
@@ -132,6 +143,13 @@ class WorksheetListActivity : AppCompatActivity() {
         WorksheetManager.loadLocalWorksheet()
 
         var worksheetList = WorksheetManager.getWorksheetList()
+
+        // 勤務表がない場合、中央にメッセージを表示する
+        if (worksheetList.isEmpty()) {
+            worksheet_info_textView.visibility = View.VISIBLE
+        } else {
+            worksheet_info_textView.visibility = View.INVISIBLE
+        }
 
         val adapter = WorkAdapter(this, worksheetList)
 
