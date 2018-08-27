@@ -3,6 +3,7 @@ package archiveasia.jp.co.hakenman.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.Manager.PrefsManager
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -32,6 +33,7 @@ class SettingActivity : AppCompatActivity() {
             }
 
         }
+        CustomLog.d("設定画面")
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

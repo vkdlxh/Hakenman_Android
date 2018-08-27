@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.TimePicker
+import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.Extension.hourMinute
 import archiveasia.jp.co.hakenman.Extension.hourMinuteToDate
 import archiveasia.jp.co.hakenman.Extension.hourMinuteToDouble
@@ -57,6 +58,7 @@ class DayWorksheetActivity : AppCompatActivity() {
 
         title = getString(R.string.day_work_activity_title)
                 .format(detailWork.workYear, detailWork.workMonth, detailWork.workDay)
+        CustomLog.d("1日詳細勤務表画面")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

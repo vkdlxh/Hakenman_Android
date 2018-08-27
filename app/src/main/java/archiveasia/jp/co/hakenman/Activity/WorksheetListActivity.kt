@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
+import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,6 +27,8 @@ class WorksheetListActivity : AppCompatActivity() {
             showCreateWorksheetDialog()
         }
         title = getString(R.string.main_activity_title)
+
+        CustomLog.d("勤務表一覧画面")
     }
 
     override fun onResume() {
@@ -96,10 +99,12 @@ class WorksheetListActivity : AppCompatActivity() {
                     if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
                         showAlertDialog("すでに存在している勤務表です。\n上書きしますか？", "確認") {
                             WorksheetManager.updateWorksheet(worksheet)
+                            CustomLog.d("勤務表生成 : " + yearMonth)
                             reloadListView()
                         }
                     } else {
                         WorksheetManager.addWorksheetToJsonFile(worksheet)
+                        CustomLog.d("勤務表生成 : " + yearMonth)
                         reloadListView()
                     }
                     dialog.dismiss()

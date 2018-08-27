@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import archiveasia.jp.co.hakenman.Adapter.WorksheetAdapter
+import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.Extension.month
 import archiveasia.jp.co.hakenman.Extension.year
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
@@ -30,6 +31,8 @@ class MonthWorkActivity : AppCompatActivity() {
         worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)
         adaptListView()
         title = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
+
+        CustomLog.d("月勤務表画面")
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

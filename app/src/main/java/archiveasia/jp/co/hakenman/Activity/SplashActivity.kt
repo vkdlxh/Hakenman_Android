@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 
 class SplashActivity : AppCompatActivity() {
@@ -27,6 +28,8 @@ class SplashActivity : AppCompatActivity() {
         mDelayHandler = Handler()
 
         mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
+
+        CustomLog.d("スプラッシュ画面")
     }
 
     override fun onDestroy() {
