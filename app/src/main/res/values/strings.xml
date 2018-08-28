@@ -19,7 +19,7 @@
     <string name="worktime_end_title">終了時間</string>
     <string name="worktime_break_title">休憩時間</string>
     <string name="worktime_total_title">勤務時間</string>
-    <string name="note_setting_header">参考</string>
+    <string name="note_setting_header">備考</string>
 
     <!-- Setting Layout -->
     <string name="worksheet_setting_header">勤怠管理設定</string>

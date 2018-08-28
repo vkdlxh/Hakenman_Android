@@ -21,6 +21,9 @@ import java.util.*
 object WorksheetManager {
 
     private const val JSON_FILE_NAME = "/worksheet.json"
+    private const val DOC_SIGN_CREATE_BY = "<!-- generated from Hakenman. -->"
+    private const val HEADER_COLUMN = "| 日 | 曜日 | 作業日 | 開始時間| 終了時間 | 休憩 | 勤務時間 | 備考 |"
+    private const val HEADER_LINE = "|:--:|:---:|:-----:|:------:|:------:|:---:|:------:|:----:|"
 
     private var worksheetList = mutableListOf<Worksheet>()
 
@@ -186,6 +189,10 @@ object WorksheetManager {
                 .count()
         return worksheet
     }
+
+//    fun generateWorksheetToMarkdown(worksheet: Worksheet): String {
+//
+//    }
 
     /**
      * 年、月、日のIntを持ってDateを作る

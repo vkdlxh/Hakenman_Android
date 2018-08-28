@@ -57,5 +57,5 @@ data class DetailWork (
         var endTime: Date? = null,      // 退社時間
         var breakTime: Date? = null,  // 休憩時間
         var duration: Double? = null,   // 勤務時間
-        var note: String? = null        // 参考
+        var note: String? = null        // 備考
 ): Parcelable

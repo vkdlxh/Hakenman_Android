@@ -13,11 +13,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.Adapter.WorkAdapter
+import archiveasia.jp.co.hakenman.Adapter.WorksheetListAdapter
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.worksheet_list_item.*
 
 class WorksheetListActivity : AppCompatActivity() {
 
@@ -151,7 +150,7 @@ class WorksheetListActivity : AppCompatActivity() {
             worksheet_info_textView.visibility = View.INVISIBLE
         }
 
-        val adapter = WorkAdapter(this, worksheetList)
+        val adapter = WorksheetListAdapter(this, worksheetList)
 
         work_listView.adapter = adapter
         work_listView.setOnItemClickListener { parent, view, position, id ->

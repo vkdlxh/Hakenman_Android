@@ -12,8 +12,8 @@ import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.worksheet_list_item.view.*
 
-class WorkAdapter(private val context: Context,
-                  private val workList: List<Worksheet>): BaseAdapter() {
+class WorksheetListAdapter(private val context: Context,
+                           private val workList: List<Worksheet>): BaseAdapter() {
 
     private val inflater: LayoutInflater
             = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

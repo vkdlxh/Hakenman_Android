@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import archiveasia.jp.co.hakenman.Extension.hourMinuteToDouble
 import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.month_worksheet_item.view.*
@@ -36,6 +37,11 @@ class WorksheetAdapter(private val context: Context,
         val endWorkTextView = rowView.endWork_textView
         if (detailWork.endTime != null) {
             endWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.endTime)
+        }
+
+        val breakTimeTextView = rowView.breakTime_textView
+        if (detailWork.breakTime != null) {
+            breakTimeTextView.text = detailWork.breakTime!!.hourMinuteToDouble().toString()
         }
 
         val workTimeTextView = rowView.workTime_textView
