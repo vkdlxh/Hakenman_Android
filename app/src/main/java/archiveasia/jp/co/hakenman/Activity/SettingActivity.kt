@@ -1,5 +1,6 @@
 package archiveasia.jp.co.hakenman.Activity
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -14,6 +15,8 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        title = getString(R.string.setting_activity_title)
 
         val packageInfo = packageManager.getPackageInfo(packageName, 0)
         version_textView.text = packageInfo.versionName
@@ -33,7 +36,33 @@ class SettingActivity : AppCompatActivity() {
             }
 
         }
+
+        // メール修正画面に遷移
+        go_email_setting_textView.setOnClickListener {
+            var intent= Intent(this, EmailSettingActivity::class.java)
+            startActivity(intent)
+        }
+
         CustomLog.d("設定画面")
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val prefsManager = PrefsManager(this)
+
+        // Prefマネージャーからメール情報を設定
+        if (prefsManager.emailFrom.isNullOrEmpty()) {
+            email_from_textView.text = getString(R.string.email_empty_message)
+        } else {
+            email_from_textView.text = prefsManager.emailFrom
+        }
+
+        if (prefsManager.emailTo.isNullOrEmpty()) {
+            email_to_textView.text = getString(R.string.email_empty_message)
+        } else {
+            email_to_textView.text = prefsManager.emailTo
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -44,4 +73,5 @@ class SettingActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
+
 }

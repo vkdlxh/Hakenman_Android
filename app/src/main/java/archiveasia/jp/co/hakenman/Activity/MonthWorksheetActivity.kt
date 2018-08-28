@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import archiveasia.jp.co.hakenman.Adapter.WorksheetAdapter
 import archiveasia.jp.co.hakenman.CustomLog
@@ -35,13 +36,23 @@ class MonthWorkActivity : AppCompatActivity() {
         CustomLog.d("月勤務表画面")
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.add_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return if (item?.itemId == android.R.id.home) {
-            finish()
-            true
-        } else {
-            super.onOptionsItemSelected(item)
+        when (item!!.itemId) {
+            R.id.action_send_mail -> {
+                // TODO: To, Fromが登録されているか確認した後、登録されているとメール送付
+                return true
+            }
+            android.R.id.home -> {
+                finish()
+                return true
+            }
         }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -22,29 +22,26 @@
       </configuration>
     </facet>
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="3" platform="JVM 1.8" useProjectSettings="false">
+      <configuration version="3" platform="JVM 1.6" useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
           <option name="destination" value="$MODULE_DIR$/build/tmp/kotlin-classes/debug" />
           <option name="noStdlib" value="true" />
           <option name="noReflect" value="true" />
           <option name="moduleName" value="app_debug" />
-          <option name="jvmTarget" value="1.8" />
           <option name="addCompilerBuiltIns" value="true" />
           <option name="loadBuiltInsFromDependencies" value="true" />
+          <option name="languageVersion" value="1.2" />
+          <option name="apiVersion" value="1.2" />
           <option name="pluginOptions">
             <array>
               <option value="plugin:org.jetbrains.kotlin.android:experimental=true" />
               <option value="plugin:org.jetbrains.kotlin.android:enabled=true" />
               <option value="plugin:org.jetbrains.kotlin.android:defaultCacheImplementation=hashMap" />
-              <option value="plugin:org.jetbrains.kotlin.android:configuration=rO0ABXoAAAQAAAAABAAMZXhwZXJpbWVudGFsAAAAAQAEdHJ1ZQAaZGVmYXVsdENhY2hlSW1wbGVtZW50YXRpb24AAAABAAdoYXNoTWFwAAdwYWNrYWdlAAAAAQAaYXJjaGl2ZWFzaWEuanAuY28uaGFrZW5tYW4AB3ZhcmlhbnQAAAADBJ5tYWluOy9Vc2Vycy9qZW9uc2FuZ2p1bi8uZ3JhZGxlL2NhY2hlcy90cmFuc2Zvcm1zLTEvZmlsZXMtMS4xL2NhcmR2aWV3LXY3LTI4LjAuMC1yYzAxLmFhci85ODA4ZTQyNTZlNDQ4ZjQyNjYzZGQ4MzAwMjU3YWUxYS9yZXM7L1VzZXJzL2plb25zYW5nanVuLy5ncmFkbGUvY2FjaGVzL3RyYW5zZm9ybXMtMS9maWxlcy0xLjEvc3VwcG9ydC1jb21wYXQtMjguMC4wLXJjMDEuYWFyLzRiMTlkNTkwMzIxZTg0NTUyZjQxMTRmMGNiYjRlOWZlL3JlczsvVXNlcnMvamVvbnNhbmdqdW4vLmdyYWRsZS9jYWNoZXMvdHJhbnNmb3Jtcy0xL2ZpbGVzLTEuMS9jb29yZGluYXRvcmxheW91dC0yOC4wLjAtcmMwMS5hYXIvOTFlOWY2YjJkYjQ0MGMwNGNhYmZhY2UzNDliZGRjZTkvcmVzOy9Vc2Vycy9qZW9uc2FuZ2p1bi8uZ3JhZGxlL2NhY2hlcy90cmFuc2Zvcm1zLTEvZmlsZXMtMS4xL3N1cHBvcnQtbWVkaWEtY29tcGF0LTI4LjAuMC1yYzAxLmFhci9kYTQxZGUyNGZhMjljYjNlODI2MDU3MGQ1OTJjNTFkMC9yZXM7L1VzZXJzL2plb25zYW5nanVuLy5ncmFkbGUvY2FjaGVzL3RyYW5zZm9ybXMtMS9maWxlcy0xLjEvdHJhbnNpdGlvbi0yOC4wLjAtcmMwMS5hYXIvOWEwNmY2MjFlNzA2Zjc0ZjMxODc1N2FlN2YwZDY4MmEvcmVzOy9Vc2Vycy9qZW9uc2FuZ2p1bi8uZ3JhZGxlL2NhY2hlcy90cmFuc2Zvcm1zLTEvZmlsZXMtMS4xL3JlY3ljbGVydmlldy12Ny0yOC4wLjAtcmMwMS5hYXIvZWU4NzVjZjRlYTNmYTYwM2RkMGQ3YzNiZGE0ZDZlZjgvcmVzOy9Vc2Vycy9qZW9uc2FuZ2p1bi8uZ3JhZGxlL2NhY2hlcy90cmFuc2Zvcm1zLTEvZmlsZXMtMS4xL2NvbnN0cmFpbnQtbGF5b3V0LTEuMS4yLmFhci8wNWIyYmZjMmE4M2YxMjlmODMyZTNlMzlhZjk3MzZjYS9yZXM7L1VzZXJzL2plb25zYW5nanVuL3oAAAGxLmdyYWRsZS9jYWNoZXMvdHJhbnNmb3Jtcy0xL2ZpbGVzLTEuMS9hcHBjb21wYXQtdjctMjguMC4wLXJjMDEuYWFyL2U1NGJjYzdmZDFiY2FiZWRhM2FiZDk2YzBhMTcyNjNjL3JlczsvVXNlcnMvamVvbnNhbmdqdW4vLmdyYWRsZS9jYWNoZXMvdHJhbnNmb3Jtcy0xL2ZpbGVzLTEuMS9kZXNpZ24tMjguMC4wLXJjMDEuYWFyLzkyZDcwYTBhNTMyM2I4NWRlMThkODMyZDJlNGZjNWZlL3JlczsvVXNlcnMvamVvbnNhbmdqdW4vRG9jdW1lbnRzL0hha2VubWFuX0FuZHJvaWQvYXBwL3NyYy9tYWluL3JlcwBJcmVsZWFzZTsvVXNlcnMvamVvbnNhbmdqdW4vRG9jdW1lbnRzL0hha2VubWFuX0FuZHJvaWQvYXBwL3NyYy9yZWxlYXNlL3JlcwBJcmVsZWFzZTsvVXNlcnMvamVvbnNhbmdqdW4vRG9jdW1lbnRzL0hha2VubWFuX0FuZHJvaWQvYXBwL3NyYy9yZWxlYXNlL3Jlcw==" />
-              <option value="plugin:org.jetbrains.kotlin.android:configuration=rO0ABXoAAAQAAAAABAAMZXhwZXJpbWVudGFsAAAAAQAEdHJ1ZQAaZGVmYXVsdENhY2hlSW1wbGVtZW50YXRpb24AAAABAAdoYXNoTWFwAAdwYWNrYWdlAAAAAQAaYXJjaGl2ZWFzaWEuanAuY28uaGFrZW5tYW4AB3ZhcmlhbnQAAAADBJ5tYWluOy9Vc2Vycy9qZW9uc2FuZ2p1bi8uZ3JhZGxlL2NhY2hlcy90cmFuc2Zvcm1zLTEvZmlsZXMtMS4xL2NhcmR2aWV3LXY3LTI4LjAuMC1yYzAxLmFhci85ODA4ZTQyNTZlNDQ4ZjQyNjYzZGQ4MzAwMjU3YWUxYS9yZXM7L1VzZXJzL2plb25zYW5nanVuLy5ncmFkbGUvY2FjaGVzL3RyYW5zZm9ybXMtMS9maWxlcy0xLjEvc3VwcG9ydC1jb21wYXQtMjguMC4wLXJjMDEuYWFyLzRiMTlkNTkwMzIxZTg0NTUyZjQxMTRmMGNiYjRlOWZlL3JlczsvVXNlcnMvamVvbnNhbmdqdW4vLmdyYWRsZS9jYWNoZXMvdHJhbnNmb3Jtcy0xL2ZpbGVzLTEuMS9jb29yZGluYXRvcmxheW91dC0yOC4wLjAtcmMwMS5hYXIvOTFlOWY2YjJkYjQ0MGMwNGNhYmZhY2UzNDliZGRjZTkvcmVzOy9Vc2Vycy9qZW9uc2FuZ2p1bi8uZ3JhZGxlL2NhY2hlcy90cmFuc2Zvcm1zLTEvZmlsZXMtMS4xL3N1cHBvcnQtbWVkaWEtY29tcGF0LTI4LjAuMC1yYzAxLmFhci9kYTQxZGUyNGZhMjljYjNlODI2MDU3MGQ1OTJjNTFkMC9yZXM7L1VzZXJzL2plb25zYW5nanVuLy5ncmFkbGUvY2FjaGVzL3RyYW5zZm9ybXMtMS9maWxlcy0xLjEvdHJhbnNpdGlvbi0yOC4wLjAtcmMwMS5hYXIvOWEwNmY2MjFlNzA2Zjc0ZjMxODc1N2FlN2YwZDY4MmEvcmVzOy9Vc2Vycy9qZW9uc2FuZ2p1bi8uZ3JhZGxlL2NhY2hlcy90cmFuc2Zvcm1zLTEvZmlsZXMtMS4xL3JlY3ljbGVydmlldy12Ny0yOC4wLjAtcmMwMS5hYXIvZWU4NzVjZjRlYTNmYTYwM2RkMGQ3YzNiZGE0ZDZlZjgvcmVzOy9Vc2Vycy9qZW9uc2FuZ2p1bi8uZ3JhZGxlL2NhY2hlcy90cmFuc2Zvcm1zLTEvZmlsZXMtMS4xL2NvbnN0cmFpbnQtbGF5b3V0LTEuMS4yLmFhci8wNWIyYmZjMmE4M2YxMjlmODMyZTNlMzlhZjk3MzZjYS9yZXM7L1VzZXJzL2plb25zYW5nanVuL3oAAAGpLmdyYWRsZS9jYWNoZXMvdHJhbnNmb3Jtcy0xL2ZpbGVzLTEuMS9hcHBjb21wYXQtdjctMjguMC4wLXJjMDEuYWFyL2U1NGJjYzdmZDFiY2FiZWRhM2FiZDk2YzBhMTcyNjNjL3JlczsvVXNlcnMvamVvbnNhbmdqdW4vLmdyYWRsZS9jYWNoZXMvdHJhbnNmb3Jtcy0xL2ZpbGVzLTEuMS9kZXNpZ24tMjguMC4wLXJjMDEuYWFyLzkyZDcwYTBhNTMyM2I4NWRlMThkODMyZDJlNGZjNWZlL3JlczsvVXNlcnMvamVvbnNhbmdqdW4vRG9jdW1lbnRzL0hha2VubWFuX0FuZHJvaWQvYXBwL3NyYy9tYWluL3JlcwBFZGVidWc7L1VzZXJzL2plb25zYW5nanVuL0RvY3VtZW50cy9IYWtlbm1hbl9BbmRyb2lkL2FwcC9zcmMvZGVidWcvcmVzAEVkZWJ1ZzsvVXNlcnMvamVvbnNhbmdqdW4vRG9jdW1lbnRzL0hha2VubWFuX0FuZHJvaWQvYXBwL3NyYy9kZWJ1Zy9yZXM=" />
             </array>
           </option>
           <option name="pluginClasspaths">
             <array>
-              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.30/680ff8d567db8dec157cd9344f0a1d2b5e4d651b/kotlin-android-extensions-1.2.30.jar" />
-              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.30/680ff8d567db8dec157cd9344f0a1d2b5e4d651b/kotlin-android-extensions-1.2.30.jar" />
               <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.30/680ff8d567db8dec157cd9344f0a1d2b5e4d651b/kotlin-android-extensions-1.2.30.jar" />
             </array>
           </option>
@@ -126,7 +123,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-apk" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-main-apk-res" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-resources" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifest-checker" />
