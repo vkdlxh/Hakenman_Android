@@ -7,6 +7,7 @@
 
     <!-- MonthWorksheet Activity -->
     <string name="month_work_activity_title">%s年%s月勤務表</string>
+    <string name="email_subject">【勤怠】%s年%s月勤務表</string>
 
     <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s年%s月%s日勤務表</string>
@@ -39,7 +40,6 @@
 
     <!-- EmailSetting Layout -->
     <string name="email_setting_header">メール修正</string>
-    <string name="email_from_title">差出人</string>
     <string name="email_to_title">宛先</string>
 
     <!-- Strings related to Settings -->

@@ -58,7 +58,6 @@ class WorksheetListActivity : AppCompatActivity() {
     private fun showAlertDialog(title: String, btn: String, completion: () -> Unit) {
         val alertDialog = AlertDialog.Builder(this)
         with (alertDialog) {
-//            setTitle(title)
 
             val titleView = TextView(context)
             titleView.text = title

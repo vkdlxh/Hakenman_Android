@@ -4,12 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import archiveasia.jp.co.hakenman.Adapter.WorksheetAdapter
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.Extension.month
 import archiveasia.jp.co.hakenman.Extension.year
+import archiveasia.jp.co.hakenman.Extension.yearMonth
+import archiveasia.jp.co.hakenman.Manager.PrefsManager
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
@@ -37,14 +42,33 @@ class MonthWorkActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.add_menu, menu)
+        menuInflater.inflate(R.menu.upload_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             R.id.action_send_mail -> {
-                // TODO: To, Fromが登録されているか確認した後、登録されているとメール送付
+                val to = PrefsManager(this).emailTo
+
+                if (to.isNullOrEmpty()) {
+                    // TODO: 登録メッセージdialog表示
+                    showAlertDialog {
+                        var intent= Intent(this, EmailSettingActivity::class.java)
+                        startActivity(intent)
+                    }
+                } else {
+                    val addresses = arrayOf(to)
+                    val subject = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
+                    val body = WorksheetManager.generateWorksheetToMarkdown(worksheet)
+
+                    var emailIntent = Intent(Intent.ACTION_SEND)
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses)
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, body)
+                    emailIntent.type = "message/rfc822"
+                    startActivity(Intent.createChooser(emailIntent, "メール送信方法:"))
+                }
                 return true
             }
             android.R.id.home -> {
@@ -66,6 +90,31 @@ class MonthWorkActivity : AppCompatActivity() {
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun showAlertDialog(completion: () -> Unit) {
+        val alertDialog = AlertDialog.Builder(this)
+        with (alertDialog) {
+
+            val titleView = TextView(context)
+            titleView.text = "宛先を設定してください。"
+            titleView.gravity = Gravity.CENTER_HORIZONTAL
+            titleView.textSize = 20F
+            titleView.setTextColor(resources.getColor(R.color.colorBlack))
+            setView(titleView)
+
+            setPositiveButton("設定") {
+                dialog, whichButton ->
+                completion()
+            }
+
+            setNegativeButton("キャンセル") {
+                dialog, whichButton ->
+                dialog.dismiss()
+            }
+        }
+        val dialog = alertDialog.create()
+        dialog.show()
     }
 
     private fun adaptListView() {

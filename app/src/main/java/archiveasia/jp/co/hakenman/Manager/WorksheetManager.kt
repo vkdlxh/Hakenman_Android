@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileReader
 import java.io.PrintWriter
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -190,9 +191,54 @@ object WorksheetManager {
         return worksheet
     }
 
-//    fun generateWorksheetToMarkdown(worksheet: Worksheet): String {
-//
-//    }
+    fun generateWorksheetToMarkdown(worksheet: Worksheet): String {
+        val detailWorkList = worksheet.detailWorkList
+
+        var markdownString = DOC_SIGN_CREATE_BY + "\n" +
+                HEADER_COLUMN + "\n" +
+                HEADER_LINE + "\n"
+
+        for (detailWork in detailWorkList) {
+            markdownString += "| "
+
+            markdownString += detailWork.workDay.toString() + "| "
+
+            markdownString += detailWork.workWeek + "| "
+
+            val workFlagString = if (detailWork.workFlag) "O" else "X"
+            markdownString += workFlagString + "| "
+
+            if (detailWork.beginTime != null) {
+                markdownString += SimpleDateFormat("HH:mm").format(detailWork.beginTime)
+            }
+            markdownString += "| "
+
+            if (detailWork.endTime != null) {
+                markdownString += SimpleDateFormat("HH:mm").format(detailWork.endTime)
+            }
+            markdownString += "| "
+
+            if (detailWork.breakTime != null) {
+                markdownString += detailWork.breakTime!!.hourMinuteToDouble().toString()
+            }
+            markdownString += "| "
+
+            if (detailWork.duration != null) {
+                markdownString += detailWork.duration.toString()
+            }
+            markdownString += "| "
+
+            if (detailWork.note != null) {
+                markdownString += detailWork.note
+            }
+            markdownString += "| \n"
+
+
+            detailWork
+        }
+
+        return markdownString
+    }
 
     /**
      * 年、月、日のIntを持ってDateを作る

@@ -39,7 +39,7 @@ class SettingActivity : AppCompatActivity() {
 
         // メール修正画面に遷移
         go_email_setting_textView.setOnClickListener {
-            var intent= Intent(this, EmailSettingActivity::class.java)
+            val intent= Intent(this, EmailSettingActivity::class.java)
             startActivity(intent)
         }
 
@@ -52,12 +52,6 @@ class SettingActivity : AppCompatActivity() {
         val prefsManager = PrefsManager(this)
 
         // Prefマネージャーからメール情報を設定
-        if (prefsManager.emailFrom.isNullOrEmpty()) {
-            email_from_textView.text = getString(R.string.email_empty_message)
-        } else {
-            email_from_textView.text = prefsManager.emailFrom
-        }
-
         if (prefsManager.emailTo.isNullOrEmpty()) {
             email_to_textView.text = getString(R.string.email_empty_message)
         } else {
