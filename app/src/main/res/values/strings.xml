@@ -37,9 +37,6 @@
     <string name="email_setting_title">勤務表送付メール設定</string>
     <string name="version">App Version</string>
     <string name="email_empty_message">登録してください。</string>
-
-    <!-- EmailSetting Layout -->
-    <string name="email_setting_header">メール修正</string>
     <string name="email_to_title">宛先</string>
 
     <!--Menu Values-->

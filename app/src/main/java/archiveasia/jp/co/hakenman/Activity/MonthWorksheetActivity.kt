@@ -87,7 +87,7 @@ class MonthWorkActivity : AppCompatActivity() {
         if (to.isNullOrEmpty()) {
             // TODO: 登録メッセージdialog表示
             showAlertDialog {
-                var intent= Intent(this, EmailSettingActivity::class.java)
+                var intent= Intent(this, SettingActivity::class.java)
                 startActivity(intent)
             }
         } else {

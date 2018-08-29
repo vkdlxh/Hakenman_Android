@@ -6,7 +6,6 @@ import android.content.res.Resources
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.constraint.Group
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.Menu
@@ -25,7 +24,6 @@ import archiveasia.jp.co.hakenman.Model.DetailWork
 import archiveasia.jp.co.hakenman.Model.Worksheet
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.activity_day_worksheet.*
-import kotlinx.android.synthetic.main.timepicker_dialog.*
 import kotlinx.android.synthetic.main.timepicker_dialog.view.*
 import java.util.*
 
@@ -34,6 +32,10 @@ const val INTENT_DETAILWORK_VALUE = "day"
 const val INTENT_WORKSHEET_RETURN_VALUE = "worksheet_return_value"
 
 class DayWorksheetActivity : AppCompatActivity() {
+
+    enum class WorkTimeType {
+        BEGIN_TIME, END_TIME, BREAK_TIME
+    }
 
     private var index: Int = -1
     private lateinit var worksheet: Worksheet
@@ -136,15 +138,15 @@ class DayWorksheetActivity : AppCompatActivity() {
         note_editText.setText(if (detailWork.note != null) detailWork.note else "")
 
         beginTime_view.setOnClickListener {
-            showAddDialog("開始時間登録", day_start_time_textView, false)
+            showAddDialog("開始時間登録", day_start_time_textView, WorkTimeType.BEGIN_TIME)
         }
 
         endTime_view.setOnClickListener {
-            showAddDialog("終了時間登録", day_end_time_textView, false)
+            showAddDialog("終了時間登録", day_end_time_textView, WorkTimeType.END_TIME)
         }
 
         breakTime_view.setOnClickListener {
-            showAddDialog("休憩時間登録", day_break_time_textView, true)
+            showAddDialog("休憩時間登録", day_break_time_textView, WorkTimeType.BREAK_TIME)
         }
     }
 
@@ -166,35 +168,50 @@ class DayWorksheetActivity : AppCompatActivity() {
         minutePicker.displayedValues = displayedValue.toTypedArray()
     }
 
-    private fun showAddDialog(title: String, textView: TextView, isBreakTimePickerView: Boolean) {
+    private fun showAddDialog(title: String, textView: TextView, workTimeType: WorkTimeType) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.timepicker_dialog, null)
         dialogView.time_picker.setIs24HourView(true)
 
-        var hour = 0
-        var minute = 0
+        var calendar = Calendar.getInstance()
+        var value: Date
+        var hour: Int
+        var minute: Int
 
+        when (workTimeType) {
+            WorkTimeType.BEGIN_TIME -> {
+                value = PrefsManager(this).defaultBeginTime.hourMinuteToDate()
+                calendar.time = value
+                hour = calendar.get(Calendar.HOUR_OF_DAY)
+                minute = calendar.get(Calendar.MINUTE)
+            }
+            WorkTimeType.END_TIME -> {
+                value = PrefsManager(this).defaultEndTime.hourMinuteToDate()
+                calendar.time = value
+                hour = calendar.get(Calendar.HOUR_OF_DAY)
+                minute = calendar.get(Calendar.MINUTE)
+            }
+            WorkTimeType.BREAK_TIME -> {
+                hour = 0
+                minute = 0
+            }
+        }
+
+        // 値が存在している場合
         if (textView.text.isNotEmpty()) {
-            var value = textView.text.toString().hourMinuteToDate()
-            var calendar = Calendar.getInstance()
+            value = textView.text.toString().hourMinuteToDate()
             calendar.time = value
             hour = calendar.get(Calendar.HOUR_OF_DAY)
             minute = calendar.get(Calendar.MINUTE)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                dialogView.time_picker.hour = hour
-                dialogView.time_picker.minute = minute
-            } else {
-                dialogView.time_picker.currentHour = hour
-                dialogView.time_picker.currentMinute = minute
-            }
-        } else if (isBreakTimePickerView) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                dialogView.time_picker.hour = hour
-                dialogView.time_picker.minute = minute
-            } else {
-                dialogView.time_picker.currentHour = hour
-                dialogView.time_picker.currentMinute = minute
-            }
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            dialogView.time_picker.hour = hour
+            dialogView.time_picker.minute = minute
+        } else {
+            dialogView.time_picker.currentHour = hour
+            dialogView.time_picker.currentMinute = minute
+        }
+
 
         setTimePickerInterval(dialogView.time_picker)
         val addDialog = AlertDialog.Builder(this)
