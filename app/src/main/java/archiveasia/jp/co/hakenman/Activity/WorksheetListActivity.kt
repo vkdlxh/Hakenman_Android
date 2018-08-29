@@ -46,7 +46,7 @@ class WorksheetListActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
-            R.id.setting -> {
+            R.id.action_setting -> {
                 val intent = Intent(this, SettingActivity::class.java)
                 startActivity(intent)
                 return true

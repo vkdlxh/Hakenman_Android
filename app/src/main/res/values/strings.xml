@@ -42,6 +42,12 @@
     <string name="email_setting_header">メール修正</string>
     <string name="email_to_title">宛先</string>
 
+    <!--Menu Values-->
+    <string name="setting_menu_title">Setting</string>
+    <string name="send_email_menu_title">Send Email</string>
+    <string name="csv_menu_title">CSV</string>
+    <string name="markdown_menu_title">Markdown</string>
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

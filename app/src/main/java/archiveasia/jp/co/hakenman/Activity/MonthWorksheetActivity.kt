@@ -2,6 +2,7 @@ package archiveasia.jp.co.hakenman.Activity
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -13,7 +14,7 @@ import archiveasia.jp.co.hakenman.Adapter.WorksheetAdapter
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.Extension.month
 import archiveasia.jp.co.hakenman.Extension.year
-import archiveasia.jp.co.hakenman.Extension.yearMonth
+import archiveasia.jp.co.hakenman.Manager.CSVManager
 import archiveasia.jp.co.hakenman.Manager.PrefsManager
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
 import archiveasia.jp.co.hakenman.Model.Worksheet
@@ -42,33 +43,21 @@ class MonthWorkActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.upload_menu, menu)
+        menuInflater.inflate(R.menu.send_email_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
-            R.id.action_send_mail -> {
-                val to = PrefsManager(this).emailTo
+            R.id.send_csv -> {
+                val csvManager = CSVManager(this, worksheet)
+                csvManager.createCSVFile()
+                sendMail(csvManager.getFileUri())
 
-                if (to.isNullOrEmpty()) {
-                    // TODO: 登録メッセージdialog表示
-                    showAlertDialog {
-                        var intent= Intent(this, EmailSettingActivity::class.java)
-                        startActivity(intent)
-                    }
-                } else {
-                    val addresses = arrayOf(to)
-                    val subject = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
-                    val body = WorksheetManager.generateWorksheetToMarkdown(worksheet)
-
-                    var emailIntent = Intent(Intent.ACTION_SEND)
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses)
-                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-                    emailIntent.putExtra(Intent.EXTRA_TEXT, body)
-                    emailIntent.type = "message/rfc822"
-                    startActivity(Intent.createChooser(emailIntent, "メール送信方法:"))
-                }
+                return true
+            }
+            R.id.send_markdown -> {
+                sendMail()
                 return true
             }
             android.R.id.home -> {
@@ -90,6 +79,34 @@ class MonthWorkActivity : AppCompatActivity() {
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun sendMail(fileUri: Uri? = null) {
+        val to = PrefsManager(this).emailTo
+
+        if (to.isNullOrEmpty()) {
+            // TODO: 登録メッセージdialog表示
+            showAlertDialog {
+                var intent= Intent(this, EmailSettingActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
+            val addresses = arrayOf(to)
+            var subject = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
+
+            var emailIntent = Intent(Intent.ACTION_SEND)
+
+            if (fileUri == null) {
+                val body = WorksheetManager.generateWorksheetToMarkdown(worksheet)
+                emailIntent.putExtra(Intent.EXTRA_TEXT, body)
+            }
+
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, addresses)
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+            emailIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+            emailIntent.type = "message/rfc822"
+            startActivity(Intent.createChooser(emailIntent, "メール送信方法:"))
+        }
     }
 
     private fun showAlertDialog(completion: () -> Unit) {
