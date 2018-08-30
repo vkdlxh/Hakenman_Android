@@ -71,7 +71,7 @@ class WorksheetListActivity : AppCompatActivity() {
                 completion()
             }
 
-            setNegativeButton("キャンセル") {
+            setNegativeButton(getString(R.string.negative_button)) {
                 dialog, whichButton ->
                 dialog.dismiss()
             }
@@ -85,28 +85,28 @@ class WorksheetListActivity : AppCompatActivity() {
         var editTextAge: EditText? = null
 
         with (alertDialog) {
-            setTitle("勤務表生成")
+            setTitle(getString(R.string.create_worksheet_title))
 
             editTextAge = EditText(context)
             editTextAge!!.hint="201808(yyyyDD)"
             editTextAge!!.inputType = InputType.TYPE_CLASS_NUMBER
 
-            setPositiveButton("確認") {
+            setPositiveButton(getString(R.string.positive_button)) {
                 dialog, whichButton ->
                 val editTextValue = editTextAge!!.text
-                // TODO: Valiateする他の方法考えてみる
+                // TODO: validateする他の方法考えてみる
                 if (editTextValue.isNullOrBlank()) {
-                    Toast.makeText(this@WorksheetListActivity, "空欄なく入力してください。", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@WorksheetListActivity, getString(R.string.empty_error_message), Toast.LENGTH_SHORT).show()
                     showCreateWorksheetDialog()
                 } else if (editTextValue.trim().length != 6) {
-                    Toast.makeText(this@WorksheetListActivity, "正しい値を入力してください。", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@WorksheetListActivity, getString(R.string.invalidate_error_message), Toast.LENGTH_SHORT).show()
                     showCreateWorksheetDialog()
                 } else {
                     var yearMonth = editTextAge!!.text.toString()
                     var worksheet = WorksheetManager.createWorksheet(yearMonth)
 
                     if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
-                        showAlertDialog("すでに存在している勤務表です。\n上書きしますか？", "確認") {
+                        showAlertDialog(getString(R.string.update_worksheet_title), getString(R.string.positive_button)) {
                             WorksheetManager.updateWorksheet(worksheet)
                             CustomLog.d("勤務表生成 : " + yearMonth)
                             reloadListView()
@@ -121,7 +121,7 @@ class WorksheetListActivity : AppCompatActivity() {
 
             }
 
-            setNegativeButton("キャンセル") {
+            setNegativeButton(R.string.negative_button) {
                 dialog, whichButton ->
                 dialog.dismiss()
             }
@@ -158,7 +158,7 @@ class WorksheetListActivity : AppCompatActivity() {
         }
 
         work_listView.setOnItemLongClickListener { parent, view, position, id ->
-            showAlertDialog("勤務表を削除しますか？", "削除") {
+            showAlertDialog(getString(R.string.delete_worksheet_title), getString(R.string.delete_button)) {
                 adapter.remove(position)
                 reloadListView()
             }

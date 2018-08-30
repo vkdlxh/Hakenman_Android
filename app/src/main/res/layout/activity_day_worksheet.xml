@@ -19,13 +19,12 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
+            android:padding="@dimen/default_padding"
             android:text="@string/workday_setting_header"
             android:textSize="@dimen/day_worksheet_header_font_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorLightGray"/>
 
         <Switch
             android:id="@+id/isWork_switch"
@@ -53,11 +52,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
+            android:padding="@dimen/default_padding"
             android:text="@string/worktime_setting_header"
-            android:textSize="@dimen/day_worksheet_header_font_size" />
+            android:textSize="@dimen/day_worksheet_header_font_size"
+            android:background="@color/colorLightGray" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -208,11 +206,10 @@
                 android:id="@+id/note_setting_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/default_margin"
-                android:layout_marginStart="@dimen/default_margin"
-                android:layout_marginTop="@dimen/default_margin"
+                android:padding="@dimen/default_padding"
                 android:text="@string/note_setting_header"
-                android:textSize="@dimen/day_worksheet_header_font_size"/>
+                android:textSize="@dimen/day_worksheet_header_font_size"
+                android:background="@color/colorLightGray" />
 
             <EditText
                 android:id="@+id/note_editText"

@@ -105,7 +105,7 @@ class MonthWorkActivity : AppCompatActivity() {
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
             emailIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
             emailIntent.type = "message/rfc822"
-            startActivity(Intent.createChooser(emailIntent, "メール送信方法:"))
+            startActivity(Intent.createChooser(emailIntent, getString(R.string.send_email_type)))
         }
     }
 
@@ -114,18 +114,18 @@ class MonthWorkActivity : AppCompatActivity() {
         with (alertDialog) {
 
             val titleView = TextView(context)
-            titleView.text = "宛先を設定してください。"
+            titleView.text = getString(R.string.request_set_address_message)
             titleView.gravity = Gravity.CENTER_HORIZONTAL
             titleView.textSize = 20F
             titleView.setTextColor(resources.getColor(R.color.colorBlack))
             setView(titleView)
 
-            setPositiveButton("設定") {
+            setPositiveButton(getString(R.string.setting_button)) {
                 dialog, whichButton ->
                 completion()
             }
 
-            setNegativeButton("キャンセル") {
+            setNegativeButton(getString(R.string.negative_button)) {
                 dialog, whichButton ->
                 dialog.dismiss()
             }

@@ -13,20 +13,19 @@
 
         <TextView
             android:id="@+id/worksheet_setting_header_textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:padding="@dimen/default_padding"
             android:text="@string/worksheet_setting_header"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorLightGray"/>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/defalut_beginTime_ConstraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/day_worksheet_itembox_layout_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/worksheet_setting_header_textView">
@@ -62,7 +61,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/defalut_endTime_ConstraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/day_worksheet_itembox_layout_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/defalut_beginTime_ConstraintLayout">
@@ -97,8 +96,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="@dimen/day_worksheet_itembox_layout_height"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -120,8 +118,8 @@
                 android:id="@+id/interval_radio_group"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
                 android:orientation="horizontal"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -143,48 +141,36 @@
             </RadioGroup>
         </android.support.constraint.ConstraintLayout>
 
-
-
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/email_info_header_ConstraintLayout"
+        <TextView
+            android:id="@+id/email_setting_header_textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding"
+            android:text="@string/email_info_header"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorLightGray"/>
 
-            <TextView
-                android:id="@+id/email_setting_header_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/email_info_header"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_info_header_ConstraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/email_setting_header_textView">
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/email_to_ConstraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="@dimen/day_worksheet_itembox_layout_height"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
@@ -204,8 +190,7 @@
                     android:id="@+id/email_to_editText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
+                    android:padding="@dimen/default_padding"
                     android:hint="@string/email_empty_message"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -224,20 +209,18 @@
 
         <TextView
             android:id="@+id/app_info_header_textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
+            android:padding="@dimen/default_padding"
             android:text="@string/app_info_header"
             android:textSize="@dimen/day_worksheet_header_font_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorLightGray"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/day_worksheet_itembox_layout_height"
-        android:layout_marginBottom="@dimen/default_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

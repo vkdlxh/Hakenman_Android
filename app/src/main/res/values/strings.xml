@@ -4,13 +4,27 @@
     <!-- WorksheetList Activity -->
     <string name="main_activity_title">勤務表一覧</string>
     <string name="worksheet_info_message">勤務表を登録してください</string>
+    <string name="create_worksheet_title">勤務表生成</string>
+    <string name="update_worksheet_title">"すでに存在している勤務表です。\n上書きしますか？"</string>
+    <string name="delete_worksheet_title">勤務表を削除しますか？</string>
+    <string name="delete_button">削除</string>
+    <string name="setting_button">設定</string>
+    <string name="empty_error_message">空欄なく入力してください。</string>
+    <string name="invalidate_error_message">正しい値を入力してください。</string>
 
     <!-- MonthWorksheet Activity -->
     <string name="month_work_activity_title">%s年%s月勤務表</string>
     <string name="email_subject">【勤怠】%s年%s月勤務表</string>
+    <string name="request_set_address_message">宛先を設定してください。</string>
+    <string name="send_email_type">メール送信方法：</string>
 
     <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s年%s月%s日勤務表</string>
+    <string name="set_beginTime_title">出勤時間登録</string>
+    <string name="set_endTime_title">退勤時間登録</string>
+    <string name="set_breakTime_title">休憩時間登録</string>
+    <string name="positive_button">確認</string>
+    <string name="negative_button">キャンセル</string>
 
     <!-- Setting Activity -->
     <string name="setting_activity_title">設定</string>
@@ -18,12 +32,22 @@
     <!-- EmailSetting Activity -->
     <string name="email_setting_activity_title">メール情報修正</string>
 
+    <!-- Month　Worksheet Layout -->
+    <string name="day_column">日</string>
+    <string name="week_column">曜日</string>
+    <string name="work_flag_column">営</string>
+    <string name="begin_time_column">出勤</string>
+    <string name="end_time_column">退勤</string>
+    <string name="break_time_column">休憩</string>
+    <string name="work_time_column">勤務</string>
+    <string name="note_column">備考</string>
+
     <!-- Day　Worksheet Layout -->
     <string name="workday_setting_header">勤務設定</string>
     <string name="workday_switch_title">作業日</string>
     <string name="worktime_setting_header">勤務時間設定</string>
-    <string name="worktime_begin_title">開始時間</string>
-    <string name="worktime_end_title">終了時間</string>
+    <string name="worktime_begin_title">出勤時間</string>
+    <string name="worktime_end_title">退勤時間</string>
     <string name="worktime_break_title">休憩時間</string>
     <string name="worktime_total_title">勤務時間</string>
     <string name="note_setting_header">備考</string>

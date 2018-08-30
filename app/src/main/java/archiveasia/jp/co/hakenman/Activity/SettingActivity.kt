@@ -51,11 +51,11 @@ class SettingActivity : AppCompatActivity() {
         }
 
         defalut_beginTime_view.setOnClickListener {
-            showAddDialog("開始時間登録", default_beginTime_textView)
+            showAddDialog(getString(R.string.set_beginTime_title), default_beginTime_textView)
         }
 
         defalut_endTime_view.setOnClickListener {
-            showAddDialog("終了時間登録", default_endTime_textView)
+            showAddDialog(getString(R.string.set_endTime_title), default_endTime_textView)
         }
 
         CustomLog.d("設定画面")
@@ -102,16 +102,16 @@ class SettingActivity : AppCompatActivity() {
 
         with (addDialog) {
             setView(dialogView)
-            setTitle(title + "登録")
+            setTitle(title)
 
-            setPositiveButton("登録") {
+            setPositiveButton(getString(R.string.positive_button)) {
                 dialog, _ ->
                 textView.text = getPickerTime(dialogView).hourMinute()
 
                 dialog.dismiss()
             }
 
-            setNegativeButton("キャンセル") {
+            setNegativeButton(getString(R.string.negative_button)) {
                 dialog, _ ->
                 dialog.dismiss()
             }

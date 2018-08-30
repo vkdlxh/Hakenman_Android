@@ -138,15 +138,15 @@ class DayWorksheetActivity : AppCompatActivity() {
         note_editText.setText(if (detailWork.note != null) detailWork.note else "")
 
         beginTime_view.setOnClickListener {
-            showAddDialog("開始時間登録", day_start_time_textView, WorkTimeType.BEGIN_TIME)
+            showAddDialog(getString(R.string.set_beginTime_title), day_start_time_textView, WorkTimeType.BEGIN_TIME)
         }
 
         endTime_view.setOnClickListener {
-            showAddDialog("終了時間登録", day_end_time_textView, WorkTimeType.END_TIME)
+            showAddDialog(getString(R.string.set_endTime_title), day_end_time_textView, WorkTimeType.END_TIME)
         }
 
         breakTime_view.setOnClickListener {
-            showAddDialog("休憩時間登録", day_break_time_textView, WorkTimeType.BREAK_TIME)
+            showAddDialog(getString(R.string.set_breakTime_title), day_break_time_textView, WorkTimeType.BREAK_TIME)
         }
     }
 
@@ -218,9 +218,9 @@ class DayWorksheetActivity : AppCompatActivity() {
 
         with (addDialog) {
             setView(dialogView)
-            setTitle(title + "登録")
+            setTitle(title)
 
-            setPositiveButton("登録") {
+            setPositiveButton(getString(R.string.positive_button)) {
                 dialog, _ ->
                 textView.text = getPickerTime(dialogView).hourMinute()
 
@@ -246,7 +246,7 @@ class DayWorksheetActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
 
-            setNegativeButton("キャンセル") {
+            setNegativeButton(getString(R.string.negative_button)) {
                 dialog, _ ->
                 dialog.dismiss()
             }
