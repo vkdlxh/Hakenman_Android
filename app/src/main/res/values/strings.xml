@@ -1,0 +1,144 @@
+<resources>
+    <string name="app_name">Hakenman</string>
+
+    <!-- WorksheetList Activity -->
+    <string name="main_activity_title">勤務表一覧</string>
+    <string name="worksheet_info_message">勤務表を登録してください</string>
+    <string name="create_worksheet_title">勤務表生成</string>
+    <string name="update_worksheet_title">"すでに存在している勤務表です。\n上書きしますか？"</string>
+    <string name="delete_worksheet_title">勤務表を削除しますか？</string>
+    <string name="delete_button">削除</string>
+    <string name="setting_button">設定</string>
+    <string name="empty_error_message">空欄なく入力してください。</string>
+    <string name="invalidate_error_message">正しい値を入力してください。</string>
+
+    <!-- MonthWorksheet Activity -->
+    <string name="month_work_activity_title">%s年%s月勤務表</string>
+    <string name="email_subject">【勤怠】%s年%s月勤務表</string>
+    <string name="request_set_address_message">宛先を設定してください。</string>
+    <string name="send_email_type">メール送信方法：</string>
+
+    <!-- DayWorksheet Activity -->
+    <string name="day_work_activity_title">%s年%s月%s日勤務表</string>
+    <string name="set_beginTime_title">出勤時間登録</string>
+    <string name="set_endTime_title">退勤時間登録</string>
+    <string name="set_breakTime_title">休憩時間登録</string>
+    <string name="positive_button">確認</string>
+    <string name="negative_button">キャンセル</string>
+
+    <!-- Setting Activity -->
+    <string name="setting_activity_title">設定</string>
+
+    <!-- EmailSetting Activity -->
+    <string name="email_setting_activity_title">メール情報修正</string>
+
+    <!-- Month　Worksheet Layout -->
+    <string name="day_column">日</string>
+    <string name="week_column">曜日</string>
+    <string name="work_flag_column">営</string>
+    <string name="begin_time_column">出勤時間</string>
+    <string name="end_time_column">退勤時間</string>
+    <string name="break_time_column">休憩</string>
+    <string name="work_time_column">勤務時間</string>
+    <string name="note_column">備考</string>
+
+    <!-- Day　Worksheet Layout -->
+    <string name="workday_setting_header">勤務設定</string>
+    <string name="workday_switch_title">作業日</string>
+    <string name="worktime_setting_header">勤務時間設定</string>
+    <string name="worktime_begin_title">出勤時間</string>
+    <string name="worktime_end_title">退勤時間</string>
+    <string name="worktime_break_title">休憩時間</string>
+    <string name="worktime_total_title">勤務時間</string>
+    <string name="note_setting_header">備考</string>
+
+    <!-- Setting Layout -->
+    <string name="worksheet_setting_header">勤怠管理設定</string>
+    <string name="email_info_header">メール情報</string>
+    <string name="go_email_setting_title">設定</string>
+    <string name="app_info_header">アプリ情報</string>
+    <string name="interval_time_title">勤務時間設定</string>
+    <string name="email_setting_title">勤務表送付メール設定</string>
+    <string name="version">App Version</string>
+    <string name="email_empty_message">登録してください。</string>
+    <string name="email_to_title">宛先</string>
+
+    <!--Menu Values-->
+    <string name="setting_menu_title">Setting</string>
+    <string name="send_email_menu_title">Send Email</string>
+    <string name="csv_menu_title">CSV</string>
+    <string name="markdown_menu_title">Markdown</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_settings22">Settings</string>
+</resources>

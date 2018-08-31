@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.SettingActivity"
+    android:orientation="vertical" >
+
+    <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/worksheet_setting_header_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding"
+            android:text="@string/worksheet_setting_header"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorLightGray"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/defalut_beginTime_ConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/day_worksheet_itembox_layout_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/worksheet_setting_header_textView">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/day_worksheet_margin"
+                android:layout_marginStart="@dimen/day_worksheet_margin"
+                android:text="@string/worktime_begin_title"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/day_worksheet_item_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/default_beginTime_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/day_worksheet_margin"
+                android:layout_marginRight="@dimen/day_worksheet_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/defalut_beginTime_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/defalut_endTime_ConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/day_worksheet_itembox_layout_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/defalut_beginTime_ConstraintLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/day_worksheet_margin"
+                android:layout_marginStart="@dimen/day_worksheet_margin"
+                android:text="@string/worktime_end_title"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/day_worksheet_item_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/default_endTime_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/day_worksheet_margin"
+                android:layout_marginRight="@dimen/day_worksheet_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/defalut_endTime_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/day_worksheet_itembox_layout_height"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/defalut_endTime_ConstraintLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:textColor="#000000"
+                android:text="@string/interval_time_title"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/interval_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:orientation="horizontal"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <RadioButton
+                    android:id="@+id/button15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="15" />
+                <RadioButton
+                    android:id="@+id/button30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="30" />
+            </RadioGroup>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/email_setting_header_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding"
+            android:text="@string/email_info_header"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorLightGray"/>
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_setting_header_textView">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/email_to_ConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/day_worksheet_itembox_layout_height"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/colorBlack"
+                    android:text="@string/email_to_title"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/email_to_editText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/default_padding"
+                    android:hint="@string/email_empty_message"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/app_info_header_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_padding"
+            android:text="@string/app_info_header"
+            android:textSize="@dimen/day_worksheet_header_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorLightGray"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/day_worksheet_itembox_layout_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_info_header_textView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/day_worksheet_margin"
+            android:layout_marginStart="@dimen/day_worksheet_margin"
+            android:textColor="@color/colorBlack"
+            android:text="@string/version"
+            android:textSize="@dimen/day_worksheet_item_font_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/version_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/day_worksheet_margin"
+            android:layout_marginEnd="@dimen/day_worksheet_margin"
+            android:textSize="@dimen/day_worksheet_item_font_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
