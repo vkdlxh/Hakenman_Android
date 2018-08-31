@@ -36,10 +36,10 @@
     <string name="day_column">日</string>
     <string name="week_column">曜日</string>
     <string name="work_flag_column">営</string>
-    <string name="begin_time_column">出勤</string>
-    <string name="end_time_column">退勤</string>
+    <string name="begin_time_column">出勤時間</string>
+    <string name="end_time_column">退勤時間</string>
     <string name="break_time_column">休憩</string>
-    <string name="work_time_column">勤務</string>
+    <string name="work_time_column">勤務時間</string>
     <string name="note_column">備考</string>
 
     <!-- Day　Worksheet Layout -->

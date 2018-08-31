@@ -12,91 +12,98 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/header_day_textView"
             android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:maxLines="1"
             android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="@string/day_column"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:textColor="@color/colorWhite"
             android:background="@drawable/worksheet_border_line"/>
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/header_week_textView"
             android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingHorizontal="@dimen/month_worksheet_padding"
+            android:maxLines="1"
             android:text="@string/week_column"
             android:layout_weight="2"
             android:textColor="@color/colorWhite"
             android:background="@drawable/worksheet_border_line"/>
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/header_workFlag_textView"
             android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingHorizontal="@dimen/month_worksheet_padding"
+            android:maxLines="1"
             android:text="@string/work_flag_column"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:textColor="@color/colorWhite"
             android:background="@drawable/worksheet_border_line"/>
 
-        <TextView
-            android:id="@+id/header_startWork_textView"
+        <me.grantland.widget.AutofitTextView
             android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
             android:paddingHorizontal="@dimen/month_worksheet_padding"
+            android:maxLines="1"
             android:text="@string/begin_time_column"
             android:layout_weight="3"
             android:textColor="@color/colorWhite"
             android:background="@drawable/worksheet_border_line"/>
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/header_endWork_textView"
             android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:maxLines="1"
             android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="@string/end_time_column"
             android:layout_weight="3"
             android:textColor="@color/colorWhite"
             android:background="@drawable/worksheet_border_line"/>
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/header_break_textView"
             android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:maxLines="1"
             android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="@string/break_time_column"
             android:layout_weight="2"
             android:textColor="@color/colorWhite"
             android:background="@drawable/worksheet_border_line"/>
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/header_workTime_textView"
             android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:maxLines="1"
             android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="@string/work_time_column"
             android:layout_weight="3"
             android:textColor="@color/colorWhite"
-            android:background="@drawable/worksheet_border_line"/>
+            android:background="@drawable/worksheet_border_line" />
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/header_note_textView"
             android:layout_width="@dimen/zero_width"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:maxLines="1"
             android:paddingHorizontal="@dimen/month_worksheet_padding"
             android:text="@string/note_column"
-            android:layout_weight="4"
+            android:layout_weight="3.5"
             android:textColor="@color/colorWhite"
             android:background="@drawable/worksheet_border_line"/>
 

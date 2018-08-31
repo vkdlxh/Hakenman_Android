@@ -7,7 +7,7 @@
     <dimen name="worksheet_list_slash_margin">2dp</dimen>
 
     <dimen name="month_worksheet_height">25dp</dimen>
-    <dimen name="month_worksheet_padding">5dp</dimen>
+    <dimen name="month_worksheet_padding">4dp</dimen>
 
     <dimen name="day_worksheet_flag_layout_height">55dp</dimen>
     <dimen name="day_worksheet_itembox_layout_height">45dp</dimen>

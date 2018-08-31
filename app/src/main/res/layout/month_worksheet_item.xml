@@ -9,9 +9,10 @@
         android:id="@+id/day_textView"
         android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:gravity="center"
-        android:maxLines="1"
+        android:ellipsize="none"
+        android:singleLine="true"
         android:background="@drawable/worksheet_border_line"/>
 
     <TextView
@@ -20,6 +21,8 @@
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:gravity="center"
+        android:ellipsize="none"
+        android:singleLine="true"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
         android:background="@drawable/worksheet_border_line"/>
 
@@ -27,8 +30,10 @@
         android:id="@+id/workFlag_textView"
         android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:gravity="center"
+        android:ellipsize="none"
+        android:singleLine="true"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
         android:background="@drawable/worksheet_border_line"/>
 
@@ -72,7 +77,7 @@
         android:id="@+id/note_textView"
         android:layout_width="@dimen/zero_width"
         android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_weight="3.5"
         android:gravity="center"
         android:maxLines="1"
         android:maxLength="10"
