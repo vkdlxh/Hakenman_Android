@@ -48,7 +48,7 @@ class WorksheetListAdapter(private val context: Context,
     }
 
     fun remove(index: Int) {
-        var mutableList = workList.toMutableList()
+        val mutableList = workList.toMutableList()
         mutableList.removeAt(index)
         mutableList.toList()
         WorksheetManager.updateAllWorksheet(mutableList)

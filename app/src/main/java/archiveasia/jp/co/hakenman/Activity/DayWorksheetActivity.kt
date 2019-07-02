@@ -151,12 +151,12 @@ class DayWorksheetActivity : AppCompatActivity() {
     }
 
     private fun setTimePickerInterval(timePicker: TimePicker) {
-        var minuteID = Resources.getSystem().getIdentifier("minute", "id", "android")
-        var minutePicker = timePicker.findViewById<NumberPicker>(minuteID)
+        val minuteID = Resources.getSystem().getIdentifier("minute", "id", "android")
+        val minutePicker = timePicker.findViewById<NumberPicker>(minuteID)
 
         val interval = PrefsManager(this).interval
-        var numValue = 60 / interval
-        var displayedValue = arrayListOf<String>()
+        val numValue = 60 / interval
+        val displayedValue = arrayListOf<String>()
 
         for (i in 0..numValue) {
             val value = i * interval

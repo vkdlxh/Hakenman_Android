@@ -140,7 +140,7 @@ class WorksheetListActivity : AppCompatActivity() {
     private fun adaptListView() {
         WorksheetManager.loadLocalWorksheet()
 
-        var worksheetList = WorksheetManager.getWorksheetList()
+        val worksheetList = WorksheetManager.getWorksheetList()
 
         // 勤務表がない場合、中央にメッセージを表示する
         if (worksheetList.isEmpty()) {

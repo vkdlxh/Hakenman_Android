@@ -84,7 +84,7 @@ class SettingActivity : AppCompatActivity() {
         dialogView.time_picker.setIs24HourView(true)
 
 
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         calendar.time = textView.text.toString().hourMinuteToDate()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
@@ -122,12 +122,12 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun setTimePickerInterval(timePicker: TimePicker) {
-        var minuteID = Resources.getSystem().getIdentifier("minute", "id", "android")
-        var minutePicker = timePicker.findViewById<NumberPicker>(minuteID)
+        val minuteID = Resources.getSystem().getIdentifier("minute", "id", "android")
+        val minutePicker = timePicker.findViewById<NumberPicker>(minuteID)
 
         val interval = PrefsManager(this).interval
-        var numValue = 60 / interval
-        var displayedValue = arrayListOf<String>()
+        val numValue = 60 / interval
+        val displayedValue = arrayListOf<String>()
 
         for (i in 0..numValue) {
             val value = i * interval
@@ -150,7 +150,7 @@ class SettingActivity : AppCompatActivity() {
         } else {
             view.time_picker.currentMinute * PrefsManager(this).interval
         }
-        var cal = Calendar.getInstance()
+        val cal = Calendar.getInstance()
         cal.set(Calendar.HOUR_OF_DAY, hour)
         cal.set(Calendar.MINUTE, minute)
         return cal.time
