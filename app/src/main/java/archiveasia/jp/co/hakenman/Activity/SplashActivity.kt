@@ -9,10 +9,13 @@ import archiveasia.jp.co.hakenman.R
 
 class SplashActivity : AppCompatActivity() {
 
-    private var mDelayHandler: Handler? = null
-    private val SPLASH_DELAY: Long = 3000 // 3 秒
+    companion object {
+        private const val SPLASH_DELAY: Long = 3000 // 3 秒
+    }
 
-    val mRunnable: Runnable = Runnable {
+    private var mDelayHandler: Handler? = null
+
+    private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
 
             val intent = Intent(applicationContext, WorksheetListActivity::class.java)

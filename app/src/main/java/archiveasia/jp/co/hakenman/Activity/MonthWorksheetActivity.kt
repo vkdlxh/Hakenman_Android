@@ -87,14 +87,14 @@ class MonthWorkActivity : AppCompatActivity() {
         if (to.isNullOrEmpty()) {
             // TODO: 登録メッセージdialog表示
             showAlertDialog {
-                var intent= Intent(this, SettingActivity::class.java)
+                val intent= Intent(this, SettingActivity::class.java)
                 startActivity(intent)
             }
         } else {
             val addresses = arrayOf(to)
-            var subject = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
+            val subject = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
 
-            var emailIntent = Intent(Intent.ACTION_SEND)
+            val emailIntent = Intent(Intent.ACTION_SEND)
 
             if (fileUri == null) {
                 val body = WorksheetManager.generateWorksheetToMarkdown(worksheet)

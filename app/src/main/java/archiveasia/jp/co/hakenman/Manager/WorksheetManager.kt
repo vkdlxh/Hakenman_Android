@@ -34,7 +34,7 @@ object WorksheetManager {
      * @return MutableList<Worksheet>
      */
     fun loadLocalWorksheet() {
-        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
         if (File(filepath).exists()) {
             val gson = GsonBuilder().setDateFormat("MMM dd, yyyy hh:mm:ss a").create()
             var worksheetList: MutableList<Worksheet> = gson.fromJson(FileReader(File(filepath)), object : TypeToken<MutableList<Worksheet>>() {}.type)
@@ -55,7 +55,7 @@ object WorksheetManager {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val jsonString = gson.toJson(worksheetList)
 
-        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
 
         val writer = PrintWriter(filepath)
         writer.append(jsonString)
@@ -69,7 +69,7 @@ object WorksheetManager {
      * @return JSONファイルで保持
      */
     fun updateWorksheet(newValue: Worksheet) {
-        var oldValue = this.worksheetList.find {
+        val oldValue = this.worksheetList.find {
             it.workDate.yearMonth() == newValue.workDate.yearMonth()
         }
 
@@ -79,7 +79,7 @@ object WorksheetManager {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val jsonString = gson.toJson(worksheetList)
 
-        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
 
         val writer = PrintWriter(filepath)
         writer.append(jsonString)
@@ -98,7 +98,7 @@ object WorksheetManager {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val jsonString = gson.toJson(worksheetList)
 
-        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
 
         val writer = PrintWriter(filepath)
         writer.append(jsonString)
@@ -115,7 +115,7 @@ object WorksheetManager {
         val gson = GsonBuilder().setPrettyPrinting().create()
         val jsonString = gson.toJson(worksheetList)
 
-        var filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
 
         val writer = PrintWriter(filepath)
         writer.append(jsonString)
@@ -148,14 +148,14 @@ object WorksheetManager {
      * @return 開始、終了、休憩の３つの値が全部あれば、勤務時間を求める
      */
     fun calculateDuration(detailWork: DetailWork): Double? {
-        if (detailWork.beginTime != null && detailWork.endTime != null && detailWork.breakTime != null) {
-            var beginTime = detailWork.beginTime!!.time
-            var endTime = detailWork.endTime!!.time
-            var breakTime = detailWork.breakTime!!.hourMinuteToDouble()
+        return if (detailWork.beginTime != null && detailWork.endTime != null && detailWork.breakTime != null) {
+            val beginTime = detailWork.beginTime!!.time
+            val endTime = detailWork.endTime!!.time
+            val breakTime = detailWork.breakTime!!.hourMinuteToDouble()
             val workTime = (endTime - beginTime) / (60 * 60 * 1000)
-            return workTime.toDouble() - breakTime
+            workTime.toDouble() - breakTime
         } else {
-            return null
+            null
         }
     }
 
@@ -171,20 +171,20 @@ object WorksheetManager {
 
         val date = yyyymm.createDate()
 
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         calendar.time = date
-        var lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-        var detailWorks = mutableListOf<DetailWork>()
+        val detailWorks = mutableListOf<DetailWork>()
         for (day in 1..lastDay) {
             val newDate = createDate(year, month, day)
             val week = newDate.week()
             val isHoliday = !newDate.isHoliday()
 
-            var detailWork = DetailWork(year, month, day, week, isHoliday)
+            val detailWork = DetailWork(year, month, day, week, isHoliday)
             detailWorks.add(detailWork)
         }
-        var worksheet = Worksheet(date, 0.0, 0, detailWorks)
+        val worksheet = Worksheet(date, 0.0, 0, detailWorks)
         worksheet.workDaySum = worksheet.detailWorkList
                 .filter { it.workFlag == true }
                 .count()

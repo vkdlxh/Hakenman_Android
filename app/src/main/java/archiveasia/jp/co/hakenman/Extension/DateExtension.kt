@@ -14,26 +14,25 @@ fun Date.week(): String = SimpleDateFormat("E").format(this)
 fun Date.hourMinute(): String = SimpleDateFormat("HH:mm").format(this)
 
 fun Date.isHoliday(): Boolean {
-    var calendar = Calendar.getInstance()
+    val calendar = Calendar.getInstance()
     calendar.time = this
-    val weekOfYear = calendar.get(Calendar.DAY_OF_WEEK)
 
-    when (weekOfYear) {
+    return when (calendar.get(Calendar.DAY_OF_WEEK)) {
         1, 7 -> {
-            return true
+            true
         }
         else -> {
-            return false
+            false
         }
     }
 
 }
 
 fun Date.hourMinuteToDouble(): Double {
-    var calendar = Calendar.getInstance()
+    val calendar = Calendar.getInstance()
     calendar.time = this
-    var hour = calendar.get(Calendar.HOUR_OF_DAY)
-    var minute = calendar.get(Calendar.MINUTE)
+    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+    val minute = calendar.get(Calendar.MINUTE)
 
     return hour.toDouble() + (minute.toDouble() / 60)
 }
