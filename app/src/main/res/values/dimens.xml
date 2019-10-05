@@ -3,7 +3,9 @@
     <dimen name="worksheet_list_date_view_width">140sp</dimen>
     <dimen name="worksheet_list_date_view_height">80sp</dimen>
     <dimen name="default_margin">8dp</dimen>
+    <dimen name="large_margin">12dp</dimen>
     <dimen name="default_padding">4dp</dimen>
+    <dimen name="large_padding">12dp</dimen>
     <dimen name="worksheet_list_slash_margin">2dp</dimen>
 
     <dimen name="month_worksheet_height">25dp</dimen>

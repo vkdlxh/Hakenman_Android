@@ -1,21 +1,19 @@
 package archiveasia.jp.co.hakenman.Activity
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.text.InputType
+import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.Adapter.WorksheetListAdapter
+import archiveasia.jp.co.hakenman.CreateWorksheetDialog
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.Manager.WorksheetManager
+import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class WorksheetListActivity : AppCompatActivity() {
@@ -81,55 +79,12 @@ class WorksheetListActivity : AppCompatActivity() {
     }
 
     private fun showCreateWorksheetDialog() {
-        val alertDialog = AlertDialog.Builder(this)
-        var editTextAge: EditText? = null
-
-        with (alertDialog) {
-            setTitle(getString(R.string.create_worksheet_title))
-
-            editTextAge = EditText(context)
-            editTextAge!!.hint="201808(yyyyDD)"
-            editTextAge!!.inputType = InputType.TYPE_CLASS_NUMBER
-
-            setPositiveButton(getString(R.string.positive_button)) {
-                dialog, whichButton ->
-                val editTextValue = editTextAge!!.text
-                // TODO: validateする他の方法考えてみる
-                if (editTextValue.isNullOrBlank()) {
-                    Toast.makeText(this@WorksheetListActivity, getString(R.string.empty_error_message), Toast.LENGTH_SHORT).show()
-                    showCreateWorksheetDialog()
-                } else if (editTextValue.trim().length != 6) {
-                    Toast.makeText(this@WorksheetListActivity, getString(R.string.invalidate_error_message), Toast.LENGTH_SHORT).show()
-                    showCreateWorksheetDialog()
-                } else {
-                    var yearMonth = editTextAge!!.text.toString()
-                    var worksheet = WorksheetManager.createWorksheet(yearMonth)
-
-                    if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
-                        showAlertDialog(getString(R.string.update_worksheet_title), getString(R.string.positive_button)) {
-                            WorksheetManager.updateWorksheet(worksheet)
-                            CustomLog.d("勤務表生成 : " + yearMonth)
-                            reloadListView()
-                        }
-                    } else {
-                        WorksheetManager.addWorksheetToJsonFile(worksheet)
-                        CustomLog.d("勤務表生成 : " + yearMonth)
-                        reloadListView()
-                    }
-                    dialog.dismiss()
-                }
-
-            }
-
-            setNegativeButton(R.string.negative_button) {
-                dialog, whichButton ->
-                dialog.dismiss()
-            }
+        val dialog = CreateWorksheetDialog()
+        dialog.show(supportFragmentManager, "tag")
+        supportFragmentManager.executePendingTransactions()
+        dialog.dialog.setOnDismissListener {
+            reloadListView()
         }
-
-        val dialog = alertDialog.create()
-        dialog.setView(editTextAge)
-        dialog.show()
     }
 
     private fun reloadListView() {
@@ -138,8 +93,6 @@ class WorksheetListActivity : AppCompatActivity() {
     }
 
     private fun adaptListView() {
-        WorksheetManager.loadLocalWorksheet()
-
         val worksheetList = WorksheetManager.getWorksheetList()
 
         // 勤務表がない場合、中央にメッセージを表示する
