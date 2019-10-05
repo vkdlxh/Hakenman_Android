@@ -116,15 +116,15 @@ class DayWorksheetActivity : AppCompatActivity() {
 
         // 勤務日合計
         worksheet.workDaySum = worksheet.detailWorkList
-                .filter { it.workFlag == true }
+                .filter { it.workFlag }
                 .count()
 
         // 勤務時間合計
         worksheet.workTimeSum = worksheet.detailWorkList
-                .filter { it.workFlag == true && it.duration != null }
+                .filter { it.workFlag && it.duration != null }
                 .sumByDouble { it.duration!! }
 
-        var resultIntent = Intent()
+        val resultIntent = Intent()
         resultIntent.putExtra(INTENT_WORKSHEET_RETURN_VALUE, worksheet)
         setResult(RESULT_OK, resultIntent)
         finish()
@@ -172,7 +172,7 @@ class DayWorksheetActivity : AppCompatActivity() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.timepicker_dialog, null)
         dialogView.time_picker.setIs24HourView(true)
 
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         var value: Date
         var hour: Int
         var minute: Int
@@ -235,9 +235,9 @@ class DayWorksheetActivity : AppCompatActivity() {
                 }
 
                 if (beginTime != null && endTime != null && breakTime != null) {
-                    var beginTimeLong = beginTime.time
-                    var endTimeLong = endTime.time
-                    var breakTimeDouble = breakTime.hourMinuteToDouble()
+                    val beginTimeLong = beginTime.time
+                    val endTimeLong = endTime.time
+                    val breakTimeDouble = breakTime.hourMinuteToDouble()
                     val workTime = (endTimeLong - beginTimeLong) / (60 * 60 * 1000)
                     val result = workTime.toDouble() - breakTimeDouble
                     day_total_time_textView.text = result.toString()
@@ -267,7 +267,7 @@ class DayWorksheetActivity : AppCompatActivity() {
         } else {
             view.time_picker.currentMinute * PrefsManager(this).interval
         }
-        var cal = Calendar.getInstance()
+        val cal = Calendar.getInstance()
         cal.set(Calendar.HOUR_OF_DAY, hour)
         cal.set(Calendar.MINUTE, minute)
         return cal.time

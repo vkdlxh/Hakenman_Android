@@ -112,6 +112,7 @@ object WorksheetManager {
      * @return JSONファイルで保持
      */
     fun updateAllWorksheet(worksheetList: List<Worksheet>) {
+        this.worksheetList = worksheetList.toMutableList()
         val gson = GsonBuilder().setPrettyPrinting().create()
         val jsonString = gson.toJson(worksheetList)
 
