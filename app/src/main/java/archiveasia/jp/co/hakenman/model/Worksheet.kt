@@ -1,4 +1,4 @@
-package archiveasia.jp.co.hakenman.Model
+package archiveasia.jp.co.hakenman.model
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -33,7 +33,7 @@ data class Worksheet (
             parcel.readDouble(),
             parcel.readInt(),
             mutableListOf<DetailWork>().apply {
-            parcel.readList(this, DetailWork::class.java.classLoader)
+                parcel.readList(this as List<DetailWork>, DetailWork::class.java.classLoader)
             }
     )
 
@@ -41,7 +41,7 @@ data class Worksheet (
         dest?.writeLong(workDate.time)
         dest?.writeDouble(workTimeSum)
         dest?.writeInt(workDaySum)
-        dest?.writeList(detailWorkList)
+        dest?.writeList(detailWorkList as List<DetailWork>)
     }
 
 }

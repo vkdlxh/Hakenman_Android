@@ -1,12 +1,12 @@
-package archiveasia.jp.co.hakenman.Activity
+package archiveasia.jp.co.hakenman.activity
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import archiveasia.jp.co.hakenman.CustomLog
-import archiveasia.jp.co.hakenman.Extension.yearMonth
-import archiveasia.jp.co.hakenman.Manager.WorksheetManager
+import archiveasia.jp.co.hakenman.extension.yearMonth
+import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.R
 import java.util.*
 

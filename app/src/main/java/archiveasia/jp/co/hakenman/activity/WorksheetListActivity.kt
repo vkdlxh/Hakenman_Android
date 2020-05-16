@@ -1,18 +1,18 @@
-package archiveasia.jp.co.hakenman.Activity
+package archiveasia.jp.co.hakenman.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import archiveasia.jp.co.hakenman.Adapter.WorksheetListAdapter
+import archiveasia.jp.co.hakenman.adapter.WorksheetListAdapter
 import archiveasia.jp.co.hakenman.CreateWorksheetDialog
 import archiveasia.jp.co.hakenman.CustomLog
-import archiveasia.jp.co.hakenman.Manager.WorksheetManager
+import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -82,7 +82,7 @@ class WorksheetListActivity : AppCompatActivity() {
         val dialog = CreateWorksheetDialog()
         dialog.show(supportFragmentManager, "tag")
         supportFragmentManager.executePendingTransactions()
-        dialog.dialog.setOnDismissListener {
+        dialog.dialog?.setOnDismissListener {
             reloadListView()
         }
     }

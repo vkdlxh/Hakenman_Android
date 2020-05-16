@@ -1,17 +1,17 @@
-package archiveasia.jp.co.hakenman.Extension
+package archiveasia.jp.co.hakenman.extension
 
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun Date.year(): String = SimpleDateFormat("yyyy").format(this)
+fun Date.year(): String = SimpleDateFormat("yyyy", Locale.getDefault()).format(this)
 
-fun Date.month(): String = SimpleDateFormat("MM").format(this)
+fun Date.month(): String = SimpleDateFormat("MM", Locale.getDefault()).format(this)
 
-fun Date.yearMonth(): String = SimpleDateFormat("yyyyMM").format(this)
+fun Date.yearMonth(): String = SimpleDateFormat("yyyyMM", Locale.getDefault()).format(this)
 
-fun Date.week(): String = SimpleDateFormat("E").format(this)
+fun Date.week(): String = SimpleDateFormat("E", Locale.getDefault()).format(this)
 
-fun Date.hourMinute(): String = SimpleDateFormat("HH:mm").format(this)
+fun Date.hourMinute(): String = SimpleDateFormat("HH:mm", Locale.getDefault()).format(this)
 
 fun Date.isHoliday(): Boolean {
     val calendar = Calendar.getInstance()

@@ -1,14 +1,14 @@
-package archiveasia.jp.co.hakenman.Adapter
+package archiveasia.jp.co.hakenman.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import archiveasia.jp.co.hakenman.Extension.month
-import archiveasia.jp.co.hakenman.Extension.year
-import archiveasia.jp.co.hakenman.Manager.WorksheetManager
-import archiveasia.jp.co.hakenman.Model.Worksheet
+import archiveasia.jp.co.hakenman.extension.month
+import archiveasia.jp.co.hakenman.extension.year
+import archiveasia.jp.co.hakenman.manager.WorksheetManager
+import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.worksheet_list_item.view.*
 

@@ -1,10 +1,10 @@
-package archiveasia.jp.co.hakenman.Activity
+package archiveasia.jp.co.hakenman.activity
 
 import android.content.res.Resources
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -12,9 +12,9 @@ import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.TimePicker
 import archiveasia.jp.co.hakenman.CustomLog
-import archiveasia.jp.co.hakenman.Extension.hourMinute
-import archiveasia.jp.co.hakenman.Extension.hourMinuteToDate
-import archiveasia.jp.co.hakenman.Manager.PrefsManager
+import archiveasia.jp.co.hakenman.extension.hourMinute
+import archiveasia.jp.co.hakenman.extension.hourMinuteToDate
+import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.timepicker_dialog.view.*

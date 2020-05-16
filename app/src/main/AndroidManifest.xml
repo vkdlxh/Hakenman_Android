@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,12 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.WorksheetListActivity" />
-        <activity android:name=".Activity.MonthWorkActivity" />
-        <activity android:name=".Activity.DayWorksheetActivity" />
-        <activity android:name=".Activity.SettingActivity" />
+        <activity android:name=".activity.WorksheetListActivity" />
+        <activity android:name=".activity.MonthWorkActivity" />
+        <activity android:name=".activity.DayWorksheetActivity" />
+        <activity android:name=".activity.SettingActivity" />
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">

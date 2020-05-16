@@ -1,8 +1,8 @@
-package archiveasia.jp.co.hakenman.Manager
+package archiveasia.jp.co.hakenman.manager
 
-import archiveasia.jp.co.hakenman.Extension.*
-import archiveasia.jp.co.hakenman.Model.DetailWork
-import archiveasia.jp.co.hakenman.Model.Worksheet
+import archiveasia.jp.co.hakenman.extension.*
+import archiveasia.jp.co.hakenman.model.DetailWork
+import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.MyApplication
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
