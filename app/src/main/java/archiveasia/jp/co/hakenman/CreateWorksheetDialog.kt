@@ -1,8 +1,8 @@
 package archiveasia.jp.co.hakenman
 
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import androidx.appcompat.app.AlertDialog
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
-import archiveasia.jp.co.hakenman.Manager.WorksheetManager
+import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import kotlinx.android.synthetic.main.datepicker_dialog.*
 import kotlinx.android.synthetic.main.datepicker_dialog.view.*
 
@@ -41,12 +41,12 @@ class CreateWorksheetDialog: DialogFragment() {
         if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
             showAlertDialog(getString(R.string.update_worksheet_title), getString(R.string.positive_button)) {
                 WorksheetManager.updateWorksheet(worksheet)
-                CustomLog.d("勤務表生成 : " + yearMonth)
+                CustomLog.d("勤務表生成 : $yearMonth")
                 dismiss()
             }
         } else {
             WorksheetManager.addWorksheetToJsonFile(worksheet)
-            CustomLog.d("勤務表生成 : " + yearMonth)
+            CustomLog.d("勤務表生成 : $yearMonth")
             dismiss()
         }
     }

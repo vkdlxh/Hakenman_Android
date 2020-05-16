@@ -1,12 +1,12 @@
-package archiveasia.jp.co.hakenman.Adapter
+package archiveasia.jp.co.hakenman.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import archiveasia.jp.co.hakenman.Extension.hourMinuteToDouble
-import archiveasia.jp.co.hakenman.Model.DetailWork
+import archiveasia.jp.co.hakenman.extension.hourMinuteToDouble
+import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.R
 import kotlinx.android.synthetic.main.month_worksheet_item.view.*
 import java.text.SimpleDateFormat

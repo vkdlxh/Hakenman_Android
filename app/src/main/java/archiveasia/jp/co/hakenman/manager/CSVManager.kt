@@ -1,12 +1,12 @@
-package archiveasia.jp.co.hakenman.Manager
+package archiveasia.jp.co.hakenman.manager
 
 import android.content.Context
 import android.net.Uri
-import android.support.v4.content.FileProvider
+import androidx.core.content.FileProvider
 import archiveasia.jp.co.hakenman.BuildConfig
-import archiveasia.jp.co.hakenman.Extension.hourMinuteToDouble
-import archiveasia.jp.co.hakenman.Extension.yearMonth
-import archiveasia.jp.co.hakenman.Model.Worksheet
+import archiveasia.jp.co.hakenman.extension.hourMinuteToDouble
+import archiveasia.jp.co.hakenman.extension.yearMonth
+import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.MyApplication
 import java.io.File
 import java.io.FileWriter
