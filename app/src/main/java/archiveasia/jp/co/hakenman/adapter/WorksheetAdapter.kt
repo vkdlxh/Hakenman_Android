@@ -27,7 +27,7 @@ class WorksheetAdapter(private val context: Context,
         val weekTextView = rowView.week_textView
         weekTextView.text = detailWork.workWeek
         val workFlagTextView = rowView.workFlag_textView
-        workFlagTextView.text =  if (detailWork.workFlag == true) "O" else "X"
+        workFlagTextView.text =  if (detailWork.workFlag) "O" else "X"
 
         val startWorkTextView = rowView.startWork_textView
         if (detailWork.beginTime != null) {

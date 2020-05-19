@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".activity.WorksheetListActivity">
 
-    <ListView
-        android:id="@+id/work_listView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/work_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,5 +30,6 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         app:srcCompat="@drawable/ic_add_white_24dp"
-        app:borderWidth="0dp"/>
+        app:borderWidth="0dp" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

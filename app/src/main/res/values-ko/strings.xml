@@ -12,6 +12,8 @@
     <string name="setting_button">설정</string>
     <string name="empty_error_message">공란없이 입력해주세요.</string>
     <string name="invalidate_error_message">형식에 맞춰 입력해주세요.</string>
+    <string name="chart_description">최대７일분근무시간표</string>
+    <string name="chart_no_data">데이터 없음</string>
 
     <!-- MonthWorksheet Activity -->
     <string name="month_work_activity_title">%s년%s월 근무표</string>

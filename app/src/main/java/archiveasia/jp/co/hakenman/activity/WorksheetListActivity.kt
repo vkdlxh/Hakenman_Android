@@ -9,22 +9,40 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import archiveasia.jp.co.hakenman.adapter.WorksheetListAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CreateWorksheetDialog
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.adapter.WorksheetListAdapter
+import archiveasia.jp.co.hakenman.model.Worksheet
 import kotlinx.android.synthetic.main.activity_main.*
 
 class WorksheetListActivity : AppCompatActivity() {
 
+    private lateinit var adapter: WorksheetListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        adaptListView()
+        adapter = WorksheetListAdapter(listener = object : WorksheetListAdapter.WorksheetListener {
+            override fun onClickItem(index: Int, worksheet: Worksheet) {
+                val intent = MonthWorkActivity.newIntent(this@WorksheetListActivity, index, worksheet)
+                startActivity(intent)
+            }
+
+            override fun onLongClickItem(index: Int) {
+                showAlertDialog(getString(R.string.delete_worksheet_title), getString(R.string.delete_button)) {
+                    adapter.replaceWorksheetList(WorksheetManager.removeWorksheet(index))
+                }
+            }
+
+        })
+        work_recycler_view.adapter = adapter
+        work_recycler_view.layoutManager = LinearLayoutManager(this)
 
         // FloatingActionButton リスナー設定
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             showCreateWorksheetDialog()
         }
         title = getString(R.string.main_activity_title)
@@ -42,8 +60,8 @@ class WorksheetListActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_setting -> {
                 val intent = Intent(this, SettingActivity::class.java)
                 startActivity(intent)
@@ -79,43 +97,51 @@ class WorksheetListActivity : AppCompatActivity() {
     }
 
     private fun showCreateWorksheetDialog() {
-        val dialog = CreateWorksheetDialog()
+        val dialog = CreateWorksheetDialog(object : CreateWorksheetDialog.WorksheetDialogListener{
+            override fun createdWorksheet() {
+                CustomLog.d("createdWorksheet")
+                reloadListView()
+            }
+        })
         dialog.show(supportFragmentManager, "tag")
         supportFragmentManager.executePendingTransactions()
-        dialog.dialog?.setOnDismissListener {
-            reloadListView()
-        }
     }
 
     private fun reloadListView() {
-        adaptListView()
-        work_listView.invalidateViews()
-    }
-
-    private fun adaptListView() {
         val worksheetList = WorksheetManager.getWorksheetList()
-
         // 勤務表がない場合、中央にメッセージを表示する
         if (worksheetList.isEmpty()) {
             worksheet_info_textView.visibility = View.VISIBLE
         } else {
             worksheet_info_textView.visibility = View.INVISIBLE
         }
-
-        val adapter = WorksheetListAdapter(this, worksheetList)
-
-        work_listView.adapter = adapter
-        work_listView.setOnItemClickListener { parent, view, position, id ->
-            val intent = MonthWorkActivity.newIntent(this, position, worksheetList[position])
-            startActivity(intent)
-        }
-
-        work_listView.setOnItemLongClickListener { parent, view, position, id ->
-            showAlertDialog(getString(R.string.delete_worksheet_title), getString(R.string.delete_button)) {
-                adapter.remove(position)
-                reloadListView()
-            }
-            true
-        }
+        adapter.replaceWorksheetList(worksheetList)
     }
+
+//    private fun adaptListView() {
+//        val worksheetList = WorksheetManager.getWorksheetList()
+//
+//        // 勤務表がない場合、中央にメッセージを表示する
+//        if (worksheetList.isEmpty()) {
+//            worksheet_info_textView.visibility = View.VISIBLE
+//        } else {
+//            worksheet_info_textView.visibility = View.INVISIBLE
+//        }
+//
+//        val adapter = WorksheetListAdapter(this, worksheetList)
+//
+//        work_recycler_view.adapter = adapter
+//        work_recycler_view.setOnItemClickListener { parent, view, position, id ->
+//            val intent = MonthWorkActivity.newIntent(this, position, worksheetList[position])
+//            startActivity(intent)
+//        }
+//
+//        work_recycler_view.setOnItemLongClickListener { parent, view, position, id ->
+//            showAlertDialog(getString(R.string.delete_worksheet_title), getString(R.string.delete_button)) {
+//                adapter.remove(position)
+//                reloadListView()
+//            }
+//            true
+//        }
+//    }
 }

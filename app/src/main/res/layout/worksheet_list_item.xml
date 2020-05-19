@@ -1,122 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/top_list_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="8dp"
+    app:cardElevation="8dp">
 
-    <View
-        android:id="@+id/date_view"
-        android:layout_width="@dimen/worksheet_list_date_view_width"
-        android:layout_height="@dimen/worksheet_list_date_view_height"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/year_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/zero_height"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:gravity="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/large_font_size"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/date_view"
-        app:layout_constraintStart_toStartOf="@+id/date_view"
-        app:layout_constraintTop_toTopOf="@+id/date_view"
-        tools:text="2020" />
+        <View
+            android:id="@+id/date_view"
+            android:layout_width="@dimen/worksheet_list_date_view_width"
+            android:layout_height="@dimen/worksheet_list_date_view_height"
+            android:layout_marginStart="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/month_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/zero_height"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:gravity="center"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/large_font_size"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/date_view"
-        app:layout_constraintEnd_toEndOf="@+id/date_view"
-        app:layout_constraintTop_toTopOf="@+id/date_view"
-        tools:text="08" />
+        <TextView
+            android:id="@+id/year_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/zero_height"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/large_font_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/date_view"
+            app:layout_constraintStart_toStartOf="@+id/date_view"
+            app:layout_constraintTop_toTopOf="@+id/date_view"
+            tools:text="2020" />
 
-    <View
-        android:id="@+id/weekWork_view"
-        android:layout_width="@dimen/zero_width"
-        android:layout_height="@dimen/zero_height"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:layout_marginStart="@dimen/default_margin"
-        app:layout_constraintBottom_toBottomOf="@+id/date_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/date_view"
-        app:layout_constraintTop_toTopOf="@+id/date_view" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/worksheet_list_slash_margin"
+            android:layout_marginLeft="@dimen/worksheet_list_slash_margin"
+            android:layout_marginRight="@dimen/worksheet_list_slash_margin"
+            android:layout_marginStart="@dimen/worksheet_list_slash_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="/"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/large_font_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/date_view"
+            app:layout_constraintEnd_toStartOf="@+id/month_textView"
+            app:layout_constraintStart_toEndOf="@+id/year_textView"
+            app:layout_constraintTop_toTopOf="@+id/date_view" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:text="Hour"
-        app:layout_constraintBottom_toBottomOf="@+id/workHour_textView"
-        app:layout_constraintEnd_toEndOf="@+id/weekWork_view" />
+        <TextView
+            android:id="@+id/month_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/zero_height"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/large_font_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/date_view"
+            app:layout_constraintEnd_toEndOf="@+id/date_view"
+            app:layout_constraintTop_toTopOf="@+id/date_view"
+            tools:text="08" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Day"
-        app:layout_constraintBottom_toBottomOf="@+id/workDay_textView"
-        app:layout_constraintStart_toStartOf="@+id/textView6" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_work_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/date_view"
+            app:layout_constraintEnd_toStartOf="@id/right_arrow_image">
 
-    <TextView
-        android:id="@+id/workHour_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/worksheet_list_hour_font_size"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toTopOf="@+id/weekWork_view"
-        tools:text="160" />
+            <TextView
+                android:id="@+id/workHour_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/worksheet_list_hour_font_size"
+                app:layout_constraintEnd_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="160" />
 
-    <TextView
-        android:id="@+id/workDay_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/worksheet_list_day_font_size"
-        app:layout_constraintBottom_toBottomOf="@+id/weekWork_view"
-        app:layout_constraintEnd_toEndOf="@+id/workHour_textView"
-        tools:text="28"/>
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:text="Hour"
+                app:layout_constraintBottom_toBottomOf="@+id/workHour_textView"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/worksheet_list_slash_margin"
-        android:layout_marginLeft="@dimen/worksheet_list_slash_margin"
-        android:layout_marginRight="@dimen/worksheet_list_slash_margin"
-        android:layout_marginStart="@dimen/worksheet_list_slash_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:text="/"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/large_font_size"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/date_view"
-        app:layout_constraintEnd_toStartOf="@+id/month_textView"
-        app:layout_constraintStart_toEndOf="@+id/year_textView"
-        app:layout_constraintTop_toTopOf="@+id/date_view" />
+            <View
+                android:id="@+id/separate_bar"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginVertical="4dp"
+                android:layout_marginHorizontal="8dp"
+                android:background="@color/colorLightGray"
+                app:layout_constraintTop_toBottomOf="@id/textView6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/workDay_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/worksheet_list_day_font_size"
+                app:layout_constraintTop_toBottomOf="@id/separate_bar"
+                app:layout_constraintEnd_toEndOf="@+id/workHour_textView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="28"/>
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:text="Day"
+                app:layout_constraintBottom_toBottomOf="@+id/workDay_textView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/right_arrow_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_chevron_right_lightgray_24dp"
+            app:layout_constraintTop_toTopOf="@id/layout_work_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="TODO" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/line_chart"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintTop_toBottomOf="@id/date_view"
+            app:layout_constraintStart_toStartOf="@id/date_view"
+            app:layout_constraintEnd_toEndOf="@id/layout_work_info"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

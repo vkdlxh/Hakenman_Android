@@ -12,6 +12,8 @@
     <string name="setting_button">設定</string>
     <string name="empty_error_message">空欄なく入力してください。</string>
     <string name="invalidate_error_message">正しい値を入力してください。</string>
+    <string name="chart_description">最大７日分の勤務時間表示</string>r
+    <string name="chart_no_data">データなし</string>
 
     <!-- MonthWorksheet Activity -->
     <string name="month_work_activity_title">%s年%s月勤務表</string>

@@ -37,7 +37,7 @@ object WorksheetManager {
         val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
         if (File(filepath).exists()) {
             val gson = GsonBuilder().setDateFormat("MMM dd, yyyy hh:mm:ss a").create()
-            var worksheetList: MutableList<Worksheet> = gson.fromJson(FileReader(File(filepath)), object : TypeToken<MutableList<Worksheet>>() {}.type)
+            val worksheetList: MutableList<Worksheet> = gson.fromJson(FileReader(File(filepath)), object : TypeToken<MutableList<Worksheet>>() {}.type)
             this.worksheetList = worksheetList
         } else {
             println("No File")
@@ -52,20 +52,13 @@ object WorksheetManager {
      */
     fun addWorksheetToJsonFile(worksheet: Worksheet) {
         worksheetList.add(worksheet)
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonString = gson.toJson(worksheetList)
-
-        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
-
-        val writer = PrintWriter(filepath)
-        writer.append(jsonString)
-        writer.close()
+        writeJsonFile()
     }
 
     /**
      * 既存の勤務表を上書きした後、JSONファイルとして保持
      *
-     * @param worksheet 修正する勤務表
+     * @param newValue 修正する勤務表
      * @return JSONファイルで保持
      */
     fun updateWorksheet(newValue: Worksheet) {
@@ -76,14 +69,7 @@ object WorksheetManager {
         this.worksheetList.remove(oldValue)
         this.worksheetList.add(newValue)
 
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonString = gson.toJson(worksheetList)
-
-        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
-
-        val writer = PrintWriter(filepath)
-        writer.append(jsonString)
-        writer.close()
+        writeJsonFile()
     }
 
     /**
@@ -95,14 +81,7 @@ object WorksheetManager {
      */
     fun updateWorksheetWithIndex(index: Int, worksheet: Worksheet) {
         worksheetList[index] = worksheet
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonString = gson.toJson(worksheetList)
-
-        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
-
-        val writer = PrintWriter(filepath)
-        writer.append(jsonString)
-        writer.close()
+        writeJsonFile()
     }
 
     /**
@@ -113,14 +92,19 @@ object WorksheetManager {
      */
     fun updateAllWorksheet(worksheetList: List<Worksheet>) {
         this.worksheetList = worksheetList.toMutableList()
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonString = gson.toJson(worksheetList)
+        writeJsonFile()
+    }
 
-        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
-
-        val writer = PrintWriter(filepath)
-        writer.append(jsonString)
-        writer.close()
+    /**
+     * 勤務表を削除する
+     *
+     * @param index 削除する勤務表Index
+     * @return 勤務表リスト
+     */
+    fun removeWorksheet(index: Int) : List<Worksheet> {
+        worksheetList.removeAt(index)
+        writeJsonFile()
+        return worksheetList
     }
 
     /**
@@ -129,7 +113,7 @@ object WorksheetManager {
      * @return 勤務表リスト
      */
     fun getWorksheetList(): List<Worksheet> {
-        return worksheetList.sortedByDescending { it.workDate.yearMonth() }
+        return worksheetList
     }
 
     /**
@@ -187,7 +171,7 @@ object WorksheetManager {
         }
         val worksheet = Worksheet(date, 0.0, 0, detailWorks)
         worksheet.workDaySum = worksheet.detailWorkList
-                .filter { it.workFlag == true }
+                .filter { it.workFlag }
                 .count()
         return worksheet
     }
@@ -210,12 +194,12 @@ object WorksheetManager {
             markdownString += workFlagString + "| "
 
             if (detailWork.beginTime != null) {
-                markdownString += SimpleDateFormat("HH:mm").format(detailWork.beginTime)
+                markdownString += SimpleDateFormat("HH:mm", Locale.getDefault()).format(detailWork.beginTime)
             }
             markdownString += "| "
 
             if (detailWork.endTime != null) {
-                markdownString += SimpleDateFormat("HH:mm").format(detailWork.endTime)
+                markdownString += SimpleDateFormat("HH:mm", Locale.getDefault()).format(detailWork.endTime)
             }
             markdownString += "| "
 
@@ -239,6 +223,18 @@ object WorksheetManager {
         }
 
         return markdownString
+    }
+
+    private fun writeJsonFile() {
+        worksheetList = worksheetList.sortedByDescending { it.workDate.yearMonth() }.toMutableList()
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val jsonString = gson.toJson(worksheetList)
+
+        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+
+        val writer = PrintWriter(filepath)
+        writer.append(jsonString)
+        writer.close()
     }
 
     /**
