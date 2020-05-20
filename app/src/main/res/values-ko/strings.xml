@@ -54,6 +54,7 @@
     <string name="worktime_break_title">휴게시간</string>
     <string name="worktime_total_title">근무시간</string>
     <string name="note_setting_header">비고</string>
+    <string name="mardown_header_column">| 일 | 요일 | 작업일 | 출근시간 | 퇴근시간 | 휴게 | 근무시간 | 비고 |</string>
 
     <!-- Setting Layout -->
     <string name="worksheet_setting_header">근태관리 설정</string>
@@ -71,6 +72,7 @@
     <string name="send_email_menu_title">Send Email</string>
     <string name="csv_menu_title">CSV</string>
     <string name="markdown_menu_title">Markdown</string>
+    <string name="csv_header">일,요일,작업일,출근시간,퇴근시간,휴게,근무시간,비고</string>
 
     <string name="content_description">content_description</string>
 </resources>

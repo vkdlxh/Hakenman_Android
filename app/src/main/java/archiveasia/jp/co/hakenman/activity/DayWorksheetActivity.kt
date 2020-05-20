@@ -23,6 +23,9 @@ import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.extension.day
+import archiveasia.jp.co.hakenman.extension.month
+import archiveasia.jp.co.hakenman.extension.year
 import kotlinx.android.synthetic.main.activity_day_worksheet.*
 import kotlinx.android.synthetic.main.timepicker_dialog.view.*
 import java.util.*
@@ -55,7 +58,7 @@ class DayWorksheetActivity : AppCompatActivity() {
         }
 
         title = getString(R.string.day_work_activity_title)
-                .format(detailWork.workYear, detailWork.workMonth, detailWork.workDay)
+                .format(detailWork.workDate.year(), detailWork.workDate.month(), detailWork.workDate.day())
         CustomLog.d("1日詳細勤務表画面")
     }
 

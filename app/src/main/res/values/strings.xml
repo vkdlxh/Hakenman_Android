@@ -54,6 +54,7 @@
     <string name="worktime_break_title">休憩時間</string>
     <string name="worktime_total_title">勤務時間</string>
     <string name="note_setting_header">備考</string>
+    <string name="mardown_header_column">| 日 | 曜日 | 作業日 | 開始時間 | 終了時間 | 休憩 | 勤務時間 | 備考 |</string>
 
     <!-- Setting Layout -->
     <string name="worksheet_setting_header">勤怠管理設定</string>
@@ -71,6 +72,7 @@
     <string name="send_email_menu_title">Send Email</string>
     <string name="csv_menu_title">CSV</string>
     <string name="markdown_menu_title">Markdown</string>
+    <string name="csv_header">日,曜日,作業日,開始時間,終了時間,休憩,勤務時間,備考</string>
 
     <string name="content_description">content_description</string>
 </resources>

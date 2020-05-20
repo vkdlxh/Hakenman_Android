@@ -8,8 +8,10 @@ import android.widget.BaseAdapter
 import archiveasia.jp.co.hakenman.extension.hourMinuteToDouble
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.extension.day
 import kotlinx.android.synthetic.main.month_worksheet_item.view.*
 import java.text.SimpleDateFormat
+import java.util.Locale
 
 class WorksheetAdapter(private val context: Context,
                        private val detailWorkList: MutableList<DetailWork>): BaseAdapter() {
@@ -23,9 +25,9 @@ class WorksheetAdapter(private val context: Context,
         val detailWork = getItem(position) as DetailWork
 
         val dayTextView = rowView.day_textView
-        dayTextView.text = detailWork.workDay.toString()
+        dayTextView.text = detailWork.workDate.day()
         val weekTextView = rowView.week_textView
-        weekTextView.text = detailWork.workWeek
+        weekTextView.text = SimpleDateFormat("E", Locale.getDefault()).format(detailWork.workDate)
         val workFlagTextView = rowView.workFlag_textView
         workFlagTextView.text =  if (detailWork.workFlag) "O" else "X"
 

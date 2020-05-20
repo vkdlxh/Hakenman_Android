@@ -2,21 +2,22 @@ package archiveasia.jp.co.hakenman.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CreateWorksheetDialog
 import archiveasia.jp.co.hakenman.CustomLog
-import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.adapter.WorksheetListAdapter
+import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class WorksheetListActivity : AppCompatActivity() {
 
@@ -25,6 +26,9 @@ class WorksheetListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        title = getString(R.string.main_activity_title)
+        CustomLog.d("勤務表一覧画面")
+
         adapter = WorksheetListAdapter(listener = object : WorksheetListAdapter.WorksheetListener {
             override fun onClickItem(index: Int, worksheet: Worksheet) {
                 val intent = MonthWorkActivity.newIntent(this@WorksheetListActivity, index, worksheet)
@@ -45,9 +49,6 @@ class WorksheetListActivity : AppCompatActivity() {
         fab.setOnClickListener {
             showCreateWorksheetDialog()
         }
-        title = getString(R.string.main_activity_title)
-
-        CustomLog.d("勤務表一覧画面")
     }
 
     override fun onResume() {
@@ -74,7 +75,6 @@ class WorksheetListActivity : AppCompatActivity() {
     private fun showAlertDialog(title: String, btn: String, completion: () -> Unit) {
         val alertDialog = AlertDialog.Builder(this)
         with (alertDialog) {
-
             val titleView = TextView(context)
             titleView.text = title
             titleView.gravity = Gravity.CENTER_HORIZONTAL
@@ -109,39 +109,6 @@ class WorksheetListActivity : AppCompatActivity() {
 
     private fun reloadListView() {
         val worksheetList = WorksheetManager.getWorksheetList()
-        // 勤務表がない場合、中央にメッセージを表示する
-        if (worksheetList.isEmpty()) {
-            worksheet_info_textView.visibility = View.VISIBLE
-        } else {
-            worksheet_info_textView.visibility = View.INVISIBLE
-        }
         adapter.replaceWorksheetList(worksheetList)
     }
-
-//    private fun adaptListView() {
-//        val worksheetList = WorksheetManager.getWorksheetList()
-//
-//        // 勤務表がない場合、中央にメッセージを表示する
-//        if (worksheetList.isEmpty()) {
-//            worksheet_info_textView.visibility = View.VISIBLE
-//        } else {
-//            worksheet_info_textView.visibility = View.INVISIBLE
-//        }
-//
-//        val adapter = WorksheetListAdapter(this, worksheetList)
-//
-//        work_recycler_view.adapter = adapter
-//        work_recycler_view.setOnItemClickListener { parent, view, position, id ->
-//            val intent = MonthWorkActivity.newIntent(this, position, worksheetList[position])
-//            startActivity(intent)
-//        }
-//
-//        work_recycler_view.setOnItemLongClickListener { parent, view, position, id ->
-//            showAlertDialog(getString(R.string.delete_worksheet_title), getString(R.string.delete_button)) {
-//                adapter.remove(position)
-//                reloadListView()
-//            }
-//            true
-//        }
-//    }
 }

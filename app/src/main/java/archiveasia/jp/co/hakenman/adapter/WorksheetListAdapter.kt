@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.extension.day
+import archiveasia.jp.co.hakenman.extension.dayOfWeek
 import archiveasia.jp.co.hakenman.extension.month
+import archiveasia.jp.co.hakenman.extension.week
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
@@ -15,25 +18,49 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.android.synthetic.main.worksheet_list_item.view.*
+import kotlinx.android.synthetic.main.current_worksheet_list_item.view.*
+import java.util.Date
 
 class WorksheetListAdapter(
     private var list: MutableList<Worksheet> = mutableListOf(),
     private var listener: WorksheetListener
-) : RecyclerView.Adapter<WorksheetListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val item = layoutInflater.inflate(R.layout.worksheet_list_item, parent, false)
-        return ViewHolder(item)
+    companion object {
+        private const val TYPE_CURRENT_WORKSHEET = 1
+        private const val TYPE_PAST_WORKSHEET = 2
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            TYPE_CURRENT_WORKSHEET -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.current_worksheet_list_item, parent, false)
+                CurrentWorksheetViewHolder(view)
+            }
+            TYPE_PAST_WORKSHEET -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.past_worksheet_list_item, parent, false)
+                PastWorksheetViewHolder(view)
+            }
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
     }
 
     override fun getItemCount(): Int {
         return list.count()
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindView(list[position])
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) TYPE_CURRENT_WORKSHEET else TYPE_PAST_WORKSHEET
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = list[position]
+        when (holder) {
+            is CurrentWorksheetViewHolder -> holder.bindView(item)
+            is PastWorksheetViewHolder -> holder.bindView(item)
+        }
     }
 
     fun replaceWorksheetList(list: List<Worksheet>) {
@@ -43,28 +70,23 @@ class WorksheetListAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class CurrentWorksheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindView(worksheet: Worksheet) {
-            // TODO: グラフ実装
-            if (adapterPosition == 0) {
-                val detailWorkList = worksheet.detailWorkList
-                var index = detailWorkList.size - 1
-                val chartItemList = ArrayList<DetailWork>()
-                while (index != -1) {
-                    val detailWork = detailWorkList[index]
-                    if (detailWork.workFlag && detailWork.duration != null && detailWork.duration != 0.0) {
-                        chartItemList.add(0, detailWork)
-                    }
-                    if (chartItemList.size == 7) {
-                        break
-                    }
-                    index -= 1
+            val detailWorkList = worksheet.detailWorkList
+            var index = detailWorkList.size - 1
+            val chartItemList = ArrayList<DetailWork>()
+            while (index != -1) {
+                val detailWork = detailWorkList[index]
+                if (detailWork.workFlag && detailWork.duration != null && detailWork.duration != 0.0) {
+                    chartItemList.add(0, detailWork)
                 }
-                setChart(chartItemList)
-            } else {
-                itemView.line_chart.visibility = View.GONE
+                if (chartItemList.size == 7) {
+                    break
+                }
+                index -= 1
             }
+            setChart(chartItemList)
 
             itemView.setOnClickListener {
                 listener.onClickItem(adapterPosition, worksheet)
@@ -76,6 +98,17 @@ class WorksheetListAdapter(
 
             itemView.year_textView.text = worksheet.workDate.year()
             itemView.month_textView.text = worksheet.workDate.month()
+            val now = Date()
+            itemView.day_textView.text = now.day()
+            itemView.week_textView.apply {
+                text = now.week()
+                val color = when(now.dayOfWeek()) {
+                    1 -> Color.RED
+                    7 -> Color.BLUE
+                    else -> Color.BLACK
+                }
+                setTextColor(color)
+            }
             itemView.workHour_textView.text = worksheet.workTimeSum.toString()
             itemView.workDay_textView.text = worksheet.workDaySum.toString()
         }
@@ -99,6 +132,10 @@ class WorksheetListAdapter(
 
                 val data = LineData(lineDataSet)
                 this.data = data
+                if (data.entryCount == 0) {
+                    // 「データなし」メッセージ表示のため
+                    clear()
+                }
 
                 // チャート縦設定
                 xAxis.axisMinimum = -0.5f
@@ -121,6 +158,7 @@ class WorksheetListAdapter(
 
                 description.text = context.getString(R.string.chart_description)
                 setNoDataText(context.getString(R.string.chart_no_data))
+                setNoDataTextColor(Color.BLACK)
 
                 setTouchEnabled(false)
                 setPinchZoom(false)
@@ -132,7 +170,24 @@ class WorksheetListAdapter(
                 invalidate()
             }
         }
+    }
 
+    inner class PastWorksheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        fun bindView(worksheet: Worksheet) {
+            itemView.setOnClickListener {
+                listener.onClickItem(adapterPosition, worksheet)
+            }
+            itemView.setOnLongClickListener {
+                listener.onLongClickItem(adapterPosition)
+                true
+            }
+
+            itemView.year_textView.text = worksheet.workDate.year()
+            itemView.month_textView.text = worksheet.workDate.month()
+            itemView.workHour_textView.text = worksheet.workTimeSum.toString()
+            itemView.workDay_textView.text = worksheet.workDaySum.toString()
+        }
     }
 
     interface WorksheetListener {
