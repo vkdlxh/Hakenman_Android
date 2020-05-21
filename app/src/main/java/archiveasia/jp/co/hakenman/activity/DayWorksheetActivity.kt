@@ -4,28 +4,24 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.TimePicker
+import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
-import archiveasia.jp.co.hakenman.extension.hourMinute
-import archiveasia.jp.co.hakenman.extension.hourMinuteToDate
-import archiveasia.jp.co.hakenman.extension.hourMinuteToDouble
+import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.extension.*
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
-import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.extension.day
-import archiveasia.jp.co.hakenman.extension.month
-import archiveasia.jp.co.hakenman.extension.year
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
 import kotlinx.android.synthetic.main.activity_day_worksheet.*
 import kotlinx.android.synthetic.main.timepicker_dialog.view.*
 import java.util.*
@@ -137,15 +133,15 @@ class DayWorksheetActivity : AppCompatActivity() {
         note_editText.setText(if (detailWork.note != null) detailWork.note else "")
 
         beginTime_view.setOnClickListener {
-            showAddDialog(getString(R.string.set_beginTime_title), day_start_time_textView, WorkTimeType.BEGIN_TIME)
+            showAddDialog(R.string.set_beginTime_title, day_start_time_textView, WorkTimeType.BEGIN_TIME)
         }
 
         endTime_view.setOnClickListener {
-            showAddDialog(getString(R.string.set_endTime_title), day_end_time_textView, WorkTimeType.END_TIME)
+            showAddDialog(R.string.set_endTime_title, day_end_time_textView, WorkTimeType.END_TIME)
         }
 
         breakTime_view.setOnClickListener {
-            showAddDialog(getString(R.string.set_breakTime_title), day_break_time_textView, WorkTimeType.BREAK_TIME)
+            showAddDialog(R.string.set_breakTime_title, day_break_time_textView, WorkTimeType.BREAK_TIME)
         }
     }
 
@@ -167,92 +163,78 @@ class DayWorksheetActivity : AppCompatActivity() {
         minutePicker.displayedValues = displayedValue.toTypedArray()
     }
 
-    private fun showAddDialog(title: String, textView: TextView, workTimeType: WorkTimeType) {
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.timepicker_dialog, null)
-        dialogView.time_picker.setIs24HourView(true)
+    private fun showAddDialog(titleId: Int, textView: TextView, workTimeType: WorkTimeType) {
+        val dialog = MaterialDialog(this).customView(R.layout.timepicker_dialog)
+        val view = dialog.getCustomView()
+        view.time_picker.apply {
+            setIs24HourView(true)
 
-        val calendar = Calendar.getInstance()
-        var value: Date
-        var hour: Int
-        var minute: Int
+            val calendar = Calendar.getInstance()
+            var value: Date
+            var hour: Int
+            var minute: Int
 
-        when (workTimeType) {
-            WorkTimeType.BEGIN_TIME -> {
-                value = PrefsManager(this).defaultBeginTime.hourMinuteToDate()
+            when (workTimeType) {
+                WorkTimeType.BEGIN_TIME -> {
+                    value = PrefsManager(context).defaultBeginTime.hourMinuteToDate()
+                    calendar.time = value
+                    hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    minute = calendar.get(Calendar.MINUTE)
+                }
+                WorkTimeType.END_TIME -> {
+                    value = PrefsManager(context).defaultEndTime.hourMinuteToDate()
+                    calendar.time = value
+                    hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    minute = calendar.get(Calendar.MINUTE)
+                }
+                WorkTimeType.BREAK_TIME -> {
+                    hour = 0
+                    minute = 0
+                }
+            }
+
+            // 値が存在している場合
+            if (textView.text.isNotEmpty()) {
+                value = textView.text.toString().hourMinuteToDate()
                 calendar.time = value
                 hour = calendar.get(Calendar.HOUR_OF_DAY)
                 minute = calendar.get(Calendar.MINUTE)
             }
-            WorkTimeType.END_TIME -> {
-                value = PrefsManager(this).defaultEndTime.hourMinuteToDate()
-                calendar.time = value
-                hour = calendar.get(Calendar.HOUR_OF_DAY)
-                minute = calendar.get(Calendar.MINUTE)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                this.hour = hour
+                this.minute = minute
+            } else {
+                this.currentHour = hour
+                this.currentMinute = minute
             }
-            WorkTimeType.BREAK_TIME -> {
-                hour = 0
-                minute = 0
+            setTimePickerInterval(this)
+        }
+        dialog.title(titleId)
+        dialog.positiveButton(R.string.positive_button) {
+            textView.text = getPickerTime(view).hourMinute()
+
+            val beginTime = with (day_start_time_textView.text) {
+                if (isNotEmpty()) toString().hourMinuteToDate() else null
             }
-        }
-
-        // 値が存在している場合
-        if (textView.text.isNotEmpty()) {
-            value = textView.text.toString().hourMinuteToDate()
-            calendar.time = value
-            hour = calendar.get(Calendar.HOUR_OF_DAY)
-            minute = calendar.get(Calendar.MINUTE)
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            dialogView.time_picker.hour = hour
-            dialogView.time_picker.minute = minute
-        } else {
-            dialogView.time_picker.currentHour = hour
-            dialogView.time_picker.currentMinute = minute
-        }
-
-
-        setTimePickerInterval(dialogView.time_picker)
-        val addDialog = AlertDialog.Builder(this)
-
-        with (addDialog) {
-            setView(dialogView)
-            setTitle(title)
-
-            setPositiveButton(getString(R.string.positive_button)) {
-                dialog, _ ->
-                textView.text = getPickerTime(dialogView).hourMinute()
-
-                val beginTime = with (day_start_time_textView.text) {
-                    if (isNotEmpty()) toString().hourMinuteToDate() else null
-                }
-                val endTime = with (day_end_time_textView.text) {
-                    if (isNotEmpty()) toString().hourMinuteToDate() else null
-                }
-                val breakTime = with (day_break_time_textView.text) {
-                    if (isNotEmpty()) toString().hourMinuteToDate() else null
-                }
-
-                if (beginTime != null && endTime != null && breakTime != null) {
-                    val beginTimeLong = beginTime.time
-                    val endTimeLong = endTime.time
-                    val breakTimeDouble = breakTime.hourMinuteToDouble()
-                    val workTime = (endTimeLong - beginTimeLong) / (60 * 60 * 1000)
-                    val result = workTime.toDouble() - breakTimeDouble
-                    day_total_time_textView.text = result.toString()
-                }
-
-                dialog.dismiss()
+            val endTime = with (day_end_time_textView.text) {
+                if (isNotEmpty()) toString().hourMinuteToDate() else null
+            }
+            val breakTime = with (day_break_time_textView.text) {
+                if (isNotEmpty()) toString().hourMinuteToDate() else null
             }
 
-            setNegativeButton(getString(R.string.negative_button)) {
-                dialog, _ ->
-                dialog.dismiss()
+            if (beginTime != null && endTime != null && breakTime != null) {
+                val beginTimeLong = beginTime.time
+                val endTimeLong = endTime.time
+                val breakTimeDouble = breakTime.hourMinuteToDouble()
+                val workTime = (endTimeLong - beginTimeLong) / (60 * 60 * 1000)
+                val result = workTime.toDouble() - breakTimeDouble
+                day_total_time_textView.text = result.toString()
             }
-
-            create()
-            show()
         }
+        dialog.negativeButton(R.string.negative_button)
+        dialog.show()
     }
 
     private fun getPickerTime(view: View): Date {
