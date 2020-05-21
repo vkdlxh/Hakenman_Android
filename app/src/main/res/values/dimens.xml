@@ -20,7 +20,9 @@
     <dimen name="day_worksheet_item_font_size">16sp</dimen>
 
     <dimen name="small_font_size">12sp</dimen>
+    <dimen name="medium_font_size">20sp</dimen>
     <dimen name="large_font_size">28sp</dimen>
+    <dimen name="x_large_font_size">34sp</dimen>
     <dimen name="worksheet_list_hour_font_size">20sp</dimen>
     <dimen name="worksheet_list_day_font_size">20sp</dimen>
 

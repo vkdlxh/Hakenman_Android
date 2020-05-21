@@ -2,34 +2,57 @@ package archiveasia.jp.co.hakenman.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
-import archiveasia.jp.co.hakenman.adapter.WorksheetListAdapter
-import archiveasia.jp.co.hakenman.CreateWorksheetDialog
+import android.widget.NumberPicker
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
-import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.adapter.WorksheetListAdapter
+import archiveasia.jp.co.hakenman.manager.WorksheetManager
+import archiveasia.jp.co.hakenman.model.Worksheet
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.datepicker_dialog.view.*
 
 class WorksheetListActivity : AppCompatActivity() {
+
+    private lateinit var adapter: WorksheetListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        adaptListView()
+        title = getString(R.string.main_activity_title)
+        CustomLog.d("勤務表一覧画面")
+
+        adapter = WorksheetListAdapter(listener = object : WorksheetListAdapter.WorksheetListener {
+            override fun onClickItem(index: Int, worksheet: Worksheet) {
+                val intent = MonthWorkActivity.newIntent(this@WorksheetListActivity, index, worksheet)
+                startActivity(intent)
+            }
+
+            override fun onLongClickItem(index: Int) {
+                MaterialDialog(this@WorksheetListActivity).show {
+                    message(R.string.delete_worksheet_title)
+                    positiveButton(R.string.delete_button) {
+                        adapter.replaceWorksheetList(WorksheetManager.removeWorksheet(index))
+                    }
+                    negativeButton(R.string.negative_button)
+                }
+            }
+
+        })
+        work_recycler_view.adapter = adapter
+        work_recycler_view.layoutManager = LinearLayoutManager(this)
 
         // FloatingActionButton リスナー設定
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             showCreateWorksheetDialog()
         }
-        title = getString(R.string.main_activity_title)
-
-        CustomLog.d("勤務表一覧画面")
     }
 
     override fun onResume() {
@@ -42,8 +65,8 @@ class WorksheetListActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_setting -> {
                 val intent = Intent(this, SettingActivity::class.java)
                 startActivity(intent)
@@ -53,69 +76,46 @@ class WorksheetListActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun showAlertDialog(title: String, btn: String, completion: () -> Unit) {
-        val alertDialog = AlertDialog.Builder(this)
-        with (alertDialog) {
-
-            val titleView = TextView(context)
-            titleView.text = title
-            titleView.gravity = Gravity.CENTER_HORIZONTAL
-            titleView.textSize = 20F
-            titleView.setTextColor(resources.getColor(R.color.colorBlack))
-            setView(titleView)
-
-            setPositiveButton(btn) {
-                dialog, whichButton ->
-                completion()
-            }
-
-            setNegativeButton(getString(R.string.negative_button)) {
-                dialog, whichButton ->
-                dialog.dismiss()
-            }
-        }
-        val dialog = alertDialog.create()
-        dialog.show()
+    private fun reloadListView() {
+        val worksheetList = WorksheetManager.getWorksheetList()
+        adapter.replaceWorksheetList(worksheetList)
     }
 
     private fun showCreateWorksheetDialog() {
-        val dialog = CreateWorksheetDialog()
-        dialog.show(supportFragmentManager, "tag")
-        supportFragmentManager.executePendingTransactions()
-        dialog.dialog?.setOnDismissListener {
-            reloadListView()
+        val dialog = MaterialDialog(this).customView(R.layout.datepicker_dialog)
+        dialog.title(R.string.create_worksheet_title)
+        val customView = dialog.getCustomView()
+        val datePicker = customView.date_picker.apply {
+            // 日のSpinnerを非表示する
+            findViewById<NumberPicker>(resources.getIdentifier("day", "id", "android")).visibility = View.GONE
+            // 当月まで選択できるように
+            maxDate = System.currentTimeMillis()
         }
-    }
-
-    private fun reloadListView() {
-        adaptListView()
-        work_listView.invalidateViews()
-    }
-
-    private fun adaptListView() {
-        val worksheetList = WorksheetManager.getWorksheetList()
-
-        // 勤務表がない場合、中央にメッセージを表示する
-        if (worksheetList.isEmpty()) {
-            worksheet_info_textView.visibility = View.VISIBLE
-        } else {
-            worksheet_info_textView.visibility = View.INVISIBLE
-        }
-
-        val adapter = WorksheetListAdapter(this, worksheetList)
-
-        work_listView.adapter = adapter
-        work_listView.setOnItemClickListener { parent, view, position, id ->
-            val intent = MonthWorkActivity.newIntent(this, position, worksheetList[position])
-            startActivity(intent)
-        }
-
-        work_listView.setOnItemLongClickListener { parent, view, position, id ->
-            showAlertDialog(getString(R.string.delete_worksheet_title), getString(R.string.delete_button)) {
-                adapter.remove(position)
+        dialog.positiveButton(R.string.positive_button) {
+            val year = datePicker.year.toString()
+            var month = (datePicker.month + 1).toString()
+            if (month.length < 2) {
+                month = "0$month"
+            }
+            val yearMonth = year + month
+            val worksheet = WorksheetManager.createWorksheet(yearMonth)
+            if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
+                MaterialDialog(this).show {
+                    message(R.string.update_worksheet_title)
+                    positiveButton(R.string.positive_button) {
+                        WorksheetManager.updateWorksheet(worksheet)
+                        CustomLog.d("勤務表生成 : $yearMonth")
+                        reloadListView()
+                    }
+                    negativeButton(R.string.negative_button)
+                }
+            } else {
+                WorksheetManager.addWorksheetToJsonFile(worksheet)
+                CustomLog.d("勤務表生成 : $yearMonth")
                 reloadListView()
             }
-            true
         }
+        dialog.negativeButton(R.string.negative_button)
+        dialog.show()
     }
 }

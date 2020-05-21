@@ -1,14 +1,14 @@
 package archiveasia.jp.co.hakenman.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
+import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
-import archiveasia.jp.co.hakenman.R
-import java.util.*
+import java.util.Date
 
 class SplashActivity : AppCompatActivity() {
 
@@ -50,6 +50,4 @@ class SplashActivity : AppCompatActivity() {
 
         super.onDestroy()
     }
-
-
 }

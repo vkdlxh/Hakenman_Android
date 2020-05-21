@@ -8,14 +8,16 @@ import archiveasia.jp.co.hakenman.extension.hourMinuteToDouble
 import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.MyApplication
+import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.extension.day
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CSVManager(private val context: Context,
                  private val worksheet: Worksheet) {
-    private val CSV_HEADER = "日,曜日,作業日,開始時間,終了時間,休憩,勤務時間,備考"
     private val filepath = MyApplication.applicationContext().filesDir.path
     private val fileName = worksheet.workDate.yearMonth() + ".csv"
 
@@ -24,15 +26,15 @@ class CSVManager(private val context: Context,
 
         try {
             fileWriter = FileWriter(File(filepath, fileName))
-
-            fileWriter.append(CSV_HEADER)
+            val csvHeader = MyApplication.applicationContext().getString(R.string.csv_header)
+            fileWriter.append(csvHeader)
             fileWriter.append('\n')
 
             for (detailWork in worksheet.detailWorkList) {
-
-                fileWriter.append(detailWork.workDay.toString())
+                val workDate = detailWork.workDate
+                fileWriter.append(workDate.day())
                 fileWriter.append(',')
-                fileWriter.append(detailWork.workWeek)
+                fileWriter.append(SimpleDateFormat("E", Locale.getDefault()).format(workDate))
                 fileWriter.append(',')
                 val workFlagString = if (detailWork.workFlag) "O" else "X"
                 fileWriter.append(workFlagString)
@@ -40,12 +42,12 @@ class CSVManager(private val context: Context,
 
 
                 if (detailWork.beginTime != null) {
-                    fileWriter.append(SimpleDateFormat("HH:mm").format(detailWork.beginTime))
+                    fileWriter.append(SimpleDateFormat("HH:mm", Locale.getDefault()).format(detailWork.beginTime))
                 }
                 fileWriter.append(',')
 
                 if (detailWork.endTime != null) {
-                    fileWriter.append(SimpleDateFormat("HH:mm").format(detailWork.endTime))
+                    fileWriter.append(SimpleDateFormat("HH:mm", Locale.getDefault()).format(detailWork.endTime))
                 }
                 fileWriter.append(',')
 

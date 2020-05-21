@@ -48,10 +48,7 @@ data class Worksheet (
 
 @Parcelize
 data class DetailWork (
-        val workYear: Int,              // 年
-        val workMonth: Int,             // 月
-        val workDay: Int,               // 日
-        val workWeek: String,           // 週
+        val workDate: Date,             // 勤務日
         var workFlag: Boolean,          // 勤務フラグ
         var beginTime: Date? = null,    // 出社時間
         var endTime: Date? = null,      // 退社時間

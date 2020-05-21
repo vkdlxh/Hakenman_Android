@@ -3,23 +3,21 @@ package archiveasia.jp.co.hakenman.activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
-import archiveasia.jp.co.hakenman.adapter.WorksheetAdapter
+import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
+import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.activity.DayWorksheetActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
+import archiveasia.jp.co.hakenman.adapter.WorksheetAdapter
 import archiveasia.jp.co.hakenman.extension.month
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.CSVManager
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
-import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.activity.DayWorksheetActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
+import com.afollestad.materialdialogs.MaterialDialog
 import kotlinx.android.synthetic.main.activity_month_work.*
 
 const val INTENT_WORKSHEET_INDEX = "worksheet_index"
@@ -87,9 +85,14 @@ class MonthWorkActivity : AppCompatActivity() {
 
         if (to.isNullOrEmpty()) {
             // TODO: 登録メッセージdialog表示
-            showAlertDialog {
-                val intent= Intent(this, SettingActivity::class.java)
-                startActivity(intent)
+            R.string.request_set_address_message
+            MaterialDialog(this).show {
+                message(R.string.request_set_address_message)
+                positiveButton(R.string.positive_button) {
+                    val intent = Intent(this@MonthWorkActivity, SettingActivity::class.java)
+                    startActivity(intent)
+                }
+                negativeButton(R.string.negative_button)
             }
         } else {
             val addresses = arrayOf(to)
@@ -108,31 +111,6 @@ class MonthWorkActivity : AppCompatActivity() {
             emailIntent.type = "message/rfc822"
             startActivity(Intent.createChooser(emailIntent, getString(R.string.send_email_type)))
         }
-    }
-
-    private fun showAlertDialog(completion: () -> Unit) {
-        val alertDialog = AlertDialog.Builder(this)
-        with (alertDialog) {
-
-            val titleView = TextView(context)
-            titleView.text = getString(R.string.request_set_address_message)
-            titleView.gravity = Gravity.CENTER_HORIZONTAL
-            titleView.textSize = 20F
-            titleView.setTextColor(resources.getColor(R.color.colorBlack))
-            setView(titleView)
-
-            setPositiveButton(getString(R.string.setting_button)) {
-                dialog, whichButton ->
-                completion()
-            }
-
-            setNegativeButton(getString(R.string.negative_button)) {
-                dialog, whichButton ->
-                dialog.dismiss()
-            }
-        }
-        val dialog = alertDialog.create()
-        dialog.show()
     }
 
     private fun adaptListView() {
