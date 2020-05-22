@@ -6,7 +6,7 @@
     <string name="main_activity_title">勤務表一覧</string>
     <string name="worksheet_info_message">勤務表を登録してください</string>
     <string name="create_worksheet_title">勤務表生成</string>
-    <string name="update_worksheet_title">"すでに存在している勤務表です。\n上書きしますか？"</string>
+    <string name="update_worksheet_title">すでに存在している勤務表です。\n上書きしますか？</string>
     <string name="delete_worksheet_title">勤務表を削除しますか？</string>
     <string name="delete_button">削除</string>
     <string name="setting_button">設定</string>

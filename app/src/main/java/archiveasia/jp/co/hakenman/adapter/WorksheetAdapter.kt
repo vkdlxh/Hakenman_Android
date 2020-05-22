@@ -1,6 +1,7 @@
 package archiveasia.jp.co.hakenman.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import archiveasia.jp.co.hakenman.extension.hourMinuteToDouble
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.extension.day
+import archiveasia.jp.co.hakenman.extension.dayOfWeek
 import kotlinx.android.synthetic.main.month_worksheet_item.view.*
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -28,6 +30,12 @@ class WorksheetAdapter(private val context: Context,
         dayTextView.text = detailWork.workDate.day()
         val weekTextView = rowView.week_textView
         weekTextView.text = SimpleDateFormat("E", Locale.getDefault()).format(detailWork.workDate)
+        val textColor = when (detailWork.workDate.dayOfWeek()) {
+            1 -> Color.RED
+            7 -> Color.BLUE
+            else -> Color.BLACK
+        }
+        weekTextView.setTextColor(textColor)
         val workFlagTextView = rowView.workFlag_textView
         workFlagTextView.text =  if (detailWork.workFlag) "O" else "X"
 

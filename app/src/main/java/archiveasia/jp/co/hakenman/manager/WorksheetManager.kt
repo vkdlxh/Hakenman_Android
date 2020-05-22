@@ -184,7 +184,6 @@ object WorksheetManager {
         val detailWorks = mutableListOf<DetailWork>()
         for (day in 1..lastDay) {
             val newDate = createDate(year, month, day)
-            val week = newDate.week()
             val isHoliday = !newDate.isHoliday()
 
             val detailWork = DetailWork(newDate, isHoliday)

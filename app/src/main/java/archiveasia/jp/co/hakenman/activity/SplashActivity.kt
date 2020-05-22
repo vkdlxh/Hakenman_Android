@@ -16,7 +16,7 @@ class SplashActivity : AppCompatActivity() {
         private const val SPLASH_DELAY: Long = 2000 // 2 秒
     }
 
-    private var mDelayHandler: Handler? = null
+    private var mDelayHandler: Handler = Handler()
 
     private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
@@ -38,16 +38,13 @@ class SplashActivity : AppCompatActivity() {
         }
 
         mDelayHandler = Handler()
-        mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
+        mDelayHandler.postDelayed(mRunnable, SPLASH_DELAY)
 
         CustomLog.d("スプラッシュ画面")
     }
 
     override fun onDestroy() {
-        if (mDelayHandler != null) {
-            mDelayHandler!!.removeCallbacks(mRunnable)
-        }
-
+        mDelayHandler.removeCallbacks(mRunnable)
         super.onDestroy()
     }
 }

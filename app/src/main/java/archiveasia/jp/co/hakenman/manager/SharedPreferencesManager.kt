@@ -15,7 +15,7 @@ class PrefsManager (context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
 
     var interval: Int
-        get() = prefs.getInt(TIMEPICKER_INTERVAL, 15)
+        get() = prefs.getInt(TIMEPICKER_INTERVAL, 1)
         set(value) = prefs.edit().putInt(TIMEPICKER_INTERVAL, value).apply()
 
     var emailTo: String?
