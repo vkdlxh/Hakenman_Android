@@ -121,11 +121,10 @@ class DayWorksheetActivity : AppCompatActivity() {
                 beginTimeString = prefsManager.defaultBeginTime
                 endTimeString = prefsManager.defaultEndTime
                 breakTimeString = "1:00"
-                val defaultBeginTime = beginTimeString.hourMinuteToDate().time
-                val defaultEndTime = endTimeString.hourMinuteToDate().time
-                val defaultBreakTime = breakTimeString.hourMinuteToDate().hourMinuteToDouble()
-                val workTime = (defaultEndTime - defaultBeginTime) / (60 * 60 * 1000)
-                durationString = (workTime - defaultBreakTime).toString()
+                val defaultBeginTime = beginTimeString.hourMinuteToDate()
+                val defaultEndTime = endTimeString.hourMinuteToDate()
+                val defaultBreakTime = breakTimeString.hourMinuteToDate()
+                durationString = WorksheetManager.calculateDuration(defaultBeginTime, defaultEndTime, defaultBreakTime).toString()
             }
 
             day_start_time_textView.text = beginTimeString
