@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SettingActivity"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context=".activity.SettingActivity" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/worksheet_setting_header_textView"
@@ -23,9 +23,10 @@
             android:background="@color/colorLightGray"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/defalut_beginTime_ConstraintLayout"
+            android:id="@+id/default_beginTime_ConstraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/day_worksheet_itembox_layout_height"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/worksheet_setting_header_textView">
@@ -33,8 +34,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/day_worksheet_margin"
                 android:layout_marginStart="@dimen/day_worksheet_margin"
+                android:layout_marginVertical="12dp"
                 android:text="@string/worktime_begin_title"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/day_worksheet_item_font_size"
@@ -47,30 +48,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/day_worksheet_margin"
-                android:layout_marginRight="@dimen/day_worksheet_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/defalut_beginTime_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/defalut_endTime_ConstraintLayout"
+            android:id="@+id/default_endTime_ConstraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/day_worksheet_itembox_layout_height"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/defalut_beginTime_ConstraintLayout">
+            app:layout_constraintTop_toBottomOf="@id/default_beginTime_ConstraintLayout">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/day_worksheet_margin"
                 android:layout_marginStart="@dimen/day_worksheet_margin"
+                android:layout_marginVertical="12dp"
                 android:text="@string/worktime_end_title"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/day_worksheet_item_font_size"
@@ -83,30 +80,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/day_worksheet_margin"
-                android:layout_marginRight="@dimen/day_worksheet_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/defalut_endTime_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/day_worksheet_itembox_layout_height"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/defalut_endTime_ConstraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/default_endTime_ConstraintLayout">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginVertical="12dp"
                 android:textColor="#000000"
                 android:text="@string/interval_time_title"
                 android:textSize="16sp"
@@ -119,7 +111,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/default_margin"
-                android:layout_marginRight="@dimen/default_margin"
                 android:orientation="horizontal"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -127,18 +118,28 @@
                 app:layout_constraintTop_toTopOf="parent" >
 
                 <RadioButton
+                    android:id="@+id/button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1" />
+
+                <RadioButton
                     android:id="@+id/button15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="15" />
+
                 <RadioButton
                     android:id="@+id/button30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="30" />
+
             </RadioGroup>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -167,37 +168,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_setting_header_textView">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/email_to_ConstraintLayout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/day_worksheet_itembox_layout_height"
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginVertical="12dp"
+                android:text="@string/email_to_title"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/email_to_editText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_margin"
+                android:textAlignment="textEnd"
+                android:inputType="textEmailAddress"
+                android:hint="@string/email_empty_message"
+                android:lines="1"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:textColor="@color/colorBlack"
-                    android:text="@string/email_to_title"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/email_to_editText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/default_padding"
-                    android:hint="@string/email_empty_message"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.6"
+                app:layout_constraintHorizontal_bias="1"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -218,38 +217,38 @@
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/colorLightGray"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/day_worksheet_itembox_layout_height"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_info_header_textView">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/day_worksheet_margin"
-            android:layout_marginStart="@dimen/day_worksheet_margin"
-            android:textColor="@color/colorBlack"
-            android:text="@string/version"
-            android:textSize="@dimen/day_worksheet_item_font_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/version_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/day_worksheet_margin"
-            android:layout_marginEnd="@dimen/day_worksheet_margin"
-            android:textSize="@dimen/day_worksheet_item_font_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_info_header_textView">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/day_worksheet_margin"
+                android:layout_marginVertical="12dp"
+                android:textColor="@color/colorBlack"
+                android:text="@string/version"
+                android:textSize="@dimen/day_worksheet_item_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/version_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/day_worksheet_margin"
+                android:textSize="@dimen/day_worksheet_item_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

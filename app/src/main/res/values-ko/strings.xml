@@ -6,13 +6,13 @@
     <string name="main_activity_title">근무표 목록</string>
     <string name="worksheet_info_message">근무표를 등록해주세요.</string>
     <string name="create_worksheet_title">근무표 생성</string>
-    <string name="update_worksheet_title">"이미 존재하는 근무표입니다.\n덮어쓰시겠습니까?"</string>
+    <string name="update_worksheet_title">이미 존재하는 근무표입니다.\n덮어쓰시겠습니까?</string>
     <string name="delete_worksheet_title">근무표를 삭제하시겠습니까?</string>
     <string name="delete_button">삭제</string>
     <string name="setting_button">설정</string>
     <string name="empty_error_message">공란없이 입력해주세요.</string>
     <string name="invalidate_error_message">형식에 맞춰 입력해주세요.</string>
-    <string name="chart_description">최대７일분근무시간표</string>
+    <string name="chart_description">최대７일분 근무시간표</string>
     <string name="chart_no_data">데이터 없음</string>
 
     <!-- MonthWorksheet Activity -->

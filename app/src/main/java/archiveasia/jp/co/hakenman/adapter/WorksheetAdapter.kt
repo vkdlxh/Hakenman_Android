@@ -1,19 +1,20 @@
 package archiveasia.jp.co.hakenman.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import archiveasia.jp.co.hakenman.extension.hourMinuteToDouble
-import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.extension.day
+import archiveasia.jp.co.hakenman.extension.dayOfWeek
+import archiveasia.jp.co.hakenman.extension.hourMinute
+import archiveasia.jp.co.hakenman.extension.week
+import archiveasia.jp.co.hakenman.model.DetailWork
 import kotlinx.android.synthetic.main.month_worksheet_item.view.*
-import java.text.SimpleDateFormat
-import java.util.Locale
 
-class WorksheetAdapter(private val context: Context,
+class WorksheetAdapter(context: Context,
                        private val detailWorkList: MutableList<DetailWork>): BaseAdapter() {
 
     private val inflater: LayoutInflater
@@ -27,28 +28,34 @@ class WorksheetAdapter(private val context: Context,
         val dayTextView = rowView.day_textView
         dayTextView.text = detailWork.workDate.day()
         val weekTextView = rowView.week_textView
-        weekTextView.text = SimpleDateFormat("E", Locale.getDefault()).format(detailWork.workDate)
+        weekTextView.text = detailWork.workDate.week()
+        val textColor = when (detailWork.workDate.dayOfWeek()) {
+            1 -> Color.RED
+            7 -> Color.BLUE
+            else -> Color.BLACK
+        }
+        weekTextView.setTextColor(textColor)
         val workFlagTextView = rowView.workFlag_textView
         workFlagTextView.text =  if (detailWork.workFlag) "O" else "X"
 
         val startWorkTextView = rowView.startWork_textView
-        if (detailWork.beginTime != null) {
-            startWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.beginTime)
+        detailWork.beginTime?.let {
+            startWorkTextView.text = it.hourMinute()
         }
 
         val endWorkTextView = rowView.endWork_textView
-        if (detailWork.endTime != null) {
-            endWorkTextView.text = SimpleDateFormat("HH:mm").format(detailWork.endTime)
+        detailWork.endTime?.let {
+            endWorkTextView.text = it.hourMinute()
         }
 
         val breakTimeTextView = rowView.breakTime_textView
-        if (detailWork.breakTime != null) {
-            breakTimeTextView.text = detailWork.breakTime!!.hourMinuteToDouble().toString()
+        detailWork.breakTime?.let {
+            breakTimeTextView.text = it.hourMinute()
         }
 
         val workTimeTextView = rowView.workTime_textView
-        if (detailWork.duration != null) {
-            workTimeTextView.text = detailWork.duration.toString()
+        detailWork.duration?.let {
+            workTimeTextView.text = it.toString()
         }
 
         val noteTextView = rowView.note_textView

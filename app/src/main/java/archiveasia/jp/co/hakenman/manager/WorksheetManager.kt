@@ -155,14 +155,21 @@ object WorksheetManager {
      */
     fun calculateDuration(detailWork: DetailWork): Double? {
         return if (detailWork.beginTime != null && detailWork.endTime != null && detailWork.breakTime != null) {
-            val beginTime = detailWork.beginTime!!.time
-            val endTime = detailWork.endTime!!.time
-            val breakTime = detailWork.breakTime!!.hourMinuteToDouble()
-            val workTime = (endTime - beginTime) / (60 * 60 * 1000)
-            workTime.toDouble() - breakTime
+            calculateDuration(detailWork.beginTime!!, detailWork.endTime!!, detailWork.breakTime!!)
         } else {
             null
         }
+    }
+
+    /**
+     *
+     */
+    fun calculateDuration(startTime: Date, endTime: Date, breakTime: Date): Double {
+        val defaultBeginTime = startTime.time
+        val defaultEndTime = endTime.time
+        val defaultBreakTime = breakTime.hourMinuteToDouble()
+        val workTime = (defaultEndTime - defaultBeginTime) / (60 * 60 * 1000)
+        return (workTime - defaultBreakTime).twoDecimalPlaces()
     }
 
     /**
@@ -184,7 +191,6 @@ object WorksheetManager {
         val detailWorks = mutableListOf<DetailWork>()
         for (day in 1..lastDay) {
             val newDate = createDate(year, month, day)
-            val week = newDate.week()
             val isHoliday = !newDate.isHoliday()
 
             val detailWork = DetailWork(newDate, isHoliday)
