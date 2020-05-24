@@ -155,11 +155,6 @@ object WorksheetManager {
      */
     fun calculateDuration(detailWork: DetailWork): Double? {
         return if (detailWork.beginTime != null && detailWork.endTime != null && detailWork.breakTime != null) {
-//            val beginTime = detailWork.beginTime!!.time
-//            val endTime = detailWork.endTime!!.time
-//            val breakTime = detailWork.breakTime!!.hourMinuteToDouble()
-//            val workTime = (endTime - beginTime) / (60 * 60 * 1000)
-//            workTime - breakTime
             calculateDuration(detailWork.beginTime!!, detailWork.endTime!!, detailWork.breakTime!!)
         } else {
             null
@@ -174,7 +169,7 @@ object WorksheetManager {
         val defaultEndTime = endTime.time
         val defaultBreakTime = breakTime.hourMinuteToDouble()
         val workTime = (defaultEndTime - defaultBeginTime) / (60 * 60 * 1000)
-        return workTime - defaultBreakTime
+        return (workTime - defaultBreakTime).twoDecimalPlaces()
     }
 
     /**

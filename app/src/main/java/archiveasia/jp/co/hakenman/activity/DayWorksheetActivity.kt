@@ -120,7 +120,7 @@ class DayWorksheetActivity : AppCompatActivity() {
                 // TODO: リファクタリング
                 beginTimeString = prefsManager.defaultBeginTime
                 endTimeString = prefsManager.defaultEndTime
-                breakTimeString = "1:00"
+                breakTimeString = "01:00"
                 val defaultBeginTime = beginTimeString.hourMinuteToDate()
                 val defaultEndTime = endTimeString.hourMinuteToDate()
                 val defaultBreakTime = breakTimeString.hourMinuteToDate()
@@ -165,12 +165,8 @@ class DayWorksheetActivity : AppCompatActivity() {
                 }
 
                 if (beginTime != null && endTime != null && breakTime != null) {
-                    val beginTimeLong = beginTime.time
-                    val endTimeLong = endTime.time
-                    val breakTimeDouble = breakTime.hourMinuteToDouble()
-                    val workTime = (endTimeLong - beginTimeLong) / (60 * 60 * 1000)
-                    val result = workTime.toDouble() - breakTimeDouble
-                    day_total_time_textView.text = result.toString()
+                    val duration = WorksheetManager.calculateDuration(beginTime, endTime, breakTime)
+                    day_total_time_textView.text = duration.toString()
                 }
             }
     }
