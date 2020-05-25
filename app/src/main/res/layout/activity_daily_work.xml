@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/day_constraintLayout"
@@ -177,7 +179,7 @@
 
             <TextView
                 android:id="@+id/note_setting_header"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/zero_width"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/default_padding"
                 android:text="@string/note_setting_header"

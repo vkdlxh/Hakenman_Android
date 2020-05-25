@@ -56,8 +56,8 @@ class DailyWorkActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_add -> {
                 saveWorksheet()
                 finish()
@@ -171,9 +171,10 @@ class DailyWorkActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val INTENT_DETAILWORK_INDEX = "index"
-        const val INTENT_DETAILWORK_VALUE = "day"
         const val INTENT_WORKSHEET_RETURN_VALUE = "worksheet_return_value"
+
+        private const val INTENT_DETAILWORK_INDEX = "index"
+        private const val INTENT_DETAILWORK_VALUE = "day"
 
         fun newIntent(context: Context, index: Int, worksheet: Worksheet): Intent {
             val intent = Intent(context, DailyWorkActivity::class.java)

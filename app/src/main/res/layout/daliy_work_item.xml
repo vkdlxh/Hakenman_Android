@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/month_worksheet_height"
+    android:layout_height="@dimen/monthly_work_item_height"
     android:background="?attr/selectableItemBackground">
 
     <TextView
@@ -14,7 +15,8 @@
         android:textColor="@android:color/black"
         android:ellipsize="none"
         android:singleLine="true"
-        android:background="@drawable/worksheet_border_line"/>
+        android:background="@drawable/worksheet_border_line"
+        tools:text="01" />
 
     <TextView
         android:id="@+id/week_textView"
@@ -26,7 +28,8 @@
         android:ellipsize="none"
         android:singleLine="true"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
-        android:background="@drawable/worksheet_border_line"/>
+        android:background="@drawable/worksheet_border_line"
+        tools:text="月" />
 
     <TextView
         android:id="@+id/workFlag_textView"
@@ -38,7 +41,8 @@
         android:ellipsize="none"
         android:singleLine="true"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
-        android:background="@drawable/worksheet_border_line"/>
+        android:background="@drawable/worksheet_border_line"
+        tools:text="O" />
 
     <TextView
         android:id="@+id/startWork_textView"
@@ -48,7 +52,8 @@
         android:gravity="center"
         android:textColor="@android:color/black"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
-        android:background="@drawable/worksheet_border_line"/>
+        android:background="@drawable/worksheet_border_line"
+        tools:text="09:00" />
 
     <TextView
         android:id="@+id/endWork_textView"
@@ -58,7 +63,8 @@
         android:gravity="center"
         android:textColor="@android:color/black"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
-        android:background="@drawable/worksheet_border_line"/>
+        android:background="@drawable/worksheet_border_line"
+        tools:text="18:00" />
 
     <TextView
         android:id="@+id/breakTime_textView"
@@ -68,7 +74,10 @@
         android:gravity="center"
         android:textColor="@android:color/black"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
-        android:background="@drawable/worksheet_border_line"/>
+        android:background="@drawable/worksheet_border_line"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="@dimen/default_font_size"
+        tools:text="01:00" />
 
     <TextView
         android:id="@+id/workTime_textView"
@@ -78,7 +87,8 @@
         android:gravity="center"
         android:textColor="@android:color/black"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
-        android:background="@drawable/worksheet_border_line"/>
+        android:background="@drawable/worksheet_border_line"
+        tools:text="08:00" />
 
     <TextView
         android:id="@+id/note_textView"
@@ -91,5 +101,6 @@
         android:maxLength="10"
         android:ellipsize="end"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
-        android:background="@drawable/worksheet_border_line"/>
+        android:background="@drawable/worksheet_border_line" />
+
 </LinearLayout>
