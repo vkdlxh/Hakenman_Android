@@ -20,6 +20,8 @@
     <string name="email_subject">【근태】%s년%s월 근무표</string>
     <string name="request_set_address_message">수신인을 설정해주세요.</string>
     <string name="send_email_type">메일 송신 방법 :</string>
+    <string name="sheet">표</string>
+    <string name="calendar">달력</string>
 
     <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s년%s월%s일 근무표</string>

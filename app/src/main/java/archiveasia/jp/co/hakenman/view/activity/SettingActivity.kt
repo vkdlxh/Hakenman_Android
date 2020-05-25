@@ -1,4 +1,4 @@
-package archiveasia.jp.co.hakenman.activity
+package archiveasia.jp.co.hakenman.view.activity
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -56,8 +56,8 @@ class SettingActivity : AppCompatActivity() {
         CustomLog.d("設定画面")
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return if (item?.itemId == android.R.id.home) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == android.R.id.home) {
             PrefsManager(this).emailTo = email_to_editText.text.toString()
             finish()
             true

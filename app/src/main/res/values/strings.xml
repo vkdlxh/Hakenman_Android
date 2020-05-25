@@ -20,6 +20,8 @@
     <string name="email_subject">【勤怠】%s年%s月勤務表</string>
     <string name="request_set_address_message">宛先を設定してください。</string>
     <string name="send_email_type">メール送信方法：</string>
+    <string name="sheet">シート</string>
+    <string name="calendar">カレンダー</string>
 
     <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s年%s月%s日勤務表</string>

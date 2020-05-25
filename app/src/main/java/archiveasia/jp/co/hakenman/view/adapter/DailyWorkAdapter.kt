@@ -1,4 +1,4 @@
-package archiveasia.jp.co.hakenman.adapter
+package archiveasia.jp.co.hakenman.view.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import archiveasia.jp.co.hakenman.model.DetailWork
 import kotlinx.android.synthetic.main.daliy_work_item.view.*
 
 class DailyWorkAdapter(
-    private val detailWorkList: MutableList<DetailWork>,
+    private val detailWorkList: MutableList<DetailWork> = mutableListOf(),
     private val listener: DailyWorkListener
 ) : RecyclerView.Adapter<DailyWorkAdapter.ViewHolder>() {
 

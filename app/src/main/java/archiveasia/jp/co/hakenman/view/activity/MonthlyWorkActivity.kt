@@ -1,4 +1,4 @@
-package archiveasia.jp.co.hakenman.activity
+package archiveasia.jp.co.hakenman.view.activity
 
 import android.content.Context
 import android.content.Intent
@@ -10,23 +10,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.activity.DailyWorkActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
-import archiveasia.jp.co.hakenman.adapter.DailyWorkAdapter
+import archiveasia.jp.co.hakenman.view.activity.DailyWorkActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
+import archiveasia.jp.co.hakenman.view.adapter.DailyWorkAdapter
 import archiveasia.jp.co.hakenman.extension.month
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.CSVManager
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
+import archiveasia.jp.co.hakenman.view.adapter.WorkListPagerAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import kotlinx.android.synthetic.main.activity_monthly_work.*
 
 class MonthlyWorkActivity : AppCompatActivity() {
 
-    private var index: Int = -1
-    private lateinit var worksheet: Worksheet
+    lateinit var worksheet: Worksheet
 
-    private lateinit var dailyWorkAdapter: DailyWorkAdapter
+    private var index: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,16 +37,8 @@ class MonthlyWorkActivity : AppCompatActivity() {
         worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)
         title = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
 
-        daily_work_recycler_view.apply {
-            layoutManager = LinearLayoutManager(this@MonthlyWorkActivity)
-            dailyWorkAdapter = DailyWorkAdapter(worksheet.detailWorkList, object : DailyWorkAdapter.DailyWorkListener {
-                override fun onClick(position: Int) {
-                    val intent = DailyWorkActivity.newIntent(this@MonthlyWorkActivity, position, worksheet)
-                    startActivityForResult(intent, REQUEST_WORKSHEET)
-                }
-            })
-            adapter = dailyWorkAdapter
-        }
+        view_pager.adapter = WorkListPagerAdapter(this, supportFragmentManager)
+        tab_layout.setupWithViewPager(view_pager)
 
         CustomLog.d("月勤務表画面")
     }
@@ -83,7 +75,8 @@ class MonthlyWorkActivity : AppCompatActivity() {
             if (requestCode == REQUEST_WORKSHEET) {
                 worksheet = data!!.getParcelableExtra(INTENT_WORKSHEET_RETURN_VALUE)
                 WorksheetManager.updateWorksheetWithIndex(index, worksheet)
-                dailyWorkAdapter.replaceDailyWorkList(worksheet.detailWorkList)
+                // TODO: Sheet, Calendar프래그먼트에 갱신된 리스트 보내기
+//                dailyWorkAdapter.replaceDailyWorkList(worksheet.detailWorkList)
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
