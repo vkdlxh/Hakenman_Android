@@ -14,16 +14,15 @@ import archiveasia.jp.co.hakenman.TimePickerDialog
 import archiveasia.jp.co.hakenman.extension.day
 import archiveasia.jp.co.hakenman.extension.hourMinute
 import archiveasia.jp.co.hakenman.extension.hourMinuteToDate
-import archiveasia.jp.co.hakenman.extension.hourMinuteToDouble
 import archiveasia.jp.co.hakenman.extension.month
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
-import kotlinx.android.synthetic.main.activity_day_worksheet.*
+import kotlinx.android.synthetic.main.activity_daily_work.*
 
-class DayWorksheetActivity : AppCompatActivity() {
+class DailyWorkActivity : AppCompatActivity() {
 
     private var index: Int = -1
     private lateinit var worksheet: Worksheet
@@ -31,7 +30,7 @@ class DayWorksheetActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_day_worksheet)
+        setContentView(R.layout.activity_daily_work)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         index = intent.getIntExtra(INTENT_DETAILWORK_INDEX, index)
@@ -57,8 +56,8 @@ class DayWorksheetActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_add -> {
                 saveWorksheet()
                 finish()
@@ -116,7 +115,7 @@ class DayWorksheetActivity : AppCompatActivity() {
             var breakTimeString = if (breakTime != null) breakTime!!.hourMinute() else ""
             var durationString = if (duration != null) duration.toString() else ""
             if (beginTimeString.isEmpty() && endTimeString.isEmpty() && breakTimeString.isEmpty() && durationString.isEmpty()) {
-                val prefsManager = PrefsManager(this@DayWorksheetActivity)
+                val prefsManager = PrefsManager(this@DailyWorkActivity)
                 // TODO: リファクタリング
                 beginTimeString = prefsManager.defaultBeginTime
                 endTimeString = prefsManager.defaultEndTime
@@ -172,12 +171,13 @@ class DayWorksheetActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val INTENT_DETAILWORK_INDEX = "index"
-        const val INTENT_DETAILWORK_VALUE = "day"
         const val INTENT_WORKSHEET_RETURN_VALUE = "worksheet_return_value"
 
+        private const val INTENT_DETAILWORK_INDEX = "index"
+        private const val INTENT_DETAILWORK_VALUE = "day"
+
         fun newIntent(context: Context, index: Int, worksheet: Worksheet): Intent {
-            val intent = Intent(context, DayWorksheetActivity::class.java)
+            val intent = Intent(context, DailyWorkActivity::class.java)
             intent.putExtra(INTENT_DETAILWORK_VALUE, worksheet)
             intent.putExtra(INTENT_DETAILWORK_INDEX, index)
             return intent
