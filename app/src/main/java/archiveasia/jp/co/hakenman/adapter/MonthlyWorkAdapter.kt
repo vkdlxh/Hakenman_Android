@@ -12,36 +12,37 @@ import archiveasia.jp.co.hakenman.extension.dayOfWeek
 import archiveasia.jp.co.hakenman.extension.month
 import archiveasia.jp.co.hakenman.extension.week
 import archiveasia.jp.co.hakenman.extension.year
+import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.android.synthetic.main.current_worksheet_list_item.view.*
+import kotlinx.android.synthetic.main.current_monthly_work_item.view.*
 import java.util.Date
 
-class WorksheetListAdapter(
+class MonthlyWorkAdapter(
     private var list: MutableList<Worksheet> = mutableListOf(),
-    private var listener: WorksheetListener
+    private var listener: MonthlyWorkListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        private const val TYPE_CURRENT_WORKSHEET = 1
-        private const val TYPE_PAST_WORKSHEET = 2
+        private const val TYPE_CURRENT_MONTHLY_WORK = 1
+        private const val TYPE_PAST_MONTHLY_WORK = 2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            TYPE_CURRENT_WORKSHEET -> {
+            TYPE_CURRENT_MONTHLY_WORK -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.current_worksheet_list_item, parent, false)
-                CurrentWorksheetViewHolder(view)
+                    .inflate(R.layout.current_monthly_work_item, parent, false)
+                CurrentMonthlyWorkViewHolder(view)
             }
-            TYPE_PAST_WORKSHEET -> {
+            TYPE_PAST_MONTHLY_WORK -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.past_worksheet_list_item, parent, false)
-                PastWorksheetViewHolder(view)
+                    .inflate(R.layout.past_monthly_work_item, parent, false)
+                PastMonthlyWorkViewHolder(view)
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -52,14 +53,14 @@ class WorksheetListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) TYPE_CURRENT_WORKSHEET else TYPE_PAST_WORKSHEET
+        return if (position == 0) TYPE_CURRENT_MONTHLY_WORK else TYPE_PAST_MONTHLY_WORK
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = list[position]
         when (holder) {
-            is CurrentWorksheetViewHolder -> holder.bindView(item)
-            is PastWorksheetViewHolder -> holder.bindView(item)
+            is CurrentMonthlyWorkViewHolder -> holder.bindView(item)
+            is PastMonthlyWorkViewHolder -> holder.bindView(item)
         }
     }
 
@@ -70,7 +71,7 @@ class WorksheetListAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class CurrentWorksheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class CurrentMonthlyWorkViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindView(worksheet: Worksheet) {
             val detailWorkList = worksheet.detailWorkList
@@ -172,7 +173,7 @@ class WorksheetListAdapter(
         }
     }
 
-    inner class PastWorksheetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class PastMonthlyWorkViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindView(worksheet: Worksheet) {
             itemView.setOnClickListener {
@@ -190,7 +191,25 @@ class WorksheetListAdapter(
         }
     }
 
-    interface WorksheetListener {
+    class DiffCallback(
+        private val oldData: List<Worksheet>,
+        private val newData: List<Worksheet>
+    ) : DiffUtil.Callback() {
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldData[oldItemPosition].workDate.yearMonth() == newData[newItemPosition].workDate.yearMonth()
+        }
+
+        override fun getOldListSize(): Int = oldData.size
+
+        override fun getNewListSize(): Int = newData.size
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldData[oldItemPosition] == newData[newItemPosition]
+        }
+    }
+
+    interface MonthlyWorkListener {
         fun onClickItem(index: Int, worksheet: Worksheet)
 
         fun onLongClickItem(index: Int)

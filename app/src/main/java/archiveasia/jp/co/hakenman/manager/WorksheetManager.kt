@@ -162,7 +162,12 @@ object WorksheetManager {
     }
 
     /**
+     * 勤務時間を求める
      *
+     * @param startTime 出勤時間
+     * @param endTime 退勤時間
+     * @param breakTime 休憩時間
+     * @return 勤務時間
      */
     fun calculateDuration(startTime: Date, endTime: Date, breakTime: Date): Double {
         val defaultBeginTime = startTime.time

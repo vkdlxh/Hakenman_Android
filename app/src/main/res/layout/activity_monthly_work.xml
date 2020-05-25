@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MonthWorkActivity">
+    tools:context=".activity.MonthlyWorkActivity">
 
     <LinearLayout
         android:id="@+id/header_LinearLayout"
@@ -114,6 +114,17 @@
 
     <ListView
         android:id="@+id/worksheet_listView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero_width"
+        android:overScrollMode="never"
+        android:background="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_LinearLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/daily_work_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/zero_width"
         android:overScrollMode="never"

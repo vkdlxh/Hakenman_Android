@@ -10,28 +10,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.adapter.WorksheetListAdapter
+import archiveasia.jp.co.hakenman.adapter.MonthlyWorkAdapter
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_worksheet_list.*
 import kotlinx.android.synthetic.main.datepicker_dialog.view.*
 
 class WorksheetListActivity : AppCompatActivity() {
 
-    private lateinit var adapter: WorksheetListAdapter
+    private lateinit var adapter: MonthlyWorkAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_worksheet_list)
         title = getString(R.string.main_activity_title)
         CustomLog.d("勤務表一覧画面")
 
-        adapter = WorksheetListAdapter(listener = object : WorksheetListAdapter.WorksheetListener {
+        adapter = MonthlyWorkAdapter(listener = object : MonthlyWorkAdapter.MonthlyWorkListener {
             override fun onClickItem(index: Int, worksheet: Worksheet) {
-                val intent = MonthWorkActivity.newIntent(this@WorksheetListActivity, index, worksheet)
+                val intent = MonthlyWorkActivity.newIntent(this@WorksheetListActivity, index, worksheet)
                 startActivity(intent)
             }
 

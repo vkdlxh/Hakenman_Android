@@ -7,10 +7,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.activity.DayWorksheetActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
-import archiveasia.jp.co.hakenman.adapter.WorksheetAdapter
+import archiveasia.jp.co.hakenman.activity.DailyWorkActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
+import archiveasia.jp.co.hakenman.adapter.DailyWorkAdapter
 import archiveasia.jp.co.hakenman.extension.month
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.CSVManager
@@ -18,36 +19,45 @@ import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import com.afollestad.materialdialogs.MaterialDialog
-import kotlinx.android.synthetic.main.activity_month_work.*
+import kotlinx.android.synthetic.main.activity_monthly_work.*
 
-const val INTENT_WORKSHEET_INDEX = "worksheet_index"
-const val INTENT_WORKSHEET_VALUE = "worksheet_value"
-
-class MonthWorkActivity : AppCompatActivity() {
+class MonthlyWorkActivity : AppCompatActivity() {
 
     private var index: Int = -1
     private lateinit var worksheet: Worksheet
 
+    private lateinit var dailyWorkAdapter: DailyWorkAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_month_work)
+        setContentView(R.layout.activity_monthly_work)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         index = intent.getIntExtra(INTENT_WORKSHEET_INDEX, index)
         worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)
-        adaptListView()
         title = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
+
+        daily_work_recycler_view.apply {
+            layoutManager = LinearLayoutManager(this@MonthlyWorkActivity)
+            dailyWorkAdapter = DailyWorkAdapter(worksheet.detailWorkList, object : DailyWorkAdapter.DailyWorkListener {
+                override fun onClick(position: Int) {
+                    val intent = DailyWorkActivity.newIntent(this@MonthlyWorkActivity, position, worksheet)
+                    startActivityForResult(intent, REQUEST_WORKSHEET)
+                }
+            })
+            adapter = dailyWorkAdapter
+        }
 
         CustomLog.d("月勤務表画面")
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.send_email_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.send_csv -> {
                 val csvManager = CSVManager(this, worksheet)
                 csvManager.createCSVFile()
@@ -68,15 +78,14 @@ class MonthWorkActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        // TODO: 見直し
         if (resultCode == RESULT_OK) {
-            if (requestCode == 100) {
+            if (requestCode == REQUEST_WORKSHEET) {
                 worksheet = data!!.getParcelableExtra(INTENT_WORKSHEET_RETURN_VALUE)
                 WorksheetManager.updateWorksheetWithIndex(index, worksheet)
-                adaptListView()
-                worksheet_listView.invalidateViews()
+                dailyWorkAdapter.replaceDailyWorkList(worksheet.detailWorkList)
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -84,12 +93,10 @@ class MonthWorkActivity : AppCompatActivity() {
         val to = PrefsManager(this).emailTo
 
         if (to.isNullOrEmpty()) {
-            // TODO: 登録メッセージdialog表示
-            R.string.request_set_address_message
             MaterialDialog(this).show {
                 message(R.string.request_set_address_message)
                 positiveButton(R.string.positive_button) {
-                    val intent = Intent(this@MonthWorkActivity, SettingActivity::class.java)
+                    val intent = Intent(this@MonthlyWorkActivity, SettingActivity::class.java)
                     startActivity(intent)
                 }
                 negativeButton(R.string.negative_button)
@@ -113,19 +120,13 @@ class MonthWorkActivity : AppCompatActivity() {
         }
     }
 
-    private fun adaptListView() {
-        val adapter = WorksheetAdapter(this, worksheet.detailWorkList)
-        worksheet_listView.adapter = adapter
-        worksheet_listView.setOnItemClickListener { parent, view, position, id ->
-            val intent = DayWorksheetActivity.newIntent(this, position, worksheet)
-            startActivityForResult(intent, 100) // １００は臨時値
-        }
-    }
-
     companion object {
+        private const val REQUEST_WORKSHEET = 100
+        private const val INTENT_WORKSHEET_INDEX = "worksheet_index"
+        private const val INTENT_WORKSHEET_VALUE = "worksheet_value"
 
         fun newIntent(context: Context, index: Int, work: Worksheet): Intent {
-            val intent = Intent(context, MonthWorkActivity::class.java)
+            val intent = Intent(context, MonthlyWorkActivity::class.java)
             intent.putExtra(INTENT_WORKSHEET_INDEX, index)
             intent.putExtra(INTENT_WORKSHEET_VALUE, work)
             return intent
