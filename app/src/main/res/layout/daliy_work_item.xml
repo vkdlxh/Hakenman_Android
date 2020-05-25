@@ -16,6 +16,8 @@
         android:ellipsize="none"
         android:singleLine="true"
         android:background="@drawable/worksheet_border_line"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="@dimen/default_font_size"
         tools:text="01" />
 
     <TextView
@@ -29,6 +31,8 @@
         android:singleLine="true"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
         android:background="@drawable/worksheet_border_line"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="@dimen/default_font_size"
         tools:text="月" />
 
     <TextView
@@ -42,6 +46,8 @@
         android:singleLine="true"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
         android:background="@drawable/worksheet_border_line"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="@dimen/default_font_size"
         tools:text="O" />
 
     <TextView
@@ -53,6 +59,8 @@
         android:textColor="@android:color/black"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
         android:background="@drawable/worksheet_border_line"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="@dimen/default_font_size"
         tools:text="09:00" />
 
     <TextView
@@ -64,6 +72,8 @@
         android:textColor="@android:color/black"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
         android:background="@drawable/worksheet_border_line"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="@dimen/default_font_size"
         tools:text="18:00" />
 
     <TextView
@@ -88,6 +98,8 @@
         android:textColor="@android:color/black"
         android:paddingHorizontal="@dimen/month_worksheet_padding"
         android:background="@drawable/worksheet_border_line"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMaxTextSize="@dimen/default_font_size"
         tools:text="08:00" />
 
     <TextView
