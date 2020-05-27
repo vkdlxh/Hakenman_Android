@@ -13,14 +13,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tab_layout"/>
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"/>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="@dimen/zero_width"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="@dimen/zero_height"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:menu="@menu/menu_bottom_navigation"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconTint="@color/bottom_nav_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

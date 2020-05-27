@@ -7,11 +7,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager.widget.ViewPager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.view.activity.DailyWorkActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
-import archiveasia.jp.co.hakenman.view.adapter.DailyWorkAdapter
 import archiveasia.jp.co.hakenman.extension.month
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.CSVManager
@@ -19,6 +18,7 @@ import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.view.adapter.WorkListPagerAdapter
+import archiveasia.jp.co.hakenman.view.fragment.DetailWorkFragment
 import com.afollestad.materialdialogs.MaterialDialog
 import kotlinx.android.synthetic.main.activity_monthly_work.*
 
@@ -37,8 +37,30 @@ class MonthlyWorkActivity : AppCompatActivity() {
         worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)
         title = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
 
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_sheet -> {
+                    view_pager.currentItem = 0
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.menu_calendar -> {
+                    view_pager.currentItem = 1
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+            false
+        }
         view_pager.adapter = WorkListPagerAdapter(this, supportFragmentManager)
-        tab_layout.setupWithViewPager(view_pager)
+        view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
+
+            override fun onPageSelected(position: Int) {
+                bottom_navigation.menu.getItem(position).isChecked = true
+            }
+
+        })
 
         CustomLog.d("月勤務表画面")
     }
@@ -76,10 +98,19 @@ class MonthlyWorkActivity : AppCompatActivity() {
                 worksheet = data!!.getParcelableExtra(INTENT_WORKSHEET_RETURN_VALUE)
                 WorksheetManager.updateWorksheetWithIndex(index, worksheet)
                 // TODO: Sheet, Calendar프래그먼트에 갱신된 리스트 보내기
-//                dailyWorkAdapter.replaceDailyWorkList(worksheet.detailWorkList)
+                for (fragment in supportFragmentManager.fragments) {
+                    if (fragment is DetailWorkFragment) {
+                        fragment.replaceWorkList(worksheet)
+                    }
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun showDetailWork(position: Int) {
+        val intent = DailyWorkActivity.newIntent(this, position, worksheet)
+        startActivityForResult(intent, REQUEST_WORKSHEET)
     }
 
     private fun sendMail(fileUri: Uri? = null) {
@@ -124,5 +155,9 @@ class MonthlyWorkActivity : AppCompatActivity() {
             intent.putExtra(INTENT_WORKSHEET_VALUE, work)
             return intent
         }
+    }
+
+    interface SheetCalendarItemClickListener {
+        fun onClick(position: Int)
     }
 }

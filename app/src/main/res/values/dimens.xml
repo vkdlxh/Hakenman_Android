@@ -9,7 +9,8 @@
     <dimen name="default_margin">8dp</dimen>
     <dimen name="large_margin">12dp</dimen>
     <dimen name="xlarge_margin">16dp</dimen>
-    <dimen name="default_padding">4dp</dimen>
+    <dimen name="small_padding">4dp</dimen>
+    <dimen name="default_padding">8dp</dimen>
     <dimen name="large_padding">12dp</dimen>
     <dimen name="worksheet_list_slash_margin">2dp</dimen>
     <dimen name="chart_height">80dp</dimen>
