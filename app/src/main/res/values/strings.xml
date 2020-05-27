@@ -20,6 +20,8 @@
     <string name="email_subject">【勤怠】%s年%s月勤務表</string>
     <string name="request_set_address_message">宛先を設定してください。</string>
     <string name="send_email_type">メール送信方法：</string>
+    <string name="sheet">シート</string>
+    <string name="calendar">カレンダー</string>
 
     <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s年%s月%s日勤務表</string>
@@ -44,6 +46,15 @@
     <string name="break_time_column">休憩</string>
     <string name="work_time_column">勤務時間</string>
     <string name="note_column">備考</string>
+
+    <!-- Calendar -->
+    <string name="monday">月</string>
+    <string name="tuesday">火</string>
+    <string name="wednesday">水</string>
+    <string name="thursday">木</string>
+    <string name="friday">金</string>
+    <string name="saturday">土</string>
+    <string name="sunday">日</string>
 
     <!-- Day　Worksheet Layout -->
     <string name="workday_setting_header">勤務設定</string>

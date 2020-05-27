@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.WorksheetListActivity">
+    tools:context=".view.activity.WorksheetListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/work_recycler_view"

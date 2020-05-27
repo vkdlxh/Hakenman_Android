@@ -1,4 +1,4 @@
-package archiveasia.jp.co.hakenman.adapter
+package archiveasia.jp.co.hakenman.view.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package archiveasia.jp.co.hakenman.adapter
+package archiveasia.jp.co.hakenman.view.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -13,11 +13,12 @@ import archiveasia.jp.co.hakenman.extension.hourMinute
 import archiveasia.jp.co.hakenman.extension.week
 import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.model.DetailWork
+import archiveasia.jp.co.hakenman.view.activity.MonthlyWorkActivity
 import kotlinx.android.synthetic.main.daliy_work_item.view.*
 
 class DailyWorkAdapter(
-    private val detailWorkList: MutableList<DetailWork>,
-    private val listener: DailyWorkListener
+    private val detailWorkList: MutableList<DetailWork> = mutableListOf(),
+    private val listener: MonthlyWorkActivity.SheetCalendarItemClickListener
 ) : RecyclerView.Adapter<DailyWorkAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -99,9 +100,5 @@ class DailyWorkAdapter(
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldData[oldItemPosition] == newData[newItemPosition]
         }
-    }
-
-    interface DailyWorkListener {
-        fun onClick(position: Int)
     }
 }

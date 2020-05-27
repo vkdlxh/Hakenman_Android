@@ -20,6 +20,8 @@
     <string name="email_subject">【근태】%s년%s월 근무표</string>
     <string name="request_set_address_message">수신인을 설정해주세요.</string>
     <string name="send_email_type">메일 송신 방법 :</string>
+    <string name="sheet">표</string>
+    <string name="calendar">달력</string>
 
     <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s년%s월%s일 근무표</string>
@@ -44,6 +46,15 @@
     <string name="break_time_column">휴게</string>
     <string name="work_time_column">근무시간</string>
     <string name="note_column">비고</string>
+
+    <!-- Calendar -->
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="thursday">목</string>
+    <string name="friday">금</string>
+    <string name="saturday">토</string>
+    <string name="sunday">일</string>
 
     <!-- Day　Worksheet Layout -->
     <string name="workday_setting_header">근태관리</string>

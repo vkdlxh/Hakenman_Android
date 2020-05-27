@@ -1,4 +1,4 @@
-package archiveasia.jp.co.hakenman.activity
+package archiveasia.jp.co.hakenman.view.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.adapter.MonthlyWorkAdapter
+import archiveasia.jp.co.hakenman.view.adapter.MonthlyWorkAdapter
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import com.afollestad.materialdialogs.MaterialDialog
