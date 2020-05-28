@@ -7,19 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.extension.day
-import archiveasia.jp.co.hakenman.extension.dayOfWeek
-import archiveasia.jp.co.hakenman.extension.month
-import archiveasia.jp.co.hakenman.extension.week
-import archiveasia.jp.co.hakenman.extension.year
-import archiveasia.jp.co.hakenman.extension.yearMonth
+import archiveasia.jp.co.hakenman.extension.*
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlinx.android.synthetic.main.current_monthly_work_item.view.*
+import java.text.DecimalFormat
 import java.util.Date
 
 class MonthlyWorkAdapter(
@@ -132,6 +129,13 @@ class MonthlyWorkAdapter(
                 lineDataSet.valueTextSize = 8f
 
                 val data = LineData(lineDataSet)
+                data.setValueFormatter(object : ValueFormatter() {
+                    override fun getPointLabel(entry: Entry?): String {
+                        return entry?.y?.toDouble()?.twoDecimalPlaces().toString()
+//                        return DecimalFormat("#.##").format(entry?.y)
+                    }
+                })
+
                 this.data = data
                 if (data.entryCount == 0) {
                     // 「データなし」メッセージ表示のため
