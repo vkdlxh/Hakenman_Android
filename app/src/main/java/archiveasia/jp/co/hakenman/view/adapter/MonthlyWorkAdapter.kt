@@ -168,10 +168,6 @@ class MonthlyWorkAdapter(
                 setTouchEnabled(false)
                 setPinchZoom(false)
 
-                // チャートの空白調節
-                // TODO: Magic Numberどうにかしたい
-                setViewPortOffsets(1f, viewPortHandler.offsetTop() / 2, 1f, viewPortHandler.offsetBottom())
-
                 invalidate()
             }
         }
