@@ -51,6 +51,7 @@ class MonthlyWorkActivity : AppCompatActivity() {
             false
         }
         view_pager.adapter = WorkListPagerAdapter(this, supportFragmentManager)
+        view_pager.offscreenPageLimit = 2
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
