@@ -77,6 +77,8 @@
     <string name="version">App Version</string>
     <string name="email_empty_message">登録してください。</string>
     <string name="email_to_title">宛先</string>
+    <string name="theme_header">テーマ設定</string>
+    <string name="theme">テーマ</string>
 
     <!--Menu Values-->
     <string name="setting_menu_title">Setting</string>

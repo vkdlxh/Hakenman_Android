@@ -7,6 +7,7 @@
     android:layout_marginVertical="@dimen/small_margin"
     android:layout_marginHorizontal="@dimen/default_margin"
     android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/card_color"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +42,7 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/large_font_size"
                     android:textStyle="bold"
-                    android:background="@color/orange"
+                    android:background="@color/colorAccent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

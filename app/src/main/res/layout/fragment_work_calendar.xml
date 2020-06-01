@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/default_padding"
+        android:background="@color/background_color"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -70,6 +71,7 @@
         android:layout_width="@dimen/zero_width"
         android:layout_height="@dimen/zero_height"
         android:numColumns="7"
+        android:background="@color/background_color"
         app:layout_constraintTop_toBottomOf="@id/calendar_header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

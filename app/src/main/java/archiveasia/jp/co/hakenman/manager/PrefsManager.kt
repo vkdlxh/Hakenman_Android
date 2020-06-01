@@ -3,13 +3,14 @@ package archiveasia.jp.co.hakenman.manager
 import android.content.Context
 import android.content.SharedPreferences
 
-class PrefsManager (context: Context) {
+class PrefsManager(context: Context) {
     companion object {
-        const val PREFS_FILENAME = "jp.co.archiveasia.prefs"
-        const val TIMEPICKER_INTERVAL = "timepicker_interval"
-        const val EMAIL_TO = "email_to"
-        const val DEFAULT_BEGIN_TIME = "defalut_begin_time"
-        const val DEFAULT_END_TIME = "defalut_end_time"
+        private const val PREFS_FILENAME = "jp.co.archiveasia.prefs"
+        private const val TIMEPICKER_INTERVAL = "timepicker_interval"
+        private const val EMAIL_TO = "email_to"
+        private const val DEFAULT_BEGIN_TIME = "default_begin_time"
+        private const val DEFAULT_END_TIME = "default_end_time"
+        private const val THEME = "theme"
     }
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
@@ -29,4 +30,8 @@ class PrefsManager (context: Context) {
     var defaultEndTime: String
         get() = prefs.getString(DEFAULT_END_TIME, "18:30")!!
         set(value) = prefs.edit().putString(DEFAULT_END_TIME, value).apply()
+
+    var theme: String
+        get() = prefs.getString(THEME, ThemeUtil.DEFAULT_MODE)!!
+        set(value) = prefs.edit().putString(THEME, value).apply()
 }
