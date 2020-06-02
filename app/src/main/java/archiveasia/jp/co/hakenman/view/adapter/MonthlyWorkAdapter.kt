@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import archiveasia.jp.co.hakenman.R
@@ -15,8 +16,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
-import kotlinx.android.synthetic.main.current_monthly_work_item.view.*
-import java.text.DecimalFormat
+import kotlinx.android.synthetic.main.item_monthly_work_current.view.*
 import java.util.Date
 
 class MonthlyWorkAdapter(
@@ -33,12 +33,12 @@ class MonthlyWorkAdapter(
         return when (viewType) {
             TYPE_CURRENT_MONTHLY_WORK -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.current_monthly_work_item, parent, false)
+                    .inflate(R.layout.item_monthly_work_current, parent, false)
                 CurrentMonthlyWorkViewHolder(view)
             }
             TYPE_PAST_MONTHLY_WORK -> {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.past_monthly_work_item, parent, false)
+                    .inflate(R.layout.item_monthly_work_past, parent, false)
                 PastMonthlyWorkViewHolder(view)
             }
             else -> throw IllegalArgumentException("Invalid view type")
@@ -113,6 +113,8 @@ class MonthlyWorkAdapter(
 
         private fun setChart(chartItemList: ArrayList<DetailWork>) {
             itemView.line_chart.apply {
+                val textColorOnBackground = ContextCompat.getColor(context, R.color.text_color_on_background)
+                val textColorOnSurface = ContextCompat.getColor(context, R.color.text_color_on_surface)
                 visibility = View.VISIBLE
                 val entries = ArrayList<Entry>()
                 chartItemList.forEach {
@@ -122,9 +124,10 @@ class MonthlyWorkAdapter(
                 // チャートデータライン設定
                 val lineDataSet = LineDataSet(entries, context.getString(R.string.work_time_column))
                 lineDataSet.lineWidth = 2f
-                lineDataSet.color = Color.BLACK
+                lineDataSet.color = textColorOnBackground
                 lineDataSet.circleRadius = 4.5f
-                lineDataSet.setCircleColor(Color.BLACK)
+                lineDataSet.setCircleColor(textColorOnBackground)
+                lineDataSet.valueTextColor = textColorOnBackground
                 lineDataSet.setDrawCircleHole(false)
                 lineDataSet.valueTextSize = 8f
 
@@ -150,20 +153,23 @@ class MonthlyWorkAdapter(
                 xAxis.position = XAxis.XAxisPosition.BOTH_SIDED
 
                 // チャート左側設定
-                axisLeft.axisLineColor = Color.GRAY
+                axisLeft.axisLineColor = textColorOnSurface
                 axisLeft.labelCount = 4
                 axisLeft.setDrawLabels(false)
                 axisLeft.axisMaximum = data.yMax + 1f
                 axisLeft.axisMinimum = data.yMin - 1f
 
                 // チャート右側設定
-                axisRight.axisLineColor = Color.GRAY
+                axisRight.axisLineColor = textColorOnSurface
                 axisRight.setDrawGridLines(false)
                 axisRight.setDrawLabels(false)
 
+                legend.textColor = textColorOnBackground
+
                 description.text = context.getString(R.string.chart_description)
+                description.textColor = textColorOnBackground
                 setNoDataText(context.getString(R.string.chart_no_data))
-                setNoDataTextColor(Color.BLACK)
+                setNoDataTextColor(textColorOnBackground)
 
                 setTouchEnabled(false)
                 setPinchZoom(false)

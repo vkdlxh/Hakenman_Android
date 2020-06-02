@@ -8,6 +8,9 @@ import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.TimePickerDialog
 import archiveasia.jp.co.hakenman.manager.PrefsManager
+import archiveasia.jp.co.hakenman.manager.ThemeUtil
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItems
 import kotlinx.android.synthetic.main.activity_setting.*
 
 class SettingActivity : AppCompatActivity() {
@@ -22,6 +25,7 @@ class SettingActivity : AppCompatActivity() {
         email_to_editText.setText(PrefsManager(this).emailTo)
         default_beginTime_textView.text = PrefsManager(this).defaultBeginTime
         default_endTime_textView.text = PrefsManager(this).defaultEndTime
+        theme_textView.text = PrefsManager(this).theme
         val packageInfo = packageManager.getPackageInfo(packageName, 0)
         version_textView.text = packageInfo.versionName
 
@@ -51,6 +55,10 @@ class SettingActivity : AppCompatActivity() {
             showAddDialog(R.string.set_endTime_title,
                 default_endTime_textView,
                 TimePickerDialog.WorkTimeType.END_TIME)
+        }
+
+        theme_layout.setOnClickListener {
+            showThemeDialog()
         }
 
         CustomLog.d("設定画面")
@@ -86,5 +94,21 @@ class SettingActivity : AppCompatActivity() {
                         CustomLog.d("何もしない")
                 }
             }
+    }
+
+    private fun showThemeDialog() {
+        val themeList = listOf(ThemeUtil.LIGHT_MODE, ThemeUtil.DARK_MODE, ThemeUtil.DEFAULT_MODE)
+       MaterialDialog(this).show {
+           listItems(items = themeList) { _, index, _ ->
+               val theme = when (index) {
+                   0 -> ThemeUtil.LIGHT_MODE
+                   1 -> ThemeUtil.DARK_MODE
+                   else -> ThemeUtil.DEFAULT_MODE
+               }
+               PrefsManager(this@SettingActivity).theme = theme
+               ThemeUtil.applyTheme(theme)
+               this@SettingActivity.theme_textView.text = theme
+           }
+       }
     }
 }

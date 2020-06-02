@@ -1,12 +1,12 @@
 package archiveasia.jp.co.hakenman.view.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.extension.day
 import archiveasia.jp.co.hakenman.extension.hourMinute
@@ -14,7 +14,7 @@ import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.view.activity.MonthlyWorkActivity
-import kotlinx.android.synthetic.main.calendar_day_item.view.*
+import kotlinx.android.synthetic.main.item_calendar_day.view.*
 import java.util.Date
 
 class CalendarAdapter(
@@ -22,10 +22,10 @@ class CalendarAdapter(
     private val dateArray: List<Date>,
     private var worksheet: Worksheet,
     private val clickListener: MonthlyWorkActivity.SheetCalendarItemClickListener
-) : ArrayAdapter<Date>(context, R.layout.calendar_day_item) {
+) : ArrayAdapter<Date>(context, R.layout.item_calendar_day) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(parent.context).inflate(R.layout.calendar_day_item, null).apply {
+        val view = convertView ?: LayoutInflater.from(parent.context).inflate(R.layout.item_calendar_day, null).apply {
             tag = ViewHolder(this)
         }
 
@@ -58,7 +58,9 @@ class CalendarAdapter(
             val currentMonth = worksheet.workDate.yearMonth() == date.yearMonth()
             dayTextView.apply {
                 text = date.day()
-                setTextColor(if (currentMonth) Color.BLACK else Color.LTGRAY)
+                val textColor = ContextCompat.getColor(context,
+                    if (currentMonth) R.color.text_color_on_background else R.color.text_color_on_surface)
+                setTextColor(textColor)
             }
             if (currentMonth) {
                 val day = date.day()

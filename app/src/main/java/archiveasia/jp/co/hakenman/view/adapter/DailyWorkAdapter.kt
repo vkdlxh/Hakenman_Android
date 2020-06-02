@@ -1,9 +1,9 @@
 package archiveasia.jp.co.hakenman.view.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import archiveasia.jp.co.hakenman.R
@@ -14,7 +14,7 @@ import archiveasia.jp.co.hakenman.extension.week
 import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.view.activity.MonthlyWorkActivity
-import kotlinx.android.synthetic.main.daliy_work_item.view.*
+import kotlinx.android.synthetic.main.item_daliy_work.view.*
 
 class DailyWorkAdapter(
     private val detailWorkList: MutableList<DetailWork> = mutableListOf(),
@@ -23,7 +23,7 @@ class DailyWorkAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.daliy_work_item, parent, false)
+            .inflate(R.layout.item_daliy_work, parent, false)
         return ViewHolder(view)
     }
 
@@ -58,12 +58,12 @@ class DailyWorkAdapter(
                 itemView.day_textView.text = workDate.day()
                 itemView.week_textView.apply {
                     text = workDate.week()
-                    val textColor = when (workDate.dayOfWeek()) {
-                        1 -> Color.RED
-                        7 -> Color.BLUE
-                        else -> Color.BLACK
+                    val resId = when (workDate.dayOfWeek()) {
+                        1 -> R.color.sun_color
+                        7 -> R.color.sat_color
+                        else -> R.color.text_color_on_background
                     }
-                    setTextColor(textColor)
+                    setTextColor(ContextCompat.getColor(context, resId))
                 }
                 itemView.workFlag_textView.text =  if (workFlag) "O" else "X"
                 beginTime?.let {

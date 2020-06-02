@@ -4,25 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/small_margin"
-    android:layout_marginHorizontal="@dimen/default_margin"
+    android:layout_margin="@dimen/default_margin"
     android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/surface_color"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_list_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_padding">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/layout_month_info"
             android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginVertical="@dimen/small_margin"
             android:layout_marginStart="@dimen/default_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.4">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintWidth_percent="0.3">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -36,12 +38,11 @@
                     android:id="@+id/year_textView"
                     android:layout_width="@dimen/zero_width"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/default_margin"
                     android:gravity="center"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/large_font_size"
                     android:textStyle="bold"
-                    android:background="@color/orange"
+                    android:background="@color/colorAccent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -52,55 +53,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/x_large_font_size"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@id/year_textView"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/textView2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="08" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/worksheet_list_slash_margin"
-                    android:layout_marginHorizontal="@dimen/default_margin"
-                    android:text="/"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/large_font_size"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/month_textView"
-                    app:layout_constraintEnd_toStartOf="@id/day_textView"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <TextView
-                    android:id="@+id/day_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/medium_font_size"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/textView2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="01" />
-
-                <TextView
-                    android:id="@+id/week_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/small_margin"
-                    android:gravity="center"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toBottomOf="@id/year_textView"
-                    app:layout_constraintStart_toEndOf="@id/textView2"
-                    app:layout_constraintBottom_toTopOf="@id/day_textView"
-                    app:layout_constraintEnd_toStartOf="@id/day_textView"
-                    tools:text="水" />
+                    tools:text="08" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -121,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/default_margin"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/text_color_on_background"
                 android:textSize="@dimen/worksheet_list_hour_font_size"
                 app:layout_constraintEnd_toStartOf="@+id/textView6"
                 app:layout_constraintTop_toTopOf="parent"
@@ -134,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/default_margin"
                 android:text="Hour"
+                android:textColor="@color/text_color_on_surface"
                 app:layout_constraintBottom_toBottomOf="@+id/workHour_textView"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -152,7 +113,7 @@
                 android:id="@+id/workDay_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/text_color_on_background"
                 android:textSize="@dimen/worksheet_list_day_font_size"
                 app:layout_constraintTop_toBottomOf="@id/separate_bar"
                 app:layout_constraintEnd_toEndOf="@+id/workHour_textView"
@@ -165,13 +126,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/default_margin"
                 android:text="Day"
+                android:textColor="@color/text_color_on_surface"
                 app:layout_constraintBottom_toBottomOf="@+id/workDay_textView"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <View
                 android:layout_width="@dimen/zero_width"
                 android:layout_height="@dimen/separate_line_height"
-                android:layout_marginHorizontal="8dp"
+                android:layout_marginHorizontal="@dimen/default_margin"
                 android:background="@color/colorLightGray"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -183,22 +145,11 @@
             android:id="@+id/right_arrow_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/default_margin"
             android:src="@drawable/ic_chevron_right_lightgray_24dp"
             app:layout_constraintTop_toTopOf="@id/layout_work_info"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="@string/content_description" />
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/line_chart"
-            android:layout_width="@dimen/zero_width"
-            android:layout_height="@dimen/chart_height"
-            android:layout_marginBottom="@dimen/small_margin"
-            app:layout_constraintTop_toBottomOf="@id/layout_month_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/layout_work_info"
-            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

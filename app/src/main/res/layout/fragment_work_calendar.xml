@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingVertical="@dimen/default_padding"
+        android:background="@color/background_color"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -19,49 +20,56 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/monday" />
+            android:text="@string/monday"
+            android:textColor="@color/text_color_on_background" />
 
         <TextView
             android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/tuesday" />
+            android:text="@string/tuesday"
+            android:textColor="@color/text_color_on_background" />
 
         <TextView
             android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/wednesday" />
+            android:text="@string/wednesday"
+            android:textColor="@color/text_color_on_background" />
 
         <TextView
             android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/thursday" />
+            android:text="@string/thursday"
+            android:textColor="@color/text_color_on_background" />
 
         <TextView
             android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/friday" />
+            android:text="@string/friday"
+            android:textColor="@color/text_color_on_background" />
 
         <TextView
             android:layout_width="@dimen/zero_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/saturday" />
+            android:text="@string/saturday"
+            android:textColor="@color/text_color_on_background" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/sunday" />
+            android:text="@string/sunday"
+            android:textColor="@color/text_color_on_background" />
 
     </LinearLayout>
 
@@ -70,6 +78,7 @@
         android:layout_width="@dimen/zero_width"
         android:layout_height="@dimen/zero_height"
         android:numColumns="7"
+        android:background="@color/background_color"
         app:layout_constraintTop_toBottomOf="@id/calendar_header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
