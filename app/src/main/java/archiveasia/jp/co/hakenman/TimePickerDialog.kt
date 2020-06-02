@@ -14,10 +14,11 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import kotlinx.android.synthetic.main.timepicker_dialog.view.*
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 class TimePickerDialog(val context: Context) {
+    private val isChecked = true
+    private val TIME_PICKER_INTERVAL = 5
 
     enum class WorkTimeType {
         BEGIN_TIME, END_TIME, BREAK_TIME
@@ -45,6 +46,7 @@ class TimePickerDialog(val context: Context) {
     }
 
     fun show(time: String, workTimeType: WorkTimeType, callback: (String) -> Unit) {
+        var isChecked = true
         val view = dialog.getCustomView()
         view.time_picker.apply {
             setIs24HourView(true)
@@ -56,18 +58,21 @@ class TimePickerDialog(val context: Context) {
 
             when (workTimeType) {
                 WorkTimeType.BEGIN_TIME -> {
+                    isChecked = true
                     value = prefsManager.defaultBeginTime.hourMinuteToDate()
                     calendar.time = value
                     hour = calendar.get(Calendar.HOUR_OF_DAY)
                     minute = calendar.get(Calendar.MINUTE)
                 }
                 WorkTimeType.END_TIME -> {
+                    isChecked = true
                     value = prefsManager.defaultEndTime.hourMinuteToDate()
                     calendar.time = value
                     hour = calendar.get(Calendar.HOUR_OF_DAY)
                     minute = calendar.get(Calendar.MINUTE)
                 }
                 WorkTimeType.BREAK_TIME -> {
+                    isChecked = false
                     hour = 1
                     minute = 0
                 }
@@ -88,7 +93,12 @@ class TimePickerDialog(val context: Context) {
                 this.currentHour = hour
                 this.currentMinute = minute / prefsManager.interval
             }
-            setTimePickerInterval(this)
+
+            if (isChecked) {
+                setTimePickerInterval(this)
+            } else {
+                setBreakTimePickerInterval(this)
+            }
         }
         dialog.title(title)
         dialog.positiveButton(positive) {
@@ -107,6 +117,23 @@ class TimePickerDialog(val context: Context) {
 
         for (i in 0 until numValue) {
             val value = i * prefsManager.interval
+            displayedValue.add(i, value.toString())
+        }
+
+        minutePicker.minValue = 0
+        minutePicker.maxValue = numValue - 1
+        minutePicker.displayedValues = displayedValue.toTypedArray()
+    }
+
+    private fun setBreakTimePickerInterval(timePicker: TimePicker) {
+        val minuteID = Resources.getSystem().getIdentifier("minute", "id", "android")
+        val minutePicker = timePicker.findViewById<NumberPicker>(minuteID)
+
+        val numValue = 60 / TIME_PICKER_INTERVAL
+        val displayedValue = arrayListOf<String>()
+
+        for (i in 0 until numValue) {
+            val value = i * TIME_PICKER_INTERVAL
             displayedValue.add(i, value.toString())
         }
 
