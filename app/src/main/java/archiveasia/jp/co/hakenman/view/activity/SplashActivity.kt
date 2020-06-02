@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.extension.yearMonth
+import archiveasia.jp.co.hakenman.manager.PrefsManager
+import archiveasia.jp.co.hakenman.manager.ThemeUtil
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import java.util.Date
 
@@ -36,6 +38,9 @@ class SplashActivity : AppCompatActivity() {
             val worksheet = WorksheetManager.createWorksheet(currentYearMonth)
             WorksheetManager.addWorksheetToJsonFile(worksheet)
         }
+
+        val theme = PrefsManager(this).theme
+        ThemeUtil.applyTheme(theme)
 
         mDelayHandler = Handler()
         mDelayHandler.postDelayed(mRunnable, SPLASH_DELAY)

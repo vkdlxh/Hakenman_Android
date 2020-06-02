@@ -97,16 +97,17 @@ class SettingActivity : AppCompatActivity() {
     }
 
     private fun showThemeDialog() {
-        val themeList = listOf(ThemeUtil.LIGHT_MODE, ThemeUtil.NIGHT_MODE, ThemeUtil.DEFAULT_MODE)
+        val themeList = listOf(ThemeUtil.LIGHT_MODE, ThemeUtil.DARK_MODE, ThemeUtil.DEFAULT_MODE)
        MaterialDialog(this).show {
            listItems(items = themeList) { _, index, _ ->
                val theme = when (index) {
                    0 -> ThemeUtil.LIGHT_MODE
-                   1 -> ThemeUtil.NIGHT_MODE
+                   1 -> ThemeUtil.DARK_MODE
                    else -> ThemeUtil.DEFAULT_MODE
                }
                PrefsManager(this@SettingActivity).theme = theme
                ThemeUtil.applyTheme(theme)
+               this@SettingActivity.theme_textView.text = theme
            }
        }
     }

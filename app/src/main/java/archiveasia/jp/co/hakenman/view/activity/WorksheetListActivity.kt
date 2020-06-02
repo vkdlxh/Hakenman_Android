@@ -17,7 +17,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import kotlinx.android.synthetic.main.activity_worksheet_list.*
-import kotlinx.android.synthetic.main.datepicker_dialog.view.*
+import kotlinx.android.synthetic.main.dialog_datepicker.view.*
 
 class WorksheetListActivity : AppCompatActivity() {
 
@@ -82,7 +82,7 @@ class WorksheetListActivity : AppCompatActivity() {
     }
 
     private fun showCreateWorksheetDialog() {
-        val dialog = MaterialDialog(this).customView(R.layout.datepicker_dialog)
+        val dialog = MaterialDialog(this).customView(R.layout.dialog_datepicker)
         dialog.title(R.string.create_worksheet_title)
         val customView = dialog.getCustomView()
         val datePicker = customView.date_picker.apply {
