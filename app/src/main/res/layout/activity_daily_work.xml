@@ -70,7 +70,7 @@
                 android:id="@+id/container_begin_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/day_worksheet_itembox_layout_height"
-                android:background="?attr/selectableItemBackground">
+                android:background="@drawable/custom_ripple">
 
                 <TextView
                     android:id="@+id/day_begin_textView"
@@ -100,7 +100,7 @@
                 android:id="@+id/container_end_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/day_worksheet_itembox_layout_height"
-                android:background="?attr/selectableItemBackground">
+                android:background="@drawable/custom_ripple">
 
                 <TextView
                     android:id="@+id/day_end_textView"
@@ -130,7 +130,7 @@
                 android:id="@+id/container_break_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/day_worksheet_itembox_layout_height"
-                android:background="?attr/selectableItemBackground">
+                android:background="@drawable/custom_ripple">
 
                 <TextView
                     android:id="@+id/day_break_textView"
