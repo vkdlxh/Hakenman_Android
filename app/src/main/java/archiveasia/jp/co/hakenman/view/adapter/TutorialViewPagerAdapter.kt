@@ -2,7 +2,6 @@ package archiveasia.jp.co.hakenman.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import archiveasia.jp.co.hakenman.databinding.ItemTutorialStepBinding
 import archiveasia.jp.co.hakenman.model.Step
@@ -28,7 +27,7 @@ class TutorialViewPagerAdapter(
             binding.titleTextView.text = step.title
             binding.descriptionTextView.text = step.description
             binding.imageView.setImageResource(step.image)
-            itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, step.backgroundColor))
+//            itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, step.backgroundColor))
         }
     }
 }

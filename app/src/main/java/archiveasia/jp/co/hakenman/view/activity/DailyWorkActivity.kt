@@ -11,18 +11,21 @@ import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.TimePickerDialog
+import archiveasia.jp.co.hakenman.databinding.ActivityDailyWorkBinding
 import archiveasia.jp.co.hakenman.extension.day
 import archiveasia.jp.co.hakenman.extension.hourMinute
 import archiveasia.jp.co.hakenman.extension.hourMinuteToDate
 import archiveasia.jp.co.hakenman.extension.month
+import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
-import kotlinx.android.synthetic.main.activity_daily_work.*
 
 class DailyWorkActivity : AppCompatActivity() {
+
+    private val binding by viewBinding(ActivityDailyWorkBinding::inflate)
 
     private var index: Int = -1
     private lateinit var worksheet: Worksheet
@@ -30,7 +33,7 @@ class DailyWorkActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_daily_work)
+        setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         index = intent.getIntExtra(INTENT_DETAILWORK_INDEX, index)
@@ -38,16 +41,16 @@ class DailyWorkActivity : AppCompatActivity() {
         detailWork = worksheet.detailWorkList[index]
         setDetailWork()
 
-        worksheet_form_view.visibility = if (detailWork.workFlag) View.VISIBLE else View.INVISIBLE
-        isWork_switch.isChecked = detailWork.workFlag
+        title = getString(R.string.day_work_activity_title)
+            .format(detailWork.workDate.year(), detailWork.workDate.month(), detailWork.workDate.day())
+        binding.worksheetFormView.visibility = if (detailWork.workFlag) View.VISIBLE else View.INVISIBLE
+        binding.isWorkSwitch.isChecked = detailWork.workFlag
 
-        isWork_switch.setOnCheckedChangeListener { _, isChecked ->
-            worksheet_form_view.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
+        binding.isWorkSwitch.setOnCheckedChangeListener { _, isChecked ->
+            binding.worksheetFormView.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
             detailWork.workFlag = isChecked
         }
 
-        title = getString(R.string.day_work_activity_title)
-                .format(detailWork.workDate.year(), detailWork.workDate.month(), detailWork.workDate.day())
         CustomLog.d("1日詳細勤務表画面")
     }
 
@@ -72,16 +75,16 @@ class DailyWorkActivity : AppCompatActivity() {
     }
 
     private fun saveWorksheet() {
-        val beginTime = with (day_start_time_textView.text) {
+        val beginTime = with (binding.dayStartTimeTextView.text) {
             if (isNotEmpty()) toString().hourMinuteToDate() else null
         }
-        val endTime = with (day_end_time_textView.text) {
+        val endTime = with (binding.dayEndTimeTextView.text) {
             if (isNotEmpty()) toString().hourMinuteToDate() else null
         }
-        val breakTime = with (day_break_time_textView.text) {
+        val breakTime = with (binding.dayBreakTimeTextView.text) {
             if (isNotEmpty()) toString().hourMinuteToDate() else null
         }
-        val note = note_editText.text.toString()
+        val note = binding.noteEditText.text.toString()
 
         detailWork.beginTime = if (detailWork.workFlag) beginTime else null
         detailWork.endTime = if (detailWork.workFlag) endTime else null
@@ -126,23 +129,23 @@ class DailyWorkActivity : AppCompatActivity() {
                 durationString = WorksheetManager.calculateDuration(defaultBeginTime, defaultEndTime, defaultBreakTime).toString()
             }
 
-            day_start_time_textView.text = beginTimeString
-            day_end_time_textView.text = endTimeString
-            day_break_time_textView.text = breakTimeString
-            day_total_time_textView.text = durationString
-            note_editText.setText(detailWork.note)
+            binding.dayStartTimeTextView.text = beginTimeString
+            binding.dayEndTimeTextView.text = endTimeString
+            binding.dayBreakTimeTextView.text = breakTimeString
+            binding.dayTotalTimeTextView.text = durationString
+            binding.noteEditText.setText(detailWork.note)
         }
 
-        container_begin_time.setOnClickListener {
-            showAddDialog(R.string.set_beginTime_title, day_start_time_textView, TimePickerDialog.WorkTimeType.BEGIN_TIME)
+        binding.containerBeginTime.setOnClickListener {
+            showAddDialog(R.string.set_beginTime_title, binding.dayStartTimeTextView, TimePickerDialog.WorkTimeType.BEGIN_TIME)
         }
 
-        container_end_time.setOnClickListener {
-            showAddDialog(R.string.set_endTime_title, day_end_time_textView, TimePickerDialog.WorkTimeType.END_TIME)
+        binding.containerEndTime.setOnClickListener {
+            showAddDialog(R.string.set_endTime_title, binding.dayEndTimeTextView, TimePickerDialog.WorkTimeType.END_TIME)
         }
 
-        container_break_time.setOnClickListener {
-            showAddDialog(R.string.set_breakTime_title, day_break_time_textView, TimePickerDialog.WorkTimeType.BREAK_TIME)
+        binding.containerBreakTime.setOnClickListener {
+            showAddDialog(R.string.set_breakTime_title, binding.dayBreakTimeTextView, TimePickerDialog.WorkTimeType.BREAK_TIME)
         }
     }
 
@@ -153,19 +156,19 @@ class DailyWorkActivity : AppCompatActivity() {
             .show(textView.text.toString(), workTimeType) {
                 textView.text = it
 
-                val beginTime = with (day_start_time_textView.text) {
+                val beginTime = with (binding.dayStartTimeTextView.text) {
                     if (isNotEmpty()) toString().hourMinuteToDate() else null
                 }
-                val endTime = with (day_end_time_textView.text) {
+                val endTime = with (binding.dayEndTimeTextView.text) {
                     if (isNotEmpty()) toString().hourMinuteToDate() else null
                 }
-                val breakTime = with (day_break_time_textView.text) {
+                val breakTime = with (binding.dayBreakTimeTextView.text) {
                     if (isNotEmpty()) toString().hourMinuteToDate() else null
                 }
 
                 if (beginTime != null && endTime != null && breakTime != null) {
                     val duration = WorksheetManager.calculateDuration(beginTime, endTime, breakTime)
-                    day_total_time_textView.text = duration.toString()
+                    binding.dayTotalTimeTextView.text = duration.toString()
                 }
             }
     }

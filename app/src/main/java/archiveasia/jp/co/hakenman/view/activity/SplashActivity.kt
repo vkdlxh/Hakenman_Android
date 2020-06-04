@@ -1,11 +1,11 @@
 package archiveasia.jp.co.hakenman.view.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
-import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.databinding.ActivitySplashBinding
+import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.ThemeUtil
@@ -14,12 +14,9 @@ import java.util.Date
 
 class SplashActivity : AppCompatActivity() {
 
-    companion object {
-        private const val SPLASH_DELAY: Long = 2000 // 2 秒
-    }
+    private val binding by viewBinding(ActivitySplashBinding::inflate)
 
     private var mDelayHandler: Handler = Handler()
-
     private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
             val prefsManager = PrefsManager(this)
@@ -35,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        setContentView(binding.root)
 
         WorksheetManager.loadLocalWorksheet()
         val currentYearMonth = Date().yearMonth()
@@ -55,5 +52,9 @@ class SplashActivity : AppCompatActivity() {
     override fun onDestroy() {
         mDelayHandler.removeCallbacks(mRunnable)
         super.onDestroy()
+    }
+
+    companion object {
+        private const val SPLASH_DELAY: Long = 2000 // 2 秒
     }
 }

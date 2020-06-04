@@ -11,24 +11,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.databinding.ActivityWorksheetListBinding
+import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.view.adapter.MonthlyWorkAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
-import kotlinx.android.synthetic.main.activity_worksheet_list.*
 import kotlinx.android.synthetic.main.dialog_datepicker.view.*
 
 class WorksheetListActivity : AppCompatActivity() {
+
+    private val binding by viewBinding(ActivityWorksheetListBinding::inflate)
 
     private lateinit var adapter: MonthlyWorkAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_worksheet_list)
+        setContentView(binding.root)
         title = getString(R.string.main_activity_title)
-        CustomLog.d("勤務表一覧画面")
 
         adapter = MonthlyWorkAdapter(listener = object : MonthlyWorkAdapter.MonthlyWorkListener {
             override fun onClickItem(index: Int, worksheet: Worksheet) {
@@ -47,13 +49,14 @@ class WorksheetListActivity : AppCompatActivity() {
             }
 
         })
-        work_recycler_view.adapter = adapter
-        work_recycler_view.layoutManager = LinearLayoutManager(this)
+        binding.workRecyclerView.adapter = adapter
+        binding.workRecyclerView.layoutManager = LinearLayoutManager(this)
 
         // FloatingActionButton リスナー設定
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             showCreateWorksheetDialog()
         }
+        CustomLog.d("勤務表一覧画面")
     }
 
     override fun onResume() {

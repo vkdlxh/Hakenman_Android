@@ -9,13 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.databinding.ActivityTutorialBinding
+import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.model.Step
 import archiveasia.jp.co.hakenman.view.adapter.TutorialViewPagerAdapter
 
 class TutorialActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var binding: ActivityTutorialBinding
+    private val binding by viewBinding(ActivityTutorialBinding::inflate)
     private var isFirstTutorial = false
 
     val stepList = listOf(
@@ -27,7 +28,6 @@ class TutorialActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTutorialBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         isFirstTutorial = intent.getBooleanExtra(EXTRA_FIRST_TUTORIAL, false)

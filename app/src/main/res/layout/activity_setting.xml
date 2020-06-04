@@ -269,9 +269,10 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/app_info_header_textView"
@@ -280,17 +281,22 @@
                 android:padding="@dimen/default_padding"
                 android:text="@string/app_info_header"
                 android:textSize="@dimen/day_worksheet_header_font_size"
-                android:textColor="@color/text_color_on_surface"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="@color/text_color_on_surface" />
+
+            <TextView
+                android:id="@+id/tutorial_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/day_worksheet_margin"
+                android:paddingVertical="@dimen/large_padding"
+                android:text="@string/tutorial"
+                android:textColor="@color/text_color_on_background"
+                android:textSize="@dimen/day_worksheet_item_font_size"
+                android:background="@drawable/custom_ripple" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/app_info_header_textView">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -317,7 +323,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -3,15 +3,17 @@ package archiveasia.jp.co.hakenman.view.fragment
 import android.os.Bundle
 import android.view.View
 import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.databinding.FragmentWorkCalendarBinding
+import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.view.activity.MonthlyWorkActivity
 import archiveasia.jp.co.hakenman.view.adapter.CalendarAdapter
-import kotlinx.android.synthetic.main.fragment_work_calendar.*
 import java.util.Calendar
 import java.util.Date
 
 class WorkCalendarFragment : DetailWorkFragment(R.layout.fragment_work_calendar) {
 
+    private val binding by viewBinding(FragmentWorkCalendarBinding::bind)
     private lateinit var adapter: CalendarAdapter
 
     override fun replaceWorkList(worksheet: Worksheet) {
@@ -47,6 +49,6 @@ class WorkCalendarFragment : DetailWorkFragment(R.layout.fragment_work_calendar)
                 (activity as MonthlyWorkActivity).showDetailWork(position)
             }
         })
-        grid_view.adapter = adapter
+        binding.gridView.adapter = adapter
     }
 }

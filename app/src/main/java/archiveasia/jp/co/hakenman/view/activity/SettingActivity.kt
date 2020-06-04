@@ -9,58 +9,69 @@ import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.TimePickerDialog
+import archiveasia.jp.co.hakenman.databinding.ActivitySettingBinding
+import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.ThemeUtil
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
-import kotlinx.android.synthetic.main.activity_setting.*
 
 class SettingActivity : AppCompatActivity() {
 
+    private val binding by viewBinding(ActivitySettingBinding::inflate)
+    private lateinit var prefsManager: PrefsManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_setting)
+        setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         title = getString(R.string.setting_activity_title)
 
-        email_to_editText.setText(PrefsManager(this).emailTo)
-        default_beginTime_textView.text = PrefsManager(this).defaultBeginTime
-        default_endTime_textView.text = PrefsManager(this).defaultEndTime
-        theme_textView.text = PrefsManager(this).theme
-        val packageInfo = packageManager.getPackageInfo(packageName, 0)
-        version_textView.text = packageInfo.versionName
+        prefsManager = PrefsManager(this)
+        with (binding) {
+            emailToEditText.setText(prefsManager.emailTo)
+            defaultBeginTimeTextView.text = prefsManager.defaultBeginTime
+            defaultEndTimeTextView.text = prefsManager.defaultEndTime
+            themeTextView.text = prefsManager.theme
+            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            versionTextView.text = packageInfo.versionName
 
-        val selectedButtonId = when (PrefsManager(this).interval) {
-            15 -> R.id.button15
-            30 -> R.id.button30
-            else -> R.id.button1
-        }
-        interval_radio_group.check(selectedButtonId)
-
-        interval_radio_group.setOnCheckedChangeListener { _, checkedId ->
-            PrefsManager(this).interval = when (checkedId) {
-                R.id.button1 -> 1
-                R.id.button15 -> 15
-                R.id.button30 -> 30
-                else -> 1
+            val selectedButtonId = when (prefsManager.interval) {
+                15 -> R.id.button15
+                30 -> R.id.button30
+                else -> R.id.button1
             }
-        }
+            intervalRadioGroup.check(selectedButtonId)
 
-        default_beginTime_ConstraintLayout.setOnClickListener {
-            showAddDialog(R.string.set_beginTime_title,
-                default_beginTime_textView,
-                TimePickerDialog.WorkTimeType.BEGIN_TIME)
-        }
+            intervalRadioGroup.setOnCheckedChangeListener { _, checkedId ->
+                prefsManager.interval = when (checkedId) {
+                    R.id.button1 -> 1
+                    R.id.button15 -> 15
+                    R.id.button30 -> 30
+                    else -> 1
+                }
+            }
 
-        default_endTime_ConstraintLayout.setOnClickListener {
-            showAddDialog(R.string.set_endTime_title,
-                default_endTime_textView,
-                TimePickerDialog.WorkTimeType.END_TIME)
-        }
+            defaultBeginTimeConstraintLayout.setOnClickListener {
+                showAddDialog(R.string.set_beginTime_title,
+                    defaultBeginTimeTextView,
+                    TimePickerDialog.WorkTimeType.BEGIN_TIME)
+            }
 
-        theme_layout.setOnClickListener {
-            showThemeDialog()
+            defaultEndTimeConstraintLayout.setOnClickListener {
+                showAddDialog(R.string.set_endTime_title,
+                    defaultEndTimeTextView,
+                    TimePickerDialog.WorkTimeType.END_TIME)
+            }
+
+            themeLayout.setOnClickListener {
+                showThemeDialog()
+            }
+
+            tutorialTextView.setOnClickListener {
+                startActivity(TutorialActivity.createInstance(this@SettingActivity, false))
+            }
         }
 
         CustomLog.d("設定画面")
@@ -68,7 +79,7 @@ class SettingActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == android.R.id.home) {
-            PrefsManager(this).emailTo = email_to_editText.text.toString()
+            prefsManager.emailTo = binding.emailToEditText.text.toString()
             finish()
             true
         } else {
@@ -78,7 +89,7 @@ class SettingActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        PrefsManager(this).emailTo = email_to_editText.text.toString()
+        prefsManager.emailTo = binding.emailToEditText.text.toString()
     }
 
     private fun showAddDialog(titleId: Int, textView: TextView,
@@ -89,9 +100,9 @@ class SettingActivity : AppCompatActivity() {
                 textView.text = it
                 when (workTimeType) {
                     TimePickerDialog.WorkTimeType.BEGIN_TIME ->
-                        PrefsManager(this).defaultBeginTime = it
+                        prefsManager.defaultBeginTime = it
                     TimePickerDialog.WorkTimeType.END_TIME ->
-                        PrefsManager(this).defaultEndTime = it
+                        prefsManager.defaultEndTime = it
                     TimePickerDialog.WorkTimeType.BREAK_TIME ->
                         CustomLog.d("何もしない")
                 }
@@ -107,9 +118,9 @@ class SettingActivity : AppCompatActivity() {
                    1 -> ThemeUtil.DARK_MODE
                    else -> ThemeUtil.DEFAULT_MODE
                }
-               PrefsManager(this@SettingActivity).theme = theme
+               prefsManager.theme = theme
                ThemeUtil.applyTheme(theme)
-               this@SettingActivity.theme_textView.text = theme
+               binding.themeTextView.text = theme
            }
        }
     }
