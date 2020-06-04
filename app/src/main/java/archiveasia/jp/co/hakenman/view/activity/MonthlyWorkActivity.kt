@@ -10,13 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.view.activity.DailyWorkActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
 import archiveasia.jp.co.hakenman.extension.month
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.CSVManager
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
+import archiveasia.jp.co.hakenman.view.activity.DailyWorkActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
 import archiveasia.jp.co.hakenman.view.adapter.WorkListPagerAdapter
 import archiveasia.jp.co.hakenman.view.fragment.DetailWorkFragment
 import com.afollestad.materialdialogs.MaterialDialog
@@ -110,7 +110,7 @@ class MonthlyWorkActivity : AppCompatActivity() {
     }
 
     fun showDetailWork(position: Int) {
-        val intent = DailyWorkActivity.newIntent(this, position, worksheet)
+        val intent = DailyWorkActivity.createIntent(this, position, worksheet)
         startActivityForResult(intent, REQUEST_WORKSHEET)
     }
 
@@ -121,8 +121,7 @@ class MonthlyWorkActivity : AppCompatActivity() {
             MaterialDialog(this).show {
                 message(R.string.request_set_address_message)
                 positiveButton(R.string.positive_button) {
-                    val intent = Intent(this@MonthlyWorkActivity, SettingActivity::class.java)
-                    startActivity(intent)
+                    startActivity(SettingActivity.createInstance(this@MonthlyWorkActivity))
                 }
                 negativeButton(R.string.negative_button)
             }
@@ -150,12 +149,11 @@ class MonthlyWorkActivity : AppCompatActivity() {
         private const val INTENT_WORKSHEET_INDEX = "worksheet_index"
         private const val INTENT_WORKSHEET_VALUE = "worksheet_value"
 
-        fun newIntent(context: Context, index: Int, work: Worksheet): Intent {
-            val intent = Intent(context, MonthlyWorkActivity::class.java)
-            intent.putExtra(INTENT_WORKSHEET_INDEX, index)
-            intent.putExtra(INTENT_WORKSHEET_VALUE, work)
-            return intent
-        }
+        fun createInstance(context: Context, index: Int, work: Worksheet) =
+            Intent(context, MonthlyWorkActivity::class.java).apply {
+                putExtra(INTENT_WORKSHEET_INDEX, index)
+                putExtra(INTENT_WORKSHEET_VALUE, work)
+            }
     }
 
     interface SheetCalendarItemClickListener {

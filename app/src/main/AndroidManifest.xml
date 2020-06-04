@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="archiveasia.jp.co.hakenman.view.activity.SplashActivity"
+            android:name=".view.activity.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,10 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="archiveasia.jp.co.hakenman.view.activity.WorksheetListActivity" />
-        <activity android:name="archiveasia.jp.co.hakenman.view.activity.MonthlyWorkActivity" />
-        <activity android:name="archiveasia.jp.co.hakenman.view.activity.DailyWorkActivity" />
-        <activity android:name="archiveasia.jp.co.hakenman.view.activity.SettingActivity" />
+        <activity android:name=".view.activity.WorksheetListActivity" />
+        <activity android:name=".view.activity.MonthlyWorkActivity" />
+        <activity android:name=".view.activity.DailyWorkActivity" />
+        <activity android:name=".view.activity.SettingActivity" />
+        <activity android:name=".view.activity.TutorialActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

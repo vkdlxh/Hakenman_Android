@@ -176,11 +176,10 @@ class DailyWorkActivity : AppCompatActivity() {
         private const val INTENT_DETAILWORK_INDEX = "index"
         private const val INTENT_DETAILWORK_VALUE = "day"
 
-        fun newIntent(context: Context, index: Int, worksheet: Worksheet): Intent {
-            val intent = Intent(context, DailyWorkActivity::class.java)
-            intent.putExtra(INTENT_DETAILWORK_VALUE, worksheet)
-            intent.putExtra(INTENT_DETAILWORK_INDEX, index)
-            return intent
-        }
+        fun createIntent(context: Context, index: Int, worksheet: Worksheet) =
+            Intent(context, DailyWorkActivity::class.java).apply {
+                putExtra(INTENT_DETAILWORK_VALUE, worksheet)
+                putExtra(INTENT_DETAILWORK_INDEX, index)
+            }
     }
 }

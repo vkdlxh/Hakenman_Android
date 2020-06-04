@@ -22,7 +22,12 @@ class SplashActivity : AppCompatActivity() {
 
     private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
-            val intent = Intent(applicationContext, WorksheetListActivity::class.java)
+            val prefsManager = PrefsManager(this)
+            val intent = if (prefsManager.isNeedTutorial) {
+                TutorialActivity.createInstance(this, true)
+            } else {
+                WorksheetListActivity.createInstance(this)
+            }
             startActivity(intent)
             finish()
         }
@@ -38,7 +43,6 @@ class SplashActivity : AppCompatActivity() {
             val worksheet = WorksheetManager.createWorksheet(currentYearMonth)
             WorksheetManager.addWorksheetToJsonFile(worksheet)
         }
-
         val theme = PrefsManager(this).theme
         ThemeUtil.applyTheme(theme)
 

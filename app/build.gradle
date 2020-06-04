@@ -13,6 +13,9 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+    viewBinding {
+        enabled = true
+    }
     buildTypes {
         release {
             applicationIdSuffix '.release'

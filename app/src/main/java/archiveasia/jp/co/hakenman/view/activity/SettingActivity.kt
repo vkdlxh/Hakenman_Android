@@ -1,5 +1,7 @@
 package archiveasia.jp.co.hakenman.view.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -110,5 +112,9 @@ class SettingActivity : AppCompatActivity() {
                this@SettingActivity.theme_textView.text = theme
            }
        }
+    }
+
+    companion object {
+        fun createInstance(context: Context) = Intent(context, SettingActivity::class.java)
     }
 }

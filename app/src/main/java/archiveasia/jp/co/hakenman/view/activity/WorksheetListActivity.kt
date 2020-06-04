@@ -1,5 +1,6 @@
 package archiveasia.jp.co.hakenman.view.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -10,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.view.adapter.MonthlyWorkAdapter
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
+import archiveasia.jp.co.hakenman.view.adapter.MonthlyWorkAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
@@ -31,7 +32,7 @@ class WorksheetListActivity : AppCompatActivity() {
 
         adapter = MonthlyWorkAdapter(listener = object : MonthlyWorkAdapter.MonthlyWorkListener {
             override fun onClickItem(index: Int, worksheet: Worksheet) {
-                val intent = MonthlyWorkActivity.newIntent(this@WorksheetListActivity, index, worksheet)
+                val intent = MonthlyWorkActivity.createInstance(this@WorksheetListActivity, index, worksheet)
                 startActivity(intent)
             }
 
@@ -68,8 +69,7 @@ class WorksheetListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_setting -> {
-                val intent = Intent(this, SettingActivity::class.java)
-                startActivity(intent)
+                startActivity(SettingActivity.createInstance(this))
                 return true
             }
         }
@@ -117,5 +117,11 @@ class WorksheetListActivity : AppCompatActivity() {
         }
         dialog.negativeButton(R.string.negative_button)
         dialog.show()
+    }
+
+    companion object {
+
+        fun createInstance(context: Context) = Intent(context, WorksheetListActivity::class.java)
+
     }
 }
