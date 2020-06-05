@@ -10,7 +10,6 @@ import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.TimePickerDialog
 import archiveasia.jp.co.hakenman.databinding.ActivitySettingBinding
-import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.ThemeUtil
 import com.afollestad.materialdialogs.MaterialDialog
@@ -18,11 +17,12 @@ import com.afollestad.materialdialogs.list.listItems
 
 class SettingActivity : AppCompatActivity() {
 
-    private val binding by viewBinding(ActivitySettingBinding::inflate)
+    private lateinit var binding: ActivitySettingBinding
     private lateinit var prefsManager: PrefsManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

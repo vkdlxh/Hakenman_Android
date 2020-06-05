@@ -12,7 +12,6 @@ import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.databinding.ActivityMonthlyWorkBinding
 import archiveasia.jp.co.hakenman.extension.month
-import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.CSVManager
 import archiveasia.jp.co.hakenman.manager.PrefsManager
@@ -25,13 +24,14 @@ import com.afollestad.materialdialogs.MaterialDialog
 
 class MonthlyWorkActivity : AppCompatActivity() {
 
-    private val binding by viewBinding(ActivityMonthlyWorkBinding::inflate)
+    private lateinit var binding: ActivityMonthlyWorkBinding
 
     lateinit var worksheet: Worksheet
     private var index: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMonthlyWorkBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

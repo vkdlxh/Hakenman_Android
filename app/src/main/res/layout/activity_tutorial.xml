@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_container"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@color/background_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,11 +26,10 @@
         <TextView
             android:id="@+id/skip_text_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:padding="@dimen/large_padding"
             android:text="SKIP"
             android:textColor="@color/text_color_on_background"
-            android:background="@drawable/custom_ripple"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -38,7 +37,7 @@
         <LinearLayout
             android:id="@+id/indicator"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,11 +48,10 @@
         <TextView
             android:id="@+id/done_text_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:padding="@dimen/large_padding"
             android:text="DONE"
             android:textColor="@color/text_color_on_background"
-            android:background="@drawable/custom_ripple"
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

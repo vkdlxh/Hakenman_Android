@@ -16,7 +16,6 @@ import archiveasia.jp.co.hakenman.extension.day
 import archiveasia.jp.co.hakenman.extension.hourMinute
 import archiveasia.jp.co.hakenman.extension.hourMinuteToDate
 import archiveasia.jp.co.hakenman.extension.month
-import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
@@ -25,7 +24,7 @@ import archiveasia.jp.co.hakenman.model.Worksheet
 
 class DailyWorkActivity : AppCompatActivity() {
 
-    private val binding by viewBinding(ActivityDailyWorkBinding::inflate)
+    private lateinit var binding: ActivityDailyWorkBinding
 
     private var index: Int = -1
     private lateinit var worksheet: Worksheet
@@ -33,6 +32,7 @@ class DailyWorkActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityDailyWorkBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

@@ -5,7 +5,6 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.databinding.ActivitySplashBinding
-import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.ThemeUtil
@@ -14,7 +13,7 @@ import java.util.Date
 
 class SplashActivity : AppCompatActivity() {
 
-    private val binding by viewBinding(ActivitySplashBinding::inflate)
+    private lateinit var binding: ActivitySplashBinding
 
     private var mDelayHandler: Handler = Handler()
     private val mRunnable: Runnable = Runnable {
@@ -32,6 +31,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         WorksheetManager.loadLocalWorksheet()

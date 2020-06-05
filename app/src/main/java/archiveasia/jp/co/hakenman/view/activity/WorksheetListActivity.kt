@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.databinding.ActivityWorksheetListBinding
-import archiveasia.jp.co.hakenman.extension.viewBinding
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.view.adapter.MonthlyWorkAdapter
@@ -23,12 +22,13 @@ import kotlinx.android.synthetic.main.dialog_datepicker.view.*
 
 class WorksheetListActivity : AppCompatActivity() {
 
-    private val binding by viewBinding(ActivityWorksheetListBinding::inflate)
+    private lateinit var binding: ActivityWorksheetListBinding
 
     private lateinit var adapter: MonthlyWorkAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityWorksheetListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = getString(R.string.main_activity_title)
 

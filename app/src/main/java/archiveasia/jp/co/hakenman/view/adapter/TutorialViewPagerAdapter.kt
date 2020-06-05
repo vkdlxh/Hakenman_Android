@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import archiveasia.jp.co.hakenman.databinding.ItemTutorialStepBinding
 import archiveasia.jp.co.hakenman.model.Step
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 class TutorialViewPagerAdapter(
     private val items: List<Step>
@@ -27,7 +30,10 @@ class TutorialViewPagerAdapter(
             binding.titleTextView.text = step.title
             binding.descriptionTextView.text = step.description
             binding.imageView.setImageResource(step.image)
-//            itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, step.backgroundColor))
+            Glide.with(itemView.context)
+                .load(step.image)
+                .transform(CenterCrop(), RoundedCorners(18))
+                .into(binding.imageView)
         }
     }
 }
