@@ -10,58 +10,62 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
-import archiveasia.jp.co.hakenman.view.activity.DailyWorkActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
+import archiveasia.jp.co.hakenman.databinding.ActivityMonthlyWorkBinding
 import archiveasia.jp.co.hakenman.extension.month
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.manager.CSVManager
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
+import archiveasia.jp.co.hakenman.view.activity.DailyWorkActivity.Companion.INTENT_WORKSHEET_RETURN_VALUE
 import archiveasia.jp.co.hakenman.view.adapter.WorkListPagerAdapter
 import archiveasia.jp.co.hakenman.view.fragment.DetailWorkFragment
 import com.afollestad.materialdialogs.MaterialDialog
-import kotlinx.android.synthetic.main.activity_monthly_work.*
 
 class MonthlyWorkActivity : AppCompatActivity() {
 
-    lateinit var worksheet: Worksheet
+    private lateinit var binding: ActivityMonthlyWorkBinding
 
+    lateinit var worksheet: Worksheet
     private var index: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_monthly_work)
+        binding = ActivityMonthlyWorkBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         index = intent.getIntExtra(INTENT_WORKSHEET_INDEX, index)
         worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)
         title = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
 
-        bottom_navigation.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.menu_sheet -> {
-                    view_pager.currentItem = 0
-                    return@setOnNavigationItemSelectedListener true
+        with (binding) {
+            bottomNavigation.setOnNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.menu_sheet -> {
+                        viewPager.currentItem = 0
+                        return@setOnNavigationItemSelectedListener true
+                    }
+                    R.id.menu_calendar -> {
+                        viewPager.currentItem = 1
+                        return@setOnNavigationItemSelectedListener true
+                    }
                 }
-                R.id.menu_calendar -> {
-                    view_pager.currentItem = 1
-                    return@setOnNavigationItemSelectedListener true
-                }
+                false
             }
-            false
+            viewPager.adapter = WorkListPagerAdapter(this@MonthlyWorkActivity, supportFragmentManager)
+            viewPager.offscreenPageLimit = 2
+            viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {}
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
+
+                override fun onPageSelected(position: Int) {
+                    bottomNavigation.menu.getItem(position).isChecked = true
+                }
+
+            })
         }
-        view_pager.adapter = WorkListPagerAdapter(this, supportFragmentManager)
-        view_pager.offscreenPageLimit = 2
-        view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {}
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) { }
-
-            override fun onPageSelected(position: Int) {
-                bottom_navigation.menu.getItem(position).isChecked = true
-            }
-
-        })
 
         CustomLog.d("月勤務表画面")
     }
@@ -110,7 +114,7 @@ class MonthlyWorkActivity : AppCompatActivity() {
     }
 
     fun showDetailWork(position: Int) {
-        val intent = DailyWorkActivity.newIntent(this, position, worksheet)
+        val intent = DailyWorkActivity.createIntent(this, position, worksheet)
         startActivityForResult(intent, REQUEST_WORKSHEET)
     }
 
@@ -121,8 +125,7 @@ class MonthlyWorkActivity : AppCompatActivity() {
             MaterialDialog(this).show {
                 message(R.string.request_set_address_message)
                 positiveButton(R.string.positive_button) {
-                    val intent = Intent(this@MonthlyWorkActivity, SettingActivity::class.java)
-                    startActivity(intent)
+                    startActivity(SettingActivity.createInstance(this@MonthlyWorkActivity))
                 }
                 negativeButton(R.string.negative_button)
             }
@@ -150,12 +153,11 @@ class MonthlyWorkActivity : AppCompatActivity() {
         private const val INTENT_WORKSHEET_INDEX = "worksheet_index"
         private const val INTENT_WORKSHEET_VALUE = "worksheet_value"
 
-        fun newIntent(context: Context, index: Int, work: Worksheet): Intent {
-            val intent = Intent(context, MonthlyWorkActivity::class.java)
-            intent.putExtra(INTENT_WORKSHEET_INDEX, index)
-            intent.putExtra(INTENT_WORKSHEET_VALUE, work)
-            return intent
-        }
+        fun createInstance(context: Context, index: Int, work: Worksheet) =
+            Intent(context, MonthlyWorkActivity::class.java).apply {
+                putExtra(INTENT_WORKSHEET_INDEX, index)
+                putExtra(INTENT_WORKSHEET_VALUE, work)
+            }
     }
 
     interface SheetCalendarItemClickListener {

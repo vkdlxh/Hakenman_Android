@@ -11,6 +11,7 @@ class PrefsManager(context: Context) {
         private const val DEFAULT_BEGIN_TIME = "default_begin_time"
         private const val DEFAULT_END_TIME = "default_end_time"
         private const val THEME = "theme"
+        private const val IS_NEED_TUTORIAL = "IS_NEED_TUTORIAL"
     }
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
@@ -34,4 +35,8 @@ class PrefsManager(context: Context) {
     var theme: String
         get() = prefs.getString(THEME, ThemeUtil.DEFAULT_MODE)!!
         set(value) = prefs.edit().putString(THEME, value).apply()
+
+    var isNeedTutorial: Boolean
+        get() = prefs.getBoolean(IS_NEED_TUTORIAL, true)
+        set(value) = prefs.edit().putBoolean(IS_NEED_TUTORIAL, value).apply()
 }

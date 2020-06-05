@@ -3,14 +3,17 @@ package archiveasia.jp.co.hakenman.view.fragment
 import android.os.Bundle
 import android.view.View
 import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.databinding.FragmentWorkCalendarBinding
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.view.activity.MonthlyWorkActivity
 import archiveasia.jp.co.hakenman.view.adapter.CalendarAdapter
-import kotlinx.android.synthetic.main.fragment_work_calendar.*
 import java.util.Calendar
 import java.util.Date
 
 class WorkCalendarFragment : DetailWorkFragment(R.layout.fragment_work_calendar) {
+
+    private var _binding: FragmentWorkCalendarBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var adapter: CalendarAdapter
 
@@ -20,6 +23,8 @@ class WorkCalendarFragment : DetailWorkFragment(R.layout.fragment_work_calendar)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentWorkCalendarBinding.bind(view)
+
         val worksheet = (activity as MonthlyWorkActivity).worksheet
 
         val calendar = Calendar.getInstance()
@@ -47,6 +52,11 @@ class WorkCalendarFragment : DetailWorkFragment(R.layout.fragment_work_calendar)
                 (activity as MonthlyWorkActivity).showDetailWork(position)
             }
         })
-        grid_view.adapter = adapter
+        binding.gridView.adapter = adapter
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

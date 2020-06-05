@@ -16,7 +16,14 @@
     <color name="sun_color">#FF0000</color>
 
     <color name="ripple_color">#D3D3D3</color>
+    <color name="pager_indicator_enable_color">#995E5E5E</color>
+    <color name="pager_indicator_disable_color">#99B6B6B6</color>
 
     <color name="calendar_begin_time">#E4F1FF</color>
     <color name="calendar_end_time">#C3DBF7</color>
+
+    <color name="step1_color">#96D54E</color>
+    <color name="step2_color">#0CC4F7</color>
+    <color name="step3_color">#FF8358</color>
+    <color name="step4_color">#FFCD44</color>
 </resources>

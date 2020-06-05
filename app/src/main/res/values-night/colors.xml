@@ -14,4 +14,6 @@
     <color name="sun_color">#FF8066</color>
 
     <color name="ripple_color">#535353</color>
+    <color name="pager_indicator_enable_color">#99DFDFDF</color>
+    <color name="pager_indicator_disable_color">#99ACACAC</color>
 </resources>

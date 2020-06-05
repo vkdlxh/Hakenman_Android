@@ -1,11 +1,10 @@
 package archiveasia.jp.co.hakenman.view.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
-import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.databinding.ActivitySplashBinding
 import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.ThemeUtil
@@ -14,15 +13,17 @@ import java.util.Date
 
 class SplashActivity : AppCompatActivity() {
 
-    companion object {
-        private const val SPLASH_DELAY: Long = 2000 // 2 秒
-    }
+    private lateinit var binding: ActivitySplashBinding
 
     private var mDelayHandler: Handler = Handler()
-
     private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
-            val intent = Intent(applicationContext, WorksheetListActivity::class.java)
+            val prefsManager = PrefsManager(this)
+            val intent = if (prefsManager.isNeedTutorial) {
+                TutorialActivity.createInstance(this, true)
+            } else {
+                WorksheetListActivity.createInstance(this)
+            }
             startActivity(intent)
             finish()
         }
@@ -30,7 +31,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         WorksheetManager.loadLocalWorksheet()
         val currentYearMonth = Date().yearMonth()
@@ -38,7 +40,6 @@ class SplashActivity : AppCompatActivity() {
             val worksheet = WorksheetManager.createWorksheet(currentYearMonth)
             WorksheetManager.addWorksheetToJsonFile(worksheet)
         }
-
         val theme = PrefsManager(this).theme
         ThemeUtil.applyTheme(theme)
 
@@ -51,5 +52,9 @@ class SplashActivity : AppCompatActivity() {
     override fun onDestroy() {
         mDelayHandler.removeCallbacks(mRunnable)
         super.onDestroy()
+    }
+
+    companion object {
+        private const val SPLASH_DELAY: Long = 2000 // 2 秒
     }
 }
