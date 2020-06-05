@@ -21,4 +21,9 @@
 
     <color name="calendar_begin_time">#E4F1FF</color>
     <color name="calendar_end_time">#C3DBF7</color>
+
+    <color name="step1_color">#96D54E</color>
+    <color name="step2_color">#0CC4F7</color>
+    <color name="step3_color">#FF8358</color>
+    <color name="step4_color">#FFCD44</color>
 </resources>

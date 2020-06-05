@@ -21,10 +21,10 @@ class TutorialActivity : AppCompatActivity(), View.OnClickListener {
     private var isFirstTutorial = false
 
     val stepList = listOf(
-        Step("一覧確認", "", R.drawable.test),
-        Step("簡単登録", "", R.drawable.ic_more_vert_black_24dp),
-        Step("CSV共有可能", "", R.drawable.ic_chevron_right_lightgray_24dp),
-        Step("もっと楽に", "", R.drawable.ic_mail_outline_white_24dp)
+        Step(R.string.step1_title, R.string.step1_description, R.drawable.step1, R.color.step1_color),
+        Step(R.string.step2_title, R.string.step2_description, R.drawable.step2, R.color.step2_color),
+        Step(R.string.step3_title, R.string.step3_description, R.drawable.step3, R.color.step3_color),
+        Step(R.string.step4_title, R.string.step4_description, R.drawable.step4, R.color.step4_color)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

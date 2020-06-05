@@ -2,11 +2,14 @@ package archiveasia.jp.co.hakenman.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import archiveasia.jp.co.hakenman.databinding.ItemTutorialStepBinding
 import archiveasia.jp.co.hakenman.model.Step
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 class TutorialViewPagerAdapter(
@@ -26,14 +29,20 @@ class TutorialViewPagerAdapter(
 
     class ViewHolder(private val binding: ItemTutorialStepBinding) : RecyclerView.ViewHolder(binding.root) {
 
+        private val context = itemView.context
+
         fun bind(step: Step) {
-            binding.titleTextView.text = step.title
-            binding.descriptionTextView.text = step.description
+            binding.titleTextView.text = context.getText(step.title)
+            binding.descriptionTextView.text = context.getText(step.description)
             binding.imageView.setImageResource(step.image)
-            Glide.with(itemView.context)
-                .load(step.image)
-                .transform(CenterCrop(), RoundedCorners(18))
-                .into(binding.imageView)
+            // システム言語を変えるとイメージが変わらないためキャッシュを使わない
+            Glide.with(context)
+                    .load(step.image)
+                    .transform(CenterInside(), RoundedCorners(18))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(binding.imageView)
+            itemView.setBackgroundColor(ContextCompat.getColor(context, step.backgroundColor))
         }
     }
 }

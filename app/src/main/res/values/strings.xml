@@ -81,6 +81,17 @@
     <string name="theme">テーマ</string>
     <string name="tutorial">チュートリアル</string>
 
+    <!-- Tutorial -->
+    <string name="step1_title">勤務管理が簡単</string>
+    <string name="step2_title">CSV形式でエクスポート</string>
+    <string name="step3_title">簡単登録</string>
+    <string name="step4_title">楽な設定</string>
+
+    <string name="step1_description">あなたの月の勤務状況がわかりやすくなります。</string>
+    <string name="step2_description">報告がエクセルやマークダウンなら、この機能を使い貼付けるだけで完了！</string>
+    <string name="step3_description">特に入力せず、設定されている基本情報で簡単に登録できます。</string>
+    <string name="step4_description">現場の状況に合わせて基本設定を変えることができます。</string>
+
     <!--Menu Values-->
     <string name="setting_menu_title">Setting</string>
     <string name="send_email_menu_title">Send Email</string>
