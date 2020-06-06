@@ -1,5 +1,7 @@
 package archiveasia.jp.co.hakenman.manager
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import archiveasia.jp.co.hakenman.MyApplication
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.extension.*
@@ -28,6 +30,11 @@ object WorksheetManager {
     private const val HEADER_LINE = "|:--:|:---:|:-----:|:------:|:------:|:---:|:------:|:----:|"
 
     private var worksheetList = mutableListOf<Worksheet>()
+
+    private val _tempWorksheetList: MutableLiveData<MutableList<Worksheet>> = MutableLiveData()
+    public val tempWorksheetList: LiveData<MutableList<Worksheet>>
+        get() = _tempWorksheetList
+
 
     /**
      * JSONファイルをロードしてMutableList<Worksheet>に変更する

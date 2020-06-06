@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.NumberPicker
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
@@ -15,6 +17,7 @@ import archiveasia.jp.co.hakenman.databinding.ActivityWorksheetListBinding
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.view.adapter.MonthlyWorkAdapter
+import archiveasia.jp.co.hakenman.viewmodel.WorksheetListViewModel
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
@@ -23,6 +26,7 @@ import kotlinx.android.synthetic.main.dialog_datepicker.view.*
 class WorksheetListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWorksheetListBinding
+    private lateinit var viewModel: WorksheetListViewModel
 
     private lateinit var adapter: MonthlyWorkAdapter
 
@@ -56,6 +60,12 @@ class WorksheetListActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             showCreateWorksheetDialog()
         }
+
+        viewModel = ViewModelProvider(this).get(WorksheetListViewModel::class.java)
+        viewModel.worksheetList.observe(this, Observer {
+            // TODO: Live Data Observer 登録
+        })
+
         CustomLog.d("勤務表一覧画面")
     }
 
