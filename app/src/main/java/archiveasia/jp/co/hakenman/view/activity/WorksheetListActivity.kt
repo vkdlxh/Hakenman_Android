@@ -63,15 +63,10 @@ class WorksheetListActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(WorksheetListViewModel::class.java)
         viewModel.worksheetList.observe(this, Observer {
-            // TODO: Live Data Observer 登録
+            adapter.replaceWorksheetList(it)
         })
 
         CustomLog.d("勤務表一覧画面")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        reloadListView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -116,9 +111,8 @@ class WorksheetListActivity : AppCompatActivity() {
                 MaterialDialog(this).show {
                     message(R.string.update_worksheet_title)
                     positiveButton(R.string.positive_button) {
-                        WorksheetManager.updateWorksheet(worksheet)
+                        viewModel.updateWorksheet(worksheet)
                         CustomLog.d("勤務表生成 : $yearMonth")
-                        reloadListView()
                     }
                     negativeButton(R.string.negative_button)
                 }

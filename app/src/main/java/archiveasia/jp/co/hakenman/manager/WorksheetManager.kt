@@ -35,7 +35,6 @@ object WorksheetManager {
     public val tempWorksheetList: LiveData<MutableList<Worksheet>>
         get() = _tempWorksheetList
 
-
     /**
      * JSONファイルをロードしてMutableList<Worksheet>に変更する
      *
@@ -57,6 +56,33 @@ object WorksheetManager {
                 updateAllWorksheet(worksheetList)
             } else {
                 this.worksheetList = worksheetList
+            }
+        } else {
+            println("No File")
+        }
+    }
+
+    /**
+     * JSONファイルをロードしてMutableList<Worksheet>に変更する
+     *
+     * @return MutableList<Worksheet>
+     */
+    fun tempLoadLocalWorksheet() {
+        val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+        if (File(filepath).exists()) {
+            val gson = Gson()
+            var worksheetList: MutableList<Worksheet> = gson.fromJson(FileReader(File(filepath)), object : TypeToken<MutableList<Worksheet>>() {}.type)
+
+            // TODO: もっといい方法
+            val worksheet = worksheetList.first()
+            val detailWork = worksheet.detailWorkList.first()
+            if (detailWork.workDate == null) {
+                // Old -> New Worksheet Model 変更処理
+                val oldWorksheetList: MutableList<OldWorksheet> = gson.fromJson(FileReader(File(filepath)), object : TypeToken<MutableList<OldWorksheet>>() {}.type)
+                worksheetList = migrateNewWorksheetModel(oldWorksheetList)
+                tempUpdateAllWorksheet(worksheetList)
+            } else {
+                _tempWorksheetList.value = worksheetList
             }
         } else {
             println("No File")
@@ -92,6 +118,28 @@ object WorksheetManager {
     }
 
     /**
+     * 既存の勤務表を上書きした後、JSONファイルとして保持
+     *
+     * @param newValue 修正する勤務表
+     * @return JSONファイルで保持
+     */
+    fun tempUpdateWorksheet(newValue: Worksheet) {
+        val oldValue = this.worksheetList.find {
+            it.workDate.yearMonth() == newValue.workDate.yearMonth()
+        }
+
+        _tempWorksheetList.value?.let {
+            val oldValue = it.find { worksheet ->
+                worksheet.workDate.yearMonth() == newValue.workDate.yearMonth()
+            }
+            it.remove(oldValue)
+            it.add(newValue)
+
+            tempWriteJsonFile()
+        }
+    }
+
+    /**
      * 勤務表リストからIndexで新しい勤務表を上書きした後、JSONファイルとして保持
      *
      * @param index 勤務表位置
@@ -112,6 +160,17 @@ object WorksheetManager {
     fun updateAllWorksheet(worksheetList: List<Worksheet>) {
         this.worksheetList = worksheetList.toMutableList()
         writeJsonFile()
+    }
+
+    /**
+     * 勤務表リスト全体を修正し、JSONファイルとして保持
+     *
+     * @param worksheetList 修正する勤務表リスト
+     * @return JSONファイルで保持
+     */
+    fun tempUpdateAllWorksheet(worksheetList: List<Worksheet>) {
+        _tempWorksheetList.value = worksheetList.toMutableList()
+        tempWriteJsonFile()
     }
 
     /**
@@ -269,6 +328,23 @@ object WorksheetManager {
         val writer = PrintWriter(filepath)
         writer.append(jsonString)
         writer.close()
+    }
+
+    private fun tempWriteJsonFile() {
+        worksheetList = worksheetList.sortedByDescending { it.workDate.yearMonth() }.toMutableList()
+
+        _tempWorksheetList.value?.let {
+            _tempWorksheetList.value = it.sortedByDescending { worksheet ->
+                worksheet.workDate.yearMonth()
+            }.toMutableList()
+            val jsonString = Gson().toJson(_tempWorksheetList.value)
+
+            val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
+
+            val writer = PrintWriter(filepath)
+            writer.append(jsonString)
+            writer.close()
+        }
     }
 
     /**

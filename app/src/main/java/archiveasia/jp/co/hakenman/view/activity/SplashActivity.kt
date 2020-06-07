@@ -35,6 +35,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         WorksheetManager.loadLocalWorksheet()
+        WorksheetManager.tempLoadLocalWorksheet()
         val currentYearMonth = Date().yearMonth()
         if (!WorksheetManager.isAlreadyExistWorksheet(currentYearMonth)) {
             val worksheet = WorksheetManager.createWorksheet(currentYearMonth)
