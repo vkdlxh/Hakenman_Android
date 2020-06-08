@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.timepicker_dialog.view.*
 import java.util.*
 
 class TimePickerDialog(val context: Context) {
-
     private var isChecked = true
 
     enum class WorkTimeType {
