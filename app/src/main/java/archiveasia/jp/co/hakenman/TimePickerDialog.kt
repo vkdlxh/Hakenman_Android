@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.timepicker_dialog.view.*
 import java.util.*
 
 class TimePickerDialog(val context: Context) {
-    private val isChecked = true
-    private val TIME_PICKER_INTERVAL = 5
+
+    private var isChecked = true
 
     enum class WorkTimeType {
         BEGIN_TIME, END_TIME, BREAK_TIME
@@ -46,7 +46,6 @@ class TimePickerDialog(val context: Context) {
     }
 
     fun show(time: String, workTimeType: WorkTimeType, callback: (String) -> Unit) {
-        var isChecked = true
         val view = dialog.getCustomView()
         view.time_picker.apply {
             setIs24HourView(true)
@@ -88,10 +87,10 @@ class TimePickerDialog(val context: Context) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 this.hour = hour
-                this.minute = minute / prefsManager.interval
+                this.minute = minute /  if (isChecked) prefsManager.interval else TIME_PICKER_INTERVAL
             } else {
                 this.currentHour = hour
-                this.currentMinute = minute / prefsManager.interval
+                this.currentMinute = minute /  if (isChecked) prefsManager.interval else TIME_PICKER_INTERVAL
             }
 
             if (isChecked) {
@@ -148,14 +147,18 @@ class TimePickerDialog(val context: Context) {
         } else {
             view.time_picker.currentHour
         }
-        val minute = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            view.time_picker.minute * prefsManager.interval
+        val minute = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            view.time_picker.minute * if (isChecked) prefsManager.interval else TIME_PICKER_INTERVAL
         } else {
-            view.time_picker.currentMinute * prefsManager.interval
+            view.time_picker.currentMinute * if (isChecked) prefsManager.interval else TIME_PICKER_INTERVAL
         }
         val cal = Calendar.getInstance()
         cal.set(Calendar.HOUR_OF_DAY, hour)
         cal.set(Calendar.MINUTE, minute)
         return cal.time
+    }
+
+    companion object {
+        private const val TIME_PICKER_INTERVAL = 5
     }
 }
