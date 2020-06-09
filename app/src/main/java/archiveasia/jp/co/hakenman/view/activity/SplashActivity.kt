@@ -9,11 +9,15 @@ import archiveasia.jp.co.hakenman.extension.yearMonth
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.ThemeUtil
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import java.util.Date
 
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
+    private lateinit var analytics: FirebaseAnalytics
 
     private var mDelayHandler: Handler = Handler()
     private val mRunnable: Runnable = Runnable {
@@ -33,6 +37,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        analytics = Firebase.analytics
+        analytics.setCurrentScreen(this, "スプラッシュ画面", null)
 
         WorksheetManager.loadLocalWorksheet()
         val currentYearMonth = Date().yearMonth()
