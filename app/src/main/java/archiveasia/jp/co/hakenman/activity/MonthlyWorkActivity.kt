@@ -1,7 +1,9 @@
 package archiveasia.jp.co.hakenman.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -28,10 +30,13 @@ class MonthlyWorkActivity : AppCompatActivity() {
 
     private lateinit var dailyWorkAdapter: DailyWorkAdapter
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_monthly_work)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         index = intent.getIntExtra(INTENT_WORKSHEET_INDEX, index)
         worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)

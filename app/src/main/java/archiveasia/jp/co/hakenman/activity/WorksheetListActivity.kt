@@ -1,6 +1,8 @@
 package archiveasia.jp.co.hakenman.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -23,11 +25,14 @@ class WorksheetListActivity : AppCompatActivity() {
 
     private lateinit var adapter: MonthlyWorkAdapter
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_worksheet_list)
         title = getString(R.string.main_activity_title)
         CustomLog.d("勤務表一覧画面")
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         adapter = MonthlyWorkAdapter(listener = object : MonthlyWorkAdapter.MonthlyWorkListener {
             override fun onClickItem(index: Int, worksheet: Worksheet) {
