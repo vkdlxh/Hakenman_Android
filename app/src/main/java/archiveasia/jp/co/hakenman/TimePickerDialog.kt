@@ -80,7 +80,7 @@ class TimePickerDialog(val context: Context) {
                 hour = calendar.get(Calendar.HOUR_OF_DAY)
                 minute = calendar.get(Calendar.MINUTE)
             }
-            
+
             interval = if (workTimeType == WorkTimeType.BREAK_TIME) {
                 BREAK_TIME_INTERVAL
             } else {
