@@ -100,6 +100,11 @@ object WorksheetManager {
         writeJsonFile()
     }
 
+    fun tempAddWorksheetToJsonFile(worksheet: Worksheet) {
+        _tempWorksheetList.value?.add(worksheet)
+        tempWriteJsonFile()
+    }
+
     /**
      * 既存の勤務表を上書きした後、JSONファイルとして保持
      *
@@ -124,10 +129,6 @@ object WorksheetManager {
      * @return JSONファイルで保持
      */
     fun tempUpdateWorksheet(newValue: Worksheet) {
-        val oldValue = this.worksheetList.find {
-            it.workDate.yearMonth() == newValue.workDate.yearMonth()
-        }
-
         _tempWorksheetList.value?.let {
             val oldValue = it.find { worksheet ->
                 worksheet.workDate.yearMonth() == newValue.workDate.yearMonth()
@@ -190,6 +191,17 @@ object WorksheetManager {
 
         writeJsonFile()
         return worksheetList
+    }
+
+    fun tempRemoveWorksheet(index: Int) {
+        _tempWorksheetList.value?.removeAt(index)
+        // TODO: 今月勤務表を削除する場合新しく作成する
+        if (index == 0) {
+            val currentYearMonth = Date().yearMonth()
+            val worksheet = createWorksheet(currentYearMonth)
+            _tempWorksheetList.value?.add(worksheet)
+        }
+        tempWriteJsonFile()
     }
 
     /**
@@ -331,8 +343,6 @@ object WorksheetManager {
     }
 
     private fun tempWriteJsonFile() {
-        worksheetList = worksheetList.sortedByDescending { it.workDate.yearMonth() }.toMutableList()
-
         _tempWorksheetList.value?.let {
             _tempWorksheetList.value = it.sortedByDescending { worksheet ->
                 worksheet.workDate.yearMonth()

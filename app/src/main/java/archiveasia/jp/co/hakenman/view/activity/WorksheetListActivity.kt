@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.databinding.ActivityWorksheetListBinding
-import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.view.adapter.MonthlyWorkAdapter
 import archiveasia.jp.co.hakenman.viewmodel.WorksheetListViewModel
@@ -46,7 +45,7 @@ class WorksheetListActivity : AppCompatActivity() {
                 MaterialDialog(this@WorksheetListActivity).show {
                     message(R.string.delete_worksheet_title)
                     positiveButton(R.string.delete_button) {
-                        adapter.replaceWorksheetList(WorksheetManager.removeWorksheet(index))
+                        viewModel.removeWorksheet(index)
                     }
                     negativeButton(R.string.negative_button)
                 }
@@ -64,6 +63,17 @@ class WorksheetListActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(WorksheetListViewModel::class.java)
         viewModel.worksheetList.observe(this, Observer {
             adapter.replaceWorksheetList(it)
+        })
+
+        // TODO: Event処理勉強する
+        viewModel.showUpdateDialog.observe(this, Observer { worksheet ->
+            MaterialDialog(this).show {
+                message(R.string.update_worksheet_title)
+                positiveButton(R.string.positive_button) {
+                    viewModel.updateWorksheet(worksheet)
+                }
+                negativeButton(R.string.negative_button)
+            }
         })
 
         CustomLog.d("勤務表一覧画面")
@@ -84,11 +94,6 @@ class WorksheetListActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun reloadListView() {
-        val worksheetList = WorksheetManager.getWorksheetList()
-        adapter.replaceWorksheetList(worksheetList)
-    }
-
     private fun showCreateWorksheetDialog() {
         val dialog = MaterialDialog(this).customView(R.layout.dialog_datepicker)
         dialog.title(R.string.create_worksheet_title)
@@ -101,26 +106,8 @@ class WorksheetListActivity : AppCompatActivity() {
         }
         dialog.positiveButton(R.string.positive_button) {
             val year = datePicker.year.toString()
-            var month = (datePicker.month + 1).toString()
-            if (month.length < 2) {
-                month = "0$month"
-            }
-            val yearMonth = year + month
-            val worksheet = WorksheetManager.createWorksheet(yearMonth)
-            if (WorksheetManager.isAlreadyExistWorksheet(yearMonth)) {
-                MaterialDialog(this).show {
-                    message(R.string.update_worksheet_title)
-                    positiveButton(R.string.positive_button) {
-                        viewModel.updateWorksheet(worksheet)
-                        CustomLog.d("勤務表生成 : $yearMonth")
-                    }
-                    negativeButton(R.string.negative_button)
-                }
-            } else {
-                WorksheetManager.addWorksheetToJsonFile(worksheet)
-                CustomLog.d("勤務表生成 : $yearMonth")
-                reloadListView()
-            }
+            val month = (datePicker.month + 1).toString()
+            viewModel.createWorksheet(year, month)
         }
         dialog.negativeButton(R.string.negative_button)
         dialog.show()
