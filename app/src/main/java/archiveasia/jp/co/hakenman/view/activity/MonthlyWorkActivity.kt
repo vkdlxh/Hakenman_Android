@@ -21,10 +21,14 @@ import archiveasia.jp.co.hakenman.view.activity.DailyWorkActivity.Companion.INTE
 import archiveasia.jp.co.hakenman.view.adapter.WorkListPagerAdapter
 import archiveasia.jp.co.hakenman.view.fragment.DetailWorkFragment
 import com.afollestad.materialdialogs.MaterialDialog
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 
 class MonthlyWorkActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMonthlyWorkBinding
+    private lateinit var analytics: FirebaseAnalytics
 
     lateinit var worksheet: Worksheet
     private var index: Int = -1
@@ -34,6 +38,8 @@ class MonthlyWorkActivity : AppCompatActivity() {
         binding = ActivityMonthlyWorkBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        analytics = Firebase.analytics
+        analytics.setCurrentScreen(this, "月勤務表画面", null)
 
         index = intent.getIntExtra(INTENT_WORKSHEET_INDEX, index)
         worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)
@@ -81,7 +87,6 @@ class MonthlyWorkActivity : AppCompatActivity() {
                 val csvManager = CSVManager(this, worksheet)
                 csvManager.createCSVFile()
                 sendMail(csvManager.getFileUri())
-
                 return true
             }
             R.id.send_markdown -> {
@@ -145,6 +150,12 @@ class MonthlyWorkActivity : AppCompatActivity() {
             emailIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
             emailIntent.type = "message/rfc822"
             startActivity(Intent.createChooser(emailIntent, getString(R.string.send_email_type)))
+            analytics.logEvent(
+                    FirebaseAnalytics.Event.SHARE,
+                    Bundle().apply {
+                        putString("share_type", if (fileUri == null) "markdown" else "csv")
+                    }
+            )
         }
     }
 

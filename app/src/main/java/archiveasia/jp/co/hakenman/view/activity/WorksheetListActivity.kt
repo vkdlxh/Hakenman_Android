@@ -18,19 +18,24 @@ import archiveasia.jp.co.hakenman.view.adapter.MonthlyWorkAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.dialog_datepicker.view.*
 
 class WorksheetListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWorksheetListBinding
-
     private lateinit var adapter: MonthlyWorkAdapter
+    private lateinit var analytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWorksheetListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = getString(R.string.main_activity_title)
+        analytics = Firebase.analytics
+        analytics.setCurrentScreen(this, "勤務表リスト画面", null)
 
         adapter = MonthlyWorkAdapter(listener = object : MonthlyWorkAdapter.MonthlyWorkListener {
             override fun onClickItem(index: Int, worksheet: Worksheet) {

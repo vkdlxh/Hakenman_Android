@@ -14,10 +14,14 @@ import archiveasia.jp.co.hakenman.databinding.ActivityTutorialBinding
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.model.Step
 import archiveasia.jp.co.hakenman.view.adapter.TutorialViewPagerAdapter
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 
 class TutorialActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityTutorialBinding
+    private lateinit var analytics: FirebaseAnalytics
     private var isFirstTutorial = false
 
     val stepList = listOf(
@@ -33,6 +37,10 @@ class TutorialActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
 
         isFirstTutorial = intent.getBooleanExtra(EXTRA_FIRST_TUTORIAL, false)
+        analytics = Firebase.analytics
+        analytics.setCurrentScreen(this, "チュートリアル画面", null)
+
+        analytics.logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN, null)
 
         binding.viewPager.adapter = TutorialViewPagerAdapter(stepList)
         binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -64,6 +72,14 @@ class TutorialActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         finish()
+        val eventValue = when (view.id) {
+            R.id.done_text_view -> "done"
+            R.id.skip_text_view -> "skip"
+            else -> "unknown"
+        }
+        analytics.logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle().apply {
+            putString("complete_type", eventValue)
+        })
     }
 
     private fun notifyIndicator(position: Int) {

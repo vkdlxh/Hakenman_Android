@@ -21,11 +21,14 @@ import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 
 class DailyWorkActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDailyWorkBinding
-
+    private lateinit var analytics: FirebaseAnalytics
     private var index: Int = -1
     private lateinit var worksheet: Worksheet
     private lateinit var detailWork: DetailWork
@@ -35,6 +38,8 @@ class DailyWorkActivity : AppCompatActivity() {
         binding = ActivityDailyWorkBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        analytics = Firebase.analytics
+        analytics.setCurrentScreen(this, "日勤務表画面", null)
 
         index = intent.getIntExtra(INTENT_DETAILWORK_INDEX, index)
         worksheet = intent.getParcelableExtra(INTENT_DETAILWORK_VALUE)
