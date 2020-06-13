@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.dialog_timepicker.view.*
 import java.util.Calendar
 import java.util.Date
 
-
 class TimePickerDialog(val context: Context) {
 
     enum class WorkTimeType {
