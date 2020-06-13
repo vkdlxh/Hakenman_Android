@@ -20,6 +20,8 @@
     <string name="email_subject">【근태】%s년%s월 근무표</string>
     <string name="request_set_address_message">수신인을 설정해주세요.</string>
     <string name="send_email_type">메일 송신 방법 :</string>
+    <string name="sheet">표</string>
+    <string name="calendar">달력</string>
 
     <!-- DayWorksheet Activity -->
     <string name="day_work_activity_title">%s년%s월%s일 근무표</string>
@@ -45,6 +47,15 @@
     <string name="work_time_column">근무시간</string>
     <string name="note_column">비고</string>
 
+    <!-- Calendar -->
+    <string name="monday">월</string>
+    <string name="tuesday">화</string>
+    <string name="wednesday">수</string>
+    <string name="thursday">목</string>
+    <string name="friday">금</string>
+    <string name="saturday">토</string>
+    <string name="sunday">일</string>
+
     <!-- Day　Worksheet Layout -->
     <string name="workday_setting_header">근태관리</string>
     <string name="workday_switch_title">작업일</string>
@@ -66,6 +77,20 @@
     <string name="version">App Version</string>
     <string name="email_empty_message">등록해주세요</string>
     <string name="email_to_title">수신인</string>
+    <string name="theme_header">테마 설정</string>
+    <string name="theme">테마</string>
+    <string name="tutorial">튜토리얼</string>
+
+    <!-- Tutorial -->
+    <string name="step1_title">근무관리가 간단</string>
+    <string name="step2_title">CSV형식으로 익스포트</string>
+    <string name="step3_title">간단 등록</string>
+    <string name="step4_title">간편한 설정</string>
+
+    <string name="step1_description">당신의 월별 근무 상황을 파악하기 쉬워집니다.</string>
+    <string name="step2_description">보고형식이 엑셀이나 마크다운이라면 이 기능을 사용하여 간단히 첨부 할 수 있습니다.</string>
+    <string name="step3_description">특별한 입력 없이 설정되어있는 기본 정보로 간단하게 등록 할 수 있습니다.</string>
+    <string name="step4_description">현장 상황에 맞춰 기본정보 설정을 변경할 수 있습니다.</string>
 
     <!--Menu Values-->
     <string name="setting_menu_title">Setting</string>

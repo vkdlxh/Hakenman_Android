@@ -4,7 +4,7 @@ import archiveasia.jp.co.hakenman.MyApplication
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.extension.*
 import archiveasia.jp.co.hakenman.model.*
-import com.google.gson.GsonBuilder
+import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileReader
@@ -37,7 +37,7 @@ object WorksheetManager {
     fun loadLocalWorksheet() {
         val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
         if (File(filepath).exists()) {
-            val gson = GsonBuilder().setDateFormat("MMM dd, yyyy hh:mm:ss a").create()
+            val gson = Gson()
             var worksheetList: MutableList<Worksheet> = gson.fromJson(FileReader(File(filepath)), object : TypeToken<MutableList<Worksheet>>() {}.type)
 
             // TODO: もっといい方法
@@ -51,8 +51,6 @@ object WorksheetManager {
             } else {
                 this.worksheetList = worksheetList
             }
-
-            println("No File")
         } else {
             println("No File")
         }
@@ -257,8 +255,7 @@ object WorksheetManager {
 
     private fun writeJsonFile() {
         worksheetList = worksheetList.sortedByDescending { it.workDate.yearMonth() }.toMutableList()
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonString = gson.toJson(worksheetList)
+        val jsonString = Gson().toJson(worksheetList)
 
         val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
 

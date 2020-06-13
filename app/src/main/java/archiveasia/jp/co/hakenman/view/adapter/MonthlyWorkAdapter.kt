@@ -1,15 +1,19 @@
-package archiveasia.jp.co.hakenman.adapter
+package archiveasia.jp.co.hakenman.view.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import archiveasia.jp.co.hakenman.R
+import archiveasia.jp.co.hakenman.databinding.ItemMonthlyWorkCurrentBinding
+import archiveasia.jp.co.hakenman.databinding.ItemMonthlyWorkPastBinding
 import archiveasia.jp.co.hakenman.extension.day
 import archiveasia.jp.co.hakenman.extension.dayOfWeek
 import archiveasia.jp.co.hakenman.extension.month
+import archiveasia.jp.co.hakenman.extension.twoDecimalPlaces
 import archiveasia.jp.co.hakenman.extension.week
 import archiveasia.jp.co.hakenman.extension.year
 import archiveasia.jp.co.hakenman.extension.yearMonth
@@ -19,7 +23,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import kotlinx.android.synthetic.main.current_monthly_work_item.view.*
+import com.github.mikephil.charting.formatter.ValueFormatter
 import java.util.Date
 
 class MonthlyWorkAdapter(
@@ -35,14 +39,12 @@ class MonthlyWorkAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             TYPE_CURRENT_MONTHLY_WORK -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.current_monthly_work_item, parent, false)
-                CurrentMonthlyWorkViewHolder(view)
+                val binding = ItemMonthlyWorkCurrentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                CurrentMonthlyWorkViewHolder(binding)
             }
             TYPE_PAST_MONTHLY_WORK -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.past_monthly_work_item, parent, false)
-                PastMonthlyWorkViewHolder(view)
+                val binding = ItemMonthlyWorkPastBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                PastMonthlyWorkViewHolder(binding)
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
@@ -71,7 +73,9 @@ class MonthlyWorkAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class CurrentMonthlyWorkViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class CurrentMonthlyWorkViewHolder(
+        private val binding: ItemMonthlyWorkCurrentBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(worksheet: Worksheet) {
             val detailWorkList = worksheet.detailWorkList
@@ -97,11 +101,11 @@ class MonthlyWorkAdapter(
                 true
             }
 
-            itemView.year_textView.text = worksheet.workDate.year()
-            itemView.month_textView.text = worksheet.workDate.month()
+            binding.yearTextView.text = worksheet.workDate.year()
+            binding.monthTextView.text = worksheet.workDate.month()
             val now = Date()
-            itemView.day_textView.text = now.day()
-            itemView.week_textView.apply {
+            binding.dayTextView.text = now.day()
+            binding.weekTextView.apply {
                 text = now.week()
                 val color = when(now.dayOfWeek()) {
                     1 -> Color.RED
@@ -110,12 +114,14 @@ class MonthlyWorkAdapter(
                 }
                 setTextColor(color)
             }
-            itemView.workHour_textView.text = worksheet.workTimeSum.toString()
-            itemView.workDay_textView.text = worksheet.workDaySum.toString()
+            binding.workHourTextView.text = worksheet.workTimeSum.toString()
+            binding.workDayTextView.text = worksheet.workDaySum.toString()
         }
 
         private fun setChart(chartItemList: ArrayList<DetailWork>) {
-            itemView.line_chart.apply {
+            binding.lineChart.apply {
+                val textColorOnBackground = ContextCompat.getColor(context, R.color.text_color_on_background)
+                val textColorOnSurface = ContextCompat.getColor(context, R.color.text_color_on_surface)
                 visibility = View.VISIBLE
                 val entries = ArrayList<Entry>()
                 chartItemList.forEach {
@@ -125,13 +131,20 @@ class MonthlyWorkAdapter(
                 // チャートデータライン設定
                 val lineDataSet = LineDataSet(entries, context.getString(R.string.work_time_column))
                 lineDataSet.lineWidth = 2f
-                lineDataSet.color = Color.BLACK
+                lineDataSet.color = textColorOnBackground
                 lineDataSet.circleRadius = 4.5f
-                lineDataSet.setCircleColor(Color.BLACK)
+                lineDataSet.setCircleColor(textColorOnBackground)
+                lineDataSet.valueTextColor = textColorOnBackground
                 lineDataSet.setDrawCircleHole(false)
                 lineDataSet.valueTextSize = 8f
 
                 val data = LineData(lineDataSet)
+                data.setValueFormatter(object : ValueFormatter() {
+                    override fun getPointLabel(entry: Entry?): String {
+                        return entry?.y?.toDouble()?.twoDecimalPlaces().toString()
+                    }
+                })
+
                 this.data = data
                 if (data.entryCount == 0) {
                     // 「データなし」メッセージ表示のため
@@ -146,34 +159,35 @@ class MonthlyWorkAdapter(
                 xAxis.position = XAxis.XAxisPosition.BOTH_SIDED
 
                 // チャート左側設定
-                axisLeft.axisLineColor = Color.GRAY
+                axisLeft.axisLineColor = textColorOnSurface
                 axisLeft.labelCount = 4
                 axisLeft.setDrawLabels(false)
                 axisLeft.axisMaximum = data.yMax + 1f
                 axisLeft.axisMinimum = data.yMin - 1f
 
                 // チャート右側設定
-                axisRight.axisLineColor = Color.GRAY
+                axisRight.axisLineColor = textColorOnSurface
                 axisRight.setDrawGridLines(false)
                 axisRight.setDrawLabels(false)
 
+                legend.textColor = textColorOnBackground
+
                 description.text = context.getString(R.string.chart_description)
+                description.textColor = textColorOnBackground
                 setNoDataText(context.getString(R.string.chart_no_data))
-                setNoDataTextColor(Color.BLACK)
+                setNoDataTextColor(textColorOnBackground)
 
                 setTouchEnabled(false)
                 setPinchZoom(false)
-
-                // チャートの空白調節
-                // TODO: Magic Numberどうにかしたい
-                setViewPortOffsets(1f, viewPortHandler.offsetTop() / 2, 1f, viewPortHandler.offsetBottom())
 
                 invalidate()
             }
         }
     }
 
-    inner class PastMonthlyWorkViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class PastMonthlyWorkViewHolder(
+        private val binding: ItemMonthlyWorkPastBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(worksheet: Worksheet) {
             itemView.setOnClickListener {
@@ -184,10 +198,10 @@ class MonthlyWorkAdapter(
                 true
             }
 
-            itemView.year_textView.text = worksheet.workDate.year()
-            itemView.month_textView.text = worksheet.workDate.month()
-            itemView.workHour_textView.text = worksheet.workTimeSum.toString()
-            itemView.workDay_textView.text = worksheet.workDaySum.toString()
+            binding.yearTextView.text = worksheet.workDate.year()
+            binding.monthTextView.text = worksheet.workDate.month()
+            binding.workHourTextView.text = worksheet.workTimeSum.toString()
+            binding.workDayTextView.text = worksheet.workDaySum.toString()
         }
     }
 

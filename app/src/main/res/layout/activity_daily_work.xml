@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
+    android:background="@color/background_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,18 +28,19 @@
                 android:padding="@dimen/default_padding"
                 android:text="@string/workday_setting_header"
                 android:textSize="@dimen/day_worksheet_header_font_size"
+                android:textColor="@color/text_color_on_surface"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:background="@color/colorLightGray"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Switch
                 android:id="@+id/isWork_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/default_margin"
+                android:paddingVertical="@dimen/default_padding"
                 android:paddingHorizontal="@dimen/day_worksheet_padding"
                 android:text="@string/workday_switch_title"
                 android:textSize="@dimen/day_worksheet_item_font_size"
+                android:textColor="@color/text_color_on_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,13 +64,13 @@
                 android:padding="@dimen/default_padding"
                 android:text="@string/worktime_setting_header"
                 android:textSize="@dimen/day_worksheet_header_font_size"
-                android:background="@color/colorLightGray" />
+                android:textColor="@color/text_color_on_surface" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container_begin_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/day_worksheet_itembox_layout_height"
-                android:background="?attr/selectableItemBackground">
+                android:background="@drawable/custom_ripple">
 
                 <TextView
                     android:id="@+id/day_begin_textView"
@@ -78,7 +79,7 @@
                     android:layout_marginStart="@dimen/day_worksheet_margin"
                     android:text="@string/worktime_begin_title"
                     android:textSize="@dimen/day_worksheet_item_font_size"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/text_color_on_background"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -88,6 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/day_worksheet_margin"
+                    android:textColor="@color/text_color_on_surface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +100,7 @@
                 android:id="@+id/container_end_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/day_worksheet_itembox_layout_height"
-                android:background="?attr/selectableItemBackground">
+                android:background="@drawable/custom_ripple">
 
                 <TextView
                     android:id="@+id/day_end_textView"
@@ -107,7 +109,7 @@
                     android:layout_marginStart="@dimen/day_worksheet_margin"
                     android:text="@string/worktime_end_title"
                     android:textSize="@dimen/day_worksheet_item_font_size"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/text_color_on_background"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -117,6 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/day_worksheet_margin"
+                    android:textColor="@color/text_color_on_surface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -127,7 +130,7 @@
                 android:id="@+id/container_break_time"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/day_worksheet_itembox_layout_height"
-                android:background="?attr/selectableItemBackground">
+                android:background="@drawable/custom_ripple">
 
                 <TextView
                     android:id="@+id/day_break_textView"
@@ -136,7 +139,7 @@
                     android:layout_marginStart="@dimen/day_worksheet_margin"
                     android:text="@string/worktime_break_title"
                     android:textSize="@dimen/day_worksheet_item_font_size"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/text_color_on_background"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -146,6 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/day_worksheet_margin"
+                    android:textColor="@color/text_color_on_surface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -163,7 +167,7 @@
                     android:layout_marginStart="@dimen/day_worksheet_margin"
                     android:text="@string/worktime_total_title"
                     android:textSize="@dimen/day_worksheet_item_font_size"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/text_color_on_background"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -173,6 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/day_worksheet_margin"
+                    android:textColor="@color/text_color_on_surface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -190,7 +195,7 @@
                     android:padding="@dimen/default_padding"
                     android:text="@string/note_setting_header"
                     android:textSize="@dimen/day_worksheet_header_font_size"
-                    android:background="@color/colorLightGray"
+                    android:textColor="@color/text_color_on_surface"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -200,6 +205,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/default_margin"
+                    android:textColor="@color/text_color_on_surface"
+                    android:textColorHint="@color/text_color_on_surface"
                     android:ems="10"
                     android:inputType="textPersonName"
                     app:layout_constraintBottom_toBottomOf="parent"

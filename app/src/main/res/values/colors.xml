@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3862C2</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#3862C2</color>
-    <color name="colorBlack">#000000</color>
-    <color name="colorWhite">#ffffff</color>
+    <color name="colorPrimary">#3366FF</color>
+    <color name="colorPrimaryDark">#1939B7</color>
+    <color name="colorAccent">#FF5A19</color>
+
     <color name="colorLightGray">#D3D3D3</color>
-    <color name="colorGray">#808080</color>
-    <color name="orange">#F36B08</color>
+
+    <color name="background_color">#FFFFFF</color>
+    <color name="surface_color">#FFFFFF</color>
+    <color name="text_color_on_background">#000000</color>
+    <color name="text_color_on_surface">#676767</color>
+    <color name="setting_header_color">#D3D3D3</color>
+
+    <color name="sat_color">#0000FF</color>
+    <color name="sun_color">#FF0000</color>
+
+    <color name="ripple_color">#D3D3D3</color>
+    <color name="pager_indicator_enable_color">#995E5E5E</color>
+    <color name="pager_indicator_disable_color">#99B6B6B6</color>
+
+    <color name="calendar_begin_time">#E4F1FF</color>
+    <color name="calendar_end_time">#C3DBF7</color>
+
+    <color name="step1_color">#96D54E</color>
+    <color name="step2_color">#0CC4F7</color>
+    <color name="step3_color">#FF8358</color>
+    <color name="step4_color">#FFCD44</color>
 </resources>

@@ -1,4 +1,4 @@
-package archiveasia.jp.co.hakenman.activity
+package archiveasia.jp.co.hakenman.view.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.TimePickerDialog
+import archiveasia.jp.co.hakenman.databinding.ActivityDailyWorkBinding
 import archiveasia.jp.co.hakenman.extension.day
 import archiveasia.jp.co.hakenman.extension.hourMinute
 import archiveasia.jp.co.hakenman.extension.hourMinuteToDate
@@ -22,10 +23,14 @@ import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.DetailWork
 import archiveasia.jp.co.hakenman.model.Worksheet
-import kotlinx.android.synthetic.main.activity_daily_work.*
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 
 class DailyWorkActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityDailyWorkBinding
+    private lateinit var analytics: FirebaseAnalytics
     private var index: Int = -1
     private lateinit var worksheet: Worksheet
     private lateinit var detailWork: DetailWork
@@ -33,8 +38,11 @@ class DailyWorkActivity : AppCompatActivity() {
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_daily_work)
+        binding = ActivityDailyWorkBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        analytics = Firebase.analytics
+        analytics.setCurrentScreen(this, "日勤務表画面", null)
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
@@ -43,16 +51,16 @@ class DailyWorkActivity : AppCompatActivity() {
         detailWork = worksheet.detailWorkList[index]
         setDetailWork()
 
-        worksheet_form_view.visibility = if (detailWork.workFlag) View.VISIBLE else View.INVISIBLE
-        isWork_switch.isChecked = detailWork.workFlag
+        title = getString(R.string.day_work_activity_title)
+            .format(detailWork.workDate.year(), detailWork.workDate.month(), detailWork.workDate.day())
+        binding.worksheetFormView.visibility = if (detailWork.workFlag) View.VISIBLE else View.INVISIBLE
+        binding.isWorkSwitch.isChecked = detailWork.workFlag
 
-        isWork_switch.setOnCheckedChangeListener { _, isChecked ->
-            worksheet_form_view.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
+        binding.isWorkSwitch.setOnCheckedChangeListener { _, isChecked ->
+            binding.worksheetFormView.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
             detailWork.workFlag = isChecked
         }
 
-        title = getString(R.string.day_work_activity_title)
-                .format(detailWork.workDate.year(), detailWork.workDate.month(), detailWork.workDate.day())
         CustomLog.d("1日詳細勤務表画面")
     }
 
@@ -77,16 +85,16 @@ class DailyWorkActivity : AppCompatActivity() {
     }
 
     private fun saveWorksheet() {
-        val beginTime = with (day_start_time_textView.text) {
+        val beginTime = with (binding.dayStartTimeTextView.text) {
             if (isNotEmpty()) toString().hourMinuteToDate() else null
         }
-        val endTime = with (day_end_time_textView.text) {
+        val endTime = with (binding.dayEndTimeTextView.text) {
             if (isNotEmpty()) toString().hourMinuteToDate() else null
         }
-        val breakTime = with (day_break_time_textView.text) {
+        val breakTime = with (binding.dayBreakTimeTextView.text) {
             if (isNotEmpty()) toString().hourMinuteToDate() else null
         }
-        val note = note_editText.text.toString()
+        val note = binding.noteEditText.text.toString()
 
         detailWork.beginTime = if (detailWork.workFlag) beginTime else null
         detailWork.endTime = if (detailWork.workFlag) endTime else null
@@ -131,23 +139,23 @@ class DailyWorkActivity : AppCompatActivity() {
                 durationString = WorksheetManager.calculateDuration(defaultBeginTime, defaultEndTime, defaultBreakTime).toString()
             }
 
-            day_start_time_textView.text = beginTimeString
-            day_end_time_textView.text = endTimeString
-            day_break_time_textView.text = breakTimeString
-            day_total_time_textView.text = durationString
-            note_editText.setText(detailWork.note)
+            binding.dayStartTimeTextView.text = beginTimeString
+            binding.dayEndTimeTextView.text = endTimeString
+            binding.dayBreakTimeTextView.text = breakTimeString
+            binding.dayTotalTimeTextView.text = durationString
+            binding.noteEditText.setText(detailWork.note)
         }
 
-        container_begin_time.setOnClickListener {
-            showAddDialog(R.string.set_beginTime_title, day_start_time_textView, TimePickerDialog.WorkTimeType.BEGIN_TIME)
+        binding.containerBeginTime.setOnClickListener {
+            showAddDialog(R.string.set_beginTime_title, binding.dayStartTimeTextView, TimePickerDialog.WorkTimeType.BEGIN_TIME)
         }
 
-        container_end_time.setOnClickListener {
-            showAddDialog(R.string.set_endTime_title, day_end_time_textView, TimePickerDialog.WorkTimeType.END_TIME)
+        binding.containerEndTime.setOnClickListener {
+            showAddDialog(R.string.set_endTime_title, binding.dayEndTimeTextView, TimePickerDialog.WorkTimeType.END_TIME)
         }
 
-        container_break_time.setOnClickListener {
-            showAddDialog(R.string.set_breakTime_title, day_break_time_textView, TimePickerDialog.WorkTimeType.BREAK_TIME)
+        binding.containerBreakTime.setOnClickListener {
+            showAddDialog(R.string.set_breakTime_title, binding.dayBreakTimeTextView, TimePickerDialog.WorkTimeType.BREAK_TIME)
         }
     }
 
@@ -158,19 +166,19 @@ class DailyWorkActivity : AppCompatActivity() {
             .show(textView.text.toString(), workTimeType) {
                 textView.text = it
 
-                val beginTime = with (day_start_time_textView.text) {
+                val beginTime = with (binding.dayStartTimeTextView.text) {
                     if (isNotEmpty()) toString().hourMinuteToDate() else null
                 }
-                val endTime = with (day_end_time_textView.text) {
+                val endTime = with (binding.dayEndTimeTextView.text) {
                     if (isNotEmpty()) toString().hourMinuteToDate() else null
                 }
-                val breakTime = with (day_break_time_textView.text) {
+                val breakTime = with (binding.dayBreakTimeTextView.text) {
                     if (isNotEmpty()) toString().hourMinuteToDate() else null
                 }
 
                 if (beginTime != null && endTime != null && breakTime != null) {
                     val duration = WorksheetManager.calculateDuration(beginTime, endTime, breakTime)
-                    day_total_time_textView.text = duration.toString()
+                    binding.dayTotalTimeTextView.text = duration.toString()
                 }
             }
     }
@@ -181,11 +189,10 @@ class DailyWorkActivity : AppCompatActivity() {
         private const val INTENT_DETAILWORK_INDEX = "index"
         private const val INTENT_DETAILWORK_VALUE = "day"
 
-        fun newIntent(context: Context, index: Int, worksheet: Worksheet): Intent {
-            val intent = Intent(context, DailyWorkActivity::class.java)
-            intent.putExtra(INTENT_DETAILWORK_VALUE, worksheet)
-            intent.putExtra(INTENT_DETAILWORK_INDEX, index)
-            return intent
-        }
+        fun createIntent(context: Context, index: Int, worksheet: Worksheet) =
+            Intent(context, DailyWorkActivity::class.java).apply {
+                putExtra(INTENT_DETAILWORK_VALUE, worksheet)
+                putExtra(INTENT_DETAILWORK_INDEX, index)
+            }
     }
 }

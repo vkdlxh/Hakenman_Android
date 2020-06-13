@@ -13,21 +13,18 @@ fun Date.yearMonth(): String = SimpleDateFormat("yyyyMM", Locale.getDefault()).f
 
 fun Date.week(): String = SimpleDateFormat("E", Locale.getDefault()).format(this)
 
+fun Date.hourMinute(): String = SimpleDateFormat("HH:mm", Locale.getDefault()).format(this)
+
+fun Date.day(): String = SimpleDateFormat("d", Locale.getDefault()).format(this)
+
 fun Date.dayOfWeek(): Int {
     val calendar = Calendar.getInstance()
     calendar.time = this
     return calendar.get(Calendar.DAY_OF_WEEK)
 }
 
-fun Date.hourMinute(): String = SimpleDateFormat("HH:mm", Locale.getDefault()).format(this)
-
-fun Date.day(): String = SimpleDateFormat("dd", Locale.getDefault()).format(this)
-
 fun Date.isHoliday(): Boolean {
-    val calendar = Calendar.getInstance()
-    calendar.time = this
-
-    return when (calendar.get(Calendar.DAY_OF_WEEK)) {
+    return when (this.dayOfWeek()) {
         1, 7 -> {
             true
         }
@@ -35,7 +32,6 @@ fun Date.isHoliday(): Boolean {
             false
         }
     }
-
 }
 
 fun Date.hourMinuteToDouble(): Double {

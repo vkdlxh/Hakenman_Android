@@ -13,8 +13,11 @@ import archiveasia.jp.co.hakenman.manager.PrefsManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
-import kotlinx.android.synthetic.main.timepicker_dialog.view.*
-import java.util.*
+
+import kotlinx.android.synthetic.main.dialog_timepicker.view.*
+import java.util.Calendar
+import java.util.Date
+
 
 class TimePickerDialog(val context: Context) {
 
@@ -22,7 +25,7 @@ class TimePickerDialog(val context: Context) {
         BEGIN_TIME, END_TIME, BREAK_TIME
     }
 
-    private val dialog: MaterialDialog = MaterialDialog(context).customView(R.layout.timepicker_dialog)
+    private val dialog: MaterialDialog = MaterialDialog(context).customView(R.layout.dialog_timepicker)
     private val prefsManager = PrefsManager(context)
     private var title: Int? = null
     private var positive: Int = R.string.positive_button
