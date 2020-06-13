@@ -1,7 +1,9 @@
 package archiveasia.jp.co.hakenman.view.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -27,11 +29,14 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var prefsManager: PrefsManager
     private lateinit var analytics: FirebaseAnalytics
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         analytics = Firebase.analytics
         analytics.setCurrentScreen(this, "設定画面", null)

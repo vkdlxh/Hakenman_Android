@@ -1,7 +1,10 @@
 package archiveasia.jp.co.hakenman.view.activity
 
+import android.annotation.SuppressLint
+
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -29,6 +32,7 @@ class WorksheetListActivity : AppCompatActivity() {
     private lateinit var adapter: MonthlyWorkAdapter
     private lateinit var analytics: FirebaseAnalytics
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWorksheetListBinding.inflate(layoutInflater)
@@ -36,6 +40,8 @@ class WorksheetListActivity : AppCompatActivity() {
         title = getString(R.string.main_activity_title)
         analytics = Firebase.analytics
         analytics.setCurrentScreen(this, "勤務表リスト画面", null)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         adapter = MonthlyWorkAdapter(listener = object : MonthlyWorkAdapter.MonthlyWorkListener {
             override fun onClickItem(index: Int, worksheet: Worksheet) {

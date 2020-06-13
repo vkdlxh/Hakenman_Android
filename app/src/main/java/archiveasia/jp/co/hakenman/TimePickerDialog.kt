@@ -13,6 +13,7 @@ import archiveasia.jp.co.hakenman.manager.PrefsManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
+
 import kotlinx.android.synthetic.main.dialog_timepicker.view.*
 import java.util.Calendar
 import java.util.Date
@@ -28,6 +29,7 @@ class TimePickerDialog(val context: Context) {
     private var title: Int? = null
     private var positive: Int = R.string.positive_button
     private var negative: Int = R.string.negative_button
+    private var interval = BREAK_TIME_INTERVAL
 
     fun title(@StringRes res: Int): TimePickerDialog = apply {
         title = res
@@ -81,12 +83,18 @@ class TimePickerDialog(val context: Context) {
                 minute = calendar.get(Calendar.MINUTE)
             }
 
+            interval = if (workTimeType == WorkTimeType.BREAK_TIME) {
+                BREAK_TIME_INTERVAL
+            } else {
+                prefsManager.interval
+            }
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 this.hour = hour
-                this.minute = minute / prefsManager.interval
+                this.minute = minute / interval
             } else {
                 this.currentHour = hour
-                this.currentMinute = minute / prefsManager.interval
+                this.currentMinute = minute / interval
             }
             setTimePickerInterval(this)
         }
@@ -102,14 +110,12 @@ class TimePickerDialog(val context: Context) {
         val minuteID = Resources.getSystem().getIdentifier("minute", "id", "android")
         val minutePicker = timePicker.findViewById<NumberPicker>(minuteID)
 
-        val numValue = 60 / prefsManager.interval
+        val numValue = 60 / interval
         val displayedValue = arrayListOf<String>()
-
         for (i in 0 until numValue) {
-            val value = i * prefsManager.interval
+            val value = i * interval
             displayedValue.add(i, value.toString())
         }
-
         minutePicker.minValue = 0
         minutePicker.maxValue = numValue - 1
         minutePicker.displayedValues = displayedValue.toTypedArray()
@@ -121,14 +127,19 @@ class TimePickerDialog(val context: Context) {
         } else {
             view.time_picker.currentHour
         }
-        val minute = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            view.time_picker.minute * prefsManager.interval
+        val minute = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            view.time_picker.minute * interval
         } else {
-            view.time_picker.currentMinute * prefsManager.interval
+            view.time_picker.currentMinute * interval
         }
+
         val cal = Calendar.getInstance()
         cal.set(Calendar.HOUR_OF_DAY, hour)
         cal.set(Calendar.MINUTE, minute)
         return cal.time
+    }
+
+    companion object {
+        private const val BREAK_TIME_INTERVAL = 5
     }
 }

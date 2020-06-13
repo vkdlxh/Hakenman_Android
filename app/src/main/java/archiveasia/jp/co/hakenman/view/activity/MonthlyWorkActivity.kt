@@ -1,7 +1,9 @@
 package archiveasia.jp.co.hakenman.view.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -33,6 +35,7 @@ class MonthlyWorkActivity : AppCompatActivity() {
     lateinit var worksheet: Worksheet
     private var index: Int = -1
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMonthlyWorkBinding.inflate(layoutInflater)
@@ -40,6 +43,8 @@ class MonthlyWorkActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         analytics = Firebase.analytics
         analytics.setCurrentScreen(this, "月勤務表画面", null)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         index = intent.getIntExtra(INTENT_WORKSHEET_INDEX, index)
         worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)
