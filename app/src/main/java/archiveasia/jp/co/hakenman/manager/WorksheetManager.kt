@@ -3,16 +3,30 @@ package archiveasia.jp.co.hakenman.manager
 import archiveasia.jp.co.hakenman.MyApplication
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.extension.*
-import archiveasia.jp.co.hakenman.model.*
-import com.google.gson.Gson
+import archiveasia.jp.co.hakenman.model.DetailWork
+import archiveasia.jp.co.hakenman.model.OldWorksheet
+import archiveasia.jp.co.hakenman.model.Worksheet
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileReader
 import java.io.PrintWriter
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.List
+import kotlin.collections.MutableList
+import kotlin.collections.count
+import kotlin.collections.filter
+import kotlin.collections.find
+import kotlin.collections.first
+import kotlin.collections.forEach
+import kotlin.collections.isNotEmpty
+import kotlin.collections.isNullOrEmpty
+import kotlin.collections.mutableListOf
+import kotlin.collections.remove
+import kotlin.collections.sortedByDescending
+import kotlin.collections.toMutableList
 
 /**
  * 勤務表関連マネージャークラス
@@ -28,7 +42,10 @@ object WorksheetManager {
     private const val HEADER_LINE = "|:--:|:---:|:-----:|:------:|:------:|:---:|:------:|:----:|"
 
     private var worksheetList = mutableListOf<Worksheet>()
-
+    private val gson = GsonBuilder()
+            .setDateFormat("MMM dd, yyyy hh:mm:ss a")
+            .serializeNulls()
+            .create()
     /**
      * JSONファイルをロードしてMutableList<Worksheet>に変更する
      *
@@ -37,13 +54,10 @@ object WorksheetManager {
     fun loadLocalWorksheet() {
         val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
         if (File(filepath).exists()) {
-            val gson = Gson()
             var worksheetList: MutableList<Worksheet> = gson.fromJson(FileReader(File(filepath)), object : TypeToken<MutableList<Worksheet>>() {}.type)
-
             // TODO: もっといい方法
             val worksheet = worksheetList.first()
-            val detailWork = worksheet.detailWorkList.first()
-            if (detailWork.workDate == null) {
+            if (worksheet.detailWorkList.isNullOrEmpty()) {
                 // Old -> New Worksheet Model 変更処理
                 val oldWorksheetList: MutableList<OldWorksheet> = gson.fromJson(FileReader(File(filepath)), object : TypeToken<MutableList<OldWorksheet>>() {}.type)
                 worksheetList = migrateNewWorksheetModel(oldWorksheetList)
@@ -255,7 +269,7 @@ object WorksheetManager {
 
     private fun writeJsonFile() {
         worksheetList = worksheetList.sortedByDescending { it.workDate.yearMonth() }.toMutableList()
-        val jsonString = Gson().toJson(worksheetList)
+        val jsonString = gson.toJson(worksheetList)
 
         val filepath = MyApplication.applicationContext().filesDir.path + JSON_FILE_NAME
 
