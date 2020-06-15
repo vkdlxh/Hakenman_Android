@@ -110,7 +110,10 @@ class TutorialActivity : AppCompatActivity(), View.OnClickListener {
     private fun setAlphaAnimation(view: View, isFadeIn: Boolean) {
         if (view.isShown != isFadeIn) {
             if (isFadeIn) {
+                view.isClickable = true
                 view.visibility = View.VISIBLE
+            } else {
+                view.isClickable = false
             }
             val fromAlpha = if (isFadeIn) 0.0f else 1.0f
             val toAlpha = if (isFadeIn) 1.0f else 0.0f
