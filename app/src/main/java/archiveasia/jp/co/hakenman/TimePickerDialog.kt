@@ -2,19 +2,16 @@ package archiveasia.jp.co.hakenman
 
 import android.content.Context
 import android.content.res.Resources
-import android.os.Build
-import android.view.View
+import android.view.LayoutInflater
 import android.widget.NumberPicker
 import android.widget.TimePicker
 import androidx.annotation.StringRes
+import archiveasia.jp.co.hakenman.databinding.DialogTimepickerBinding
 import archiveasia.jp.co.hakenman.extension.hourMinute
 import archiveasia.jp.co.hakenman.extension.hourMinuteToDate
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
-
-import kotlinx.android.synthetic.main.dialog_timepicker.view.*
 import java.util.Calendar
 import java.util.Date
 
@@ -24,7 +21,8 @@ class TimePickerDialog(val context: Context) {
         BEGIN_TIME, END_TIME, BREAK_TIME
     }
 
-    private val dialog: MaterialDialog = MaterialDialog(context).customView(R.layout.dialog_timepicker)
+    private val binding: DialogTimepickerBinding by lazy { DialogTimepickerBinding.inflate(LayoutInflater.from(context)) }
+    private val dialog: MaterialDialog = MaterialDialog(context).customView(null, binding.root)
     private val prefsManager = PrefsManager(context)
     private var title: Int? = null
     private var positive: Int = R.string.positive_button
@@ -47,8 +45,7 @@ class TimePickerDialog(val context: Context) {
     }
 
     fun show(time: String, workTimeType: WorkTimeType, callback: (String) -> Unit) {
-        val view = dialog.getCustomView()
-        view.time_picker.apply {
+        binding.timePicker.apply {
             setIs24HourView(true)
 
             val calendar = Calendar.getInstance()
@@ -89,18 +86,13 @@ class TimePickerDialog(val context: Context) {
                 prefsManager.interval
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                this.hour = hour
-                this.minute = minute / interval
-            } else {
-                this.currentHour = hour
-                this.currentMinute = minute / interval
-            }
+            this.hour = hour
+            this.minute = minute / interval
             setTimePickerInterval(this)
         }
         dialog.title(title)
         dialog.positiveButton(positive) {
-            callback(getPickerTime(view).hourMinute())
+            callback(getPickerTime().hourMinute())
         }
         dialog.negativeButton(negative)
         dialog.show()
@@ -121,17 +113,9 @@ class TimePickerDialog(val context: Context) {
         minutePicker.displayedValues = displayedValue.toTypedArray()
     }
 
-    private fun getPickerTime(view: View): Date {
-        val hour = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            view.time_picker.hour
-        } else {
-            view.time_picker.currentHour
-        }
-        val minute = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            view.time_picker.minute * interval
-        } else {
-            view.time_picker.currentMinute * interval
-        }
+    private fun getPickerTime(): Date {
+        val hour = binding.timePicker.hour
+        val minute = binding.timePicker.minute * interval
 
         val cal = Calendar.getInstance()
         cal.set(Calendar.HOUR_OF_DAY, hour)

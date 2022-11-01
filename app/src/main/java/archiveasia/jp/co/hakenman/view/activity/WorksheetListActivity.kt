@@ -1,11 +1,11 @@
 package archiveasia.jp.co.hakenman.view.activity
 
 import android.annotation.SuppressLint
-
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,16 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.databinding.ActivityWorksheetListBinding
+import archiveasia.jp.co.hakenman.databinding.DialogDatepickerBinding
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.Worksheet
 import archiveasia.jp.co.hakenman.view.adapter.MonthlyWorkAdapter
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.dialog_datepicker.view.*
 
 class WorksheetListActivity : AppCompatActivity() {
 
@@ -96,10 +95,10 @@ class WorksheetListActivity : AppCompatActivity() {
     }
 
     private fun showCreateWorksheetDialog() {
-        val dialog = MaterialDialog(this).customView(R.layout.dialog_datepicker)
+        val binding = DialogDatepickerBinding.inflate(LayoutInflater.from(this))
+        val dialog = MaterialDialog(this).customView(null, binding.root)
         dialog.title(R.string.create_worksheet_title)
-        val customView = dialog.getCustomView()
-        val datePicker = customView.date_picker.apply {
+        val datePicker = binding.datePicker.apply {
             // 日のSpinnerを非表示する
             findViewById<NumberPicker>(resources.getIdentifier("day", "id", "android")).visibility = View.GONE
             // 当月まで選択できるように

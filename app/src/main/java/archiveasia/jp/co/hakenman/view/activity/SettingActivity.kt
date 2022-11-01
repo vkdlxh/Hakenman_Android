@@ -16,12 +16,10 @@ import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.ThemeUtil
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
-import com.google.android.gms.measurement.module.Analytics
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
-import java.util.*
+import java.util.Locale
 
 class SettingActivity : AppCompatActivity() {
 

@@ -14,11 +14,7 @@ import archiveasia.jp.co.hakenman.CustomLog
 import archiveasia.jp.co.hakenman.R
 import archiveasia.jp.co.hakenman.TimePickerDialog
 import archiveasia.jp.co.hakenman.databinding.ActivityDailyWorkBinding
-import archiveasia.jp.co.hakenman.extension.day
-import archiveasia.jp.co.hakenman.extension.hourMinute
-import archiveasia.jp.co.hakenman.extension.hourMinuteToDate
-import archiveasia.jp.co.hakenman.extension.month
-import archiveasia.jp.co.hakenman.extension.year
+import archiveasia.jp.co.hakenman.extension.*
 import archiveasia.jp.co.hakenman.manager.PrefsManager
 import archiveasia.jp.co.hakenman.manager.WorksheetManager
 import archiveasia.jp.co.hakenman.model.DetailWork
@@ -47,7 +43,7 @@ class DailyWorkActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         index = intent.getIntExtra(INTENT_DETAILWORK_INDEX, index)
-        worksheet = intent.getParcelableExtra(INTENT_DETAILWORK_VALUE)
+        worksheet = intent.getParcelableExtra(INTENT_DETAILWORK_VALUE)!! // TODO: !!
         detailWork = worksheet.detailWorkList[index]
         setDetailWork()
 

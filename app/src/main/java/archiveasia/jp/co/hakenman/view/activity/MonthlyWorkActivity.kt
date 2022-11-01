@@ -47,19 +47,19 @@ class MonthlyWorkActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         index = intent.getIntExtra(INTENT_WORKSHEET_INDEX, index)
-        worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)
+        worksheet = intent.getParcelableExtra(INTENT_WORKSHEET_VALUE)!! // TODO: !!
         title = getString(R.string.month_work_activity_title).format(worksheet.workDate.year(), worksheet.workDate.month())
 
         with (binding) {
-            bottomNavigation.setOnNavigationItemSelectedListener {
+            bottomNavigation.setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.menu_sheet -> {
                         viewPager.currentItem = 0
-                        return@setOnNavigationItemSelectedListener true
+                        return@setOnItemSelectedListener true
                     }
                     R.id.menu_calendar -> {
                         viewPager.currentItem = 1
-                        return@setOnNavigationItemSelectedListener true
+                        return@setOnItemSelectedListener true
                     }
                 }
                 false
@@ -110,7 +110,7 @@ class MonthlyWorkActivity : AppCompatActivity() {
         // TODO: 見直し
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_WORKSHEET) {
-                worksheet = data!!.getParcelableExtra(INTENT_WORKSHEET_RETURN_VALUE)
+                worksheet = data!!.getParcelableExtra(INTENT_WORKSHEET_RETURN_VALUE)!! // TODO: !!
                 WorksheetManager.updateWorksheetWithIndex(index, worksheet)
                 // TODO: Sheet, Calendar프래그먼트에 갱신된 리스트 보내기
                 for (fragment in supportFragmentManager.fragments) {
